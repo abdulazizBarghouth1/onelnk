@@ -1,0 +1,1770 @@
+/* ==========================================================================
+   wizard.css — "Create your card" wizard
+   Canvas reference: 1440 x 1749 per step (Figma node 31960:3420 et al)
+   Loaded after base.css and sections.css.
+   ========================================================================== */
+
+.wz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  /* The design leaves 128px between the last control and the footer. */
+  padding: 0 0 128px;
+  background: var(--white);
+}
+
+.wz__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* ==========================================================================
+   Progress bar  —  node 31960:3440
+   Seven 92px markers with flexible connectors between them.
+   ========================================================================== */
+
+.wzsteps {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  background: var(--white);
+}
+
+.wzstep {
+  display: flex;
+  flex: 0 0 92px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 92px;
+}
+
+/* Connector: pulled 12px under each neighbour so it renders 130px at the
+   design width, matching the exported 129.925px line. */
+.wzsteps__line {
+  flex: 1 1 auto;
+  height: 4px;
+  margin: 16px -12px 0;
+  border-radius: 2px;
+  background: var(--neutral-200);
+}
+
+/* 36px overall: the design's 4px ring is an inside stroke, not an outset one. */
+.wzstep__dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 4px solid rgba(38, 38, 38, 0.1);
+  border-radius: var(--radius-full);
+  background: var(--neutral-100);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzstep__label {
+  width: 92px;
+  padding-top: 3px;
+  font-size: var(--text-sm);
+  line-height: var(--leading-5);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--secondary-950);
+}
+
+/* Steps not yet reached are dimmed as a whole. */
+.wzstep[data-state="upcoming"] {
+  opacity: 0.5;
+}
+
+.wzstep[data-state="current"] .wzstep__dot,
+.wzstep[data-state="done"] .wzstep__dot {
+  background: var(--neutral-800);
+  color: var(--white);
+}
+
+/* ==========================================================================
+   Step panel
+   ========================================================================== */
+
+.wzpanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+}
+
+.wzpanel[hidden] {
+  display: none;
+}
+
+.wzpanel__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: center;
+  letter-spacing: var(--tracking-normal);
+  word-break: break-word;
+}
+
+.wzpanel__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-section);
+  line-height: normal;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+}
+
+.wzpanel__lede {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  color: var(--neutral-500);
+}
+
+/* ---- Two-column body: preview left, controls right ---- */
+
+/* Grid rather than flex: the preview's fixed-width card artwork otherwise
+   claims more than its half and squeezes the options column. */
+.wzsplit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 40px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Preview panel  —  node 31960:3459
+   ========================================================================== */
+
+.wzpreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  height: 620px;
+  padding: 32px 65px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--primary-100) 0%, var(--primary-300) 197.32%);
+  overflow: hidden;
+}
+
+/* The shared card component, at this screen's size. */
+.wzpreview .card-front {
+  --card-w: 556px;
+  --card-h: 318px;
+  border-radius: 12.831px;
+}
+
+/* The reverse face is a single flat export. */
+.card-back {
+  flex: none;
+  width: 556px;
+  height: 318px;
+  border-radius: 12.831px;
+  overflow: hidden;
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Front/Back switch is dark here, not primary as on the home designer. */
+.wzpreview .preview__tabs {
+  width: auto;
+}
+
+.wzpreview .preview__tab[aria-selected="true"] {
+  background: var(--neutral-800);
+}
+
+/* ==========================================================================
+   Options panel  —  node 31960:3495
+   ========================================================================== */
+
+.wzoptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  border-radius: var(--radius-2xl);
+  background: var(--neutral-50);
+}
+
+/* Radio cards. The whole card is the control, so it is a real <label>. */
+.wzopt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  /* Padding + border sums to the design's 16px inset, because Figma draws
+     the card stroke inside the frame. */
+  padding: 15px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  cursor: pointer;
+}
+
+/* No transition on border-color/background: both also encode the selected
+   state, and animating them leaves the old card painted as selected until a
+   frame ticks. Selection has to be correct immediately. */
+.wzopt:hover:not(:has(input:checked)) {
+  border-color: var(--neutral-400);
+}
+
+/* The native input drives state and keyboard support; it is not painted. */
+.wzopt input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wzopt:has(input:checked) {
+  padding: 12px;
+  border: 4px solid var(--primary-500);
+  background: var(--primary-50);
+}
+
+.wzopt:has(input:focus-visible) {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+.wzopt__head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.wzopt__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.wzopt__name {
+  font-size: var(--fluid-title);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzopt__mark {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Swap the radio glyph without a second element. */
+.wzopt__mark--on { display: none; }
+.wzopt:has(input:checked) .wzopt__mark--off { display: none; }
+.wzopt:has(input:checked) .wzopt__mark--on  { display: block; }
+
+.wzopt__desc {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+  word-break: break-word;
+}
+
+/* The divider is a zero-height stroke in the design; the negative margin
+   keeps it off the layout so the card stays exactly 154px. */
+.wzopt__rule {
+  width: 100%;
+  height: 1px;
+  margin-bottom: -1px;
+  background: var(--neutral-200);
+}
+
+.wzopt:has(input:checked) .wzopt__rule {
+  background: var(--primary-200);
+}
+
+.wzopt__tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.wzopt__tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--neutral-200);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--secondary-950);
+  white-space: nowrap;
+}
+
+.wzopt:has(input:checked) .wzopt__tags span {
+  background: var(--primary-200);
+}
+
+/* ==========================================================================
+   Form controls  —  node 31960:2132  (step 2)
+   Named .wzfield rather than .field: home.css and contact.css already define
+   .field differently, and this page must not inherit either.
+   ========================================================================== */
+
+.wzfields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzrow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzfield {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.wzfield__label {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzfield__control {
+  width: 100%;
+  height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzfield__control::placeholder {
+  color: var(--neutral-400);
+  opacity: 1;
+}
+
+.wzfield__control:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(39, 170, 225, 0.15);
+  outline: none;
+}
+
+/* ---- Logo upload  —  node 31960:2158 ---- */
+
+.wzdrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  /* 15 + 1px border = the design's 16px inset (Figma strokes sit inside). */
+  padding: 15px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.wzdrop:hover,
+.wzdrop:focus-within {
+  border-color: var(--primary-500);
+}
+
+.wzdrop img {
+  width: 24px;
+  height: 24px;
+}
+
+.wzdrop span {
+  width: 100%;
+  font-size: var(--text-sm);
+  line-height: var(--leading-5);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+}
+
+.wzdrop input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Colour swatches  —  node 31960:2169 ---- */
+
+.wzcolors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzswatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  /* 7 + 1px border = the design's 8px inset. */
+  padding: 7px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.wzswatch {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 36px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-xs);
+}
+
+.wzswatch[aria-selected="true"] {
+  border-color: var(--primary-500);
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   Profile builder  —  node 31960:2601  (step 4)
+   A stack of grouped cards on the right, each a labelled section.
+   ========================================================================== */
+
+.wzstack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.wzcard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 24px;
+  border-radius: var(--radius-2xl);
+  background: var(--neutral-50);
+}
+
+.wzcard__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--text-xl);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+/* ---- Image upload tiles  —  node 31960:2604 ---- */
+
+.wzimages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+.wztile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.wztile__label {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wztile__label span {
+  color: var(--neutral-500);
+}
+
+.wztile__drop {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 142px;
+  border-radius: var(--radius-lg);
+  background: var(--neutral-200) center / cover no-repeat;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.wztile__drop input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The camera control sits in a translucent strip along the bottom edge. */
+.wztile__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 0;
+  background: rgba(10, 10, 10, 0.75);
+}
+
+.wztile__bar img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.wztile__drop--logo {
+  align-items: stretch;
+  background: #f87000;
+}
+
+.wztile__drop--logo .wztile__logo {
+  position: absolute;
+  inset: 26.95%;
+}
+
+.wztile__drop--logo .wztile__logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wztile__drop--logo .wztile__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ---- Social link buttons  —  node 31960:2689 ---- */
+
+.wzsocials {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzsocial {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+
+.wzsocial:hover {
+  border-color: var(--neutral-400);
+}
+
+.wzsocial > img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wzsocial span {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+}
+
+/* ---- Feature toggles  —  node 31960:2758 ---- */
+
+.wztoggles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wztoggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  height: 52px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.wztoggle > span {
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+/* The switch is a checkbox styled as a pill; the knob is an ::after. */
+.wzswitch {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 24px;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  background: var(--primary-200);
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.wzswitch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wzswitch::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  transition: transform 0.18s ease;
+}
+
+.wzswitch:has(input:checked) {
+  background: var(--primary-500);
+}
+
+.wzswitch:has(input:checked)::after {
+  transform: translateX(20px);
+}
+
+.wzswitch:has(input:focus-visible) {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Profile-style themes  —  node 31960:2341  (step 3)
+   Six cards in a 2-column grid; the whole card is the control.
+   ========================================================================== */
+
+.wzthemes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wztheme {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  /* 15 + 1px border = the design's 16px inset. */
+  padding: 15px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.wztheme:hover:not(:has(input:checked)) {
+  border-color: var(--neutral-400);
+}
+
+.wztheme input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wztheme:has(input:checked) {
+  padding: 14px;
+  border: 2px solid var(--primary-500);
+  background: var(--primary-50);
+}
+
+.wztheme:has(input:focus-visible) {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+.wztheme__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.wztheme__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.wztheme__name {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--fluid-title);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wztheme__mark {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wztheme__mark--on { display: none; }
+.wztheme:has(input:checked) .wztheme__mark--off { display: none; }
+.wztheme:has(input:checked) .wztheme__mark--on  { display: block; }
+
+.wztheme__desc {
+  width: 100%;
+  font-size: var(--text-sm);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+  word-break: break-word;
+}
+
+.wztheme__rule {
+  width: 100%;
+  height: 1px;
+  margin-bottom: -1px;
+  background: var(--neutral-200);
+}
+
+.wztheme:has(input:checked) .wztheme__rule {
+  background: var(--primary-200);
+}
+
+.wztheme__colors {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.wztheme__colors > span {
+  width: 100%;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--neutral-500);
+}
+
+.wztheme__dots {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.wztheme__dots i {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: var(--radius-xs);
+}
+
+/* ---- Phone preview  —  node 31960:2274 ---- */
+
+.wzphone {
+  flex: none;
+  width: 402px;
+  height: 874px;
+}
+
+.wzphone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* This step's preview is tall, so it sizes to its content. */
+.wzpreview--tall {
+  height: 1070px;
+  gap: 40px;
+  padding: 60px 65px;
+  justify-content: flex-start;
+}
+
+/* ==========================================================================
+   Plan selection  —  node 31960:2859  (step 5)
+   Three pricing cards on the same gradient as the preview panel.
+   ========================================================================== */
+
+.wzplans {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 24px;
+  width: 100%;
+  padding: 80px 60px;
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(180deg, var(--primary-100) 0%, var(--primary-300) 197.32%);
+}
+
+/* The whole card is the control. */
+.wzplan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  height: 100%;
+  padding: 40px 24px 24px;
+  border-radius: var(--radius-xl);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.wzplan input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wzplan:has(input:focus-visible) {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+.wzplan__top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.wzplan__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  letter-spacing: var(--tracking-normal);
+  word-break: break-word;
+}
+
+/* Name + price are a tighter 8px group inside the 12px head stack. */
+.wzplan__id {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.wzplan__name {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+}
+
+.wzplan__price {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  color: var(--neutral-800);
+}
+
+.wzplan__price b {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: var(--weight-semibold);
+}
+
+.wzplan__desc {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  color: var(--neutral-500);
+}
+
+.wzplan__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--emerald-50, #ecfdf5);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  color: #009966;
+  white-space: nowrap;
+}
+
+.wzplan__features {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-xl);
+}
+
+.wzplan__feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.wzplan__feature img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wzplan__feature span {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzplan__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.wzplan__cta:hover {
+  background: var(--neutral-100);
+}
+
+/* ---- Recommended (dark) variant  —  node 31960:2885 ---- */
+
+.wzplan--featured {
+  gap: 32px;
+  background: var(--secondary-950);
+}
+
+.wzplan--featured .wzplan__name,
+.wzplan--featured .wzplan__desc,
+.wzplan--featured .wzplan__price,
+.wzplan--featured .wzplan__price b,
+.wzplan--featured .wzplan__feature span {
+  color: var(--white);
+}
+
+.wzplan--featured .wzplan__features {
+  border-color: var(--primary-800);
+}
+
+.wzplan--featured .wzplan__cta {
+  border-color: var(--white);
+  background: var(--white);
+  color: var(--neutral-800);
+}
+
+.wzplan--featured .wzplan__cta:hover {
+  background: var(--neutral-100);
+}
+
+/* ---- Recommended badge  —  node 31960:2957 ---- */
+
+.wzplans__badge {
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px 4px;
+  border-radius: var(--radius-full);
+  background: var(--primary-500);
+  font-size: var(--text-sm);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+/* Selected plan gets a ring in either skin. */
+.wzplan:has(input:checked) {
+  box-shadow: 0 0 0 3px var(--primary-500);
+}
+
+/* ==========================================================================
+   Review your order  —  node 31960:3044  (step 6)
+   Wider preview (845) beside a fixed-proportion order summary (411).
+   ========================================================================== */
+
+.wzsplit--review {
+  grid-template-columns: minmax(0, 845fr) minmax(0, 411fr);
+  align-items: stretch;
+  gap: 24px;
+}
+
+/* The preview fills the taller summary column rather than its own 620. */
+.wzsplit--review .wzpreview {
+  height: 100%;
+}
+
+.wzsummary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  border-radius: var(--radius-2xl);
+  background: var(--neutral-50);
+  overflow: hidden;
+}
+
+.wzsummary__head {
+  width: 100%;
+  padding: 24px;
+  background: var(--secondary-950);
+  font-size: var(--text-xl);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--white);
+}
+
+.wzsummary__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+}
+
+.wzsummary__rows {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzsumrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+}
+
+.wzsumrow > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--neutral-500);
+}
+
+/* Value hugs its content (right-aligned) so a long label keeps one line —
+   the design's equal-half split wraps once Geist replaces Hurme. */
+.wzsumrow > span:last-child {
+  flex: 0 0 auto;
+  max-width: 60%;
+  text-align: right;
+  font-weight: var(--weight-semibold);
+  color: var(--neutral-800);
+}
+
+/* Emerald rows (discount / free shipping). Selectors mirror the base row's
+   specificity so they win without !important. */
+.wzsumrow--credit > span:first-child,
+.wzsumrow--credit > span:last-child {
+  color: #009966;
+}
+
+.wzsumrow > span.wzsumrow__free {
+  color: #009966;
+}
+
+/* ---- Quantity stepper  —  node 31960:3103 ---- */
+
+.wzqty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 7px;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+}
+
+.wzqty button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.wzqty button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.wzqty img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.wzqty output {
+  width: 24px;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  text-align: center;
+  color: var(--neutral-800);
+}
+
+.wzsummary__rule {
+  width: 100%;
+  height: 1px;
+  background: var(--neutral-200);
+}
+
+.wzsummary__totals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Grand total: bolder label, primary-500 amount at 20px. */
+.wzsummary__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.wzsummary__total > span:first-child {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  color: #111827;
+}
+
+.wzsummary__total > span:last-child {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-xl);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  text-align: right;
+  color: var(--primary-500);
+}
+
+.wzsummary__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  background: var(--primary-500);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--white);
+  transition: background-color 0.18s ease;
+}
+
+.wzsummary__cta:hover {
+  background: var(--primary-400);
+}
+
+/* When only Back is present it centres rather than stretches. */
+.wznav--single {
+  justify-content: center;
+}
+
+.wznav--single .wznav__btn {
+  flex: 0 0 302px;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Checkout  —  node 31960:3204  (step 7)
+   Delivery form + payment beside the reused order summary.
+   ========================================================================== */
+
+.wzsplit--checkout {
+  grid-template-columns: minmax(0, 845fr) minmax(0, 411fr);
+  align-items: start;
+  gap: 24px;
+}
+
+/* Multi-line inputs (delivery address, order notes). */
+.wzfield__control--area {
+  height: 92px;
+  padding: 10px 16px;
+  resize: vertical;
+}
+
+/* Field with a trailing icon (city). */
+.wzfield__wrap {
+  position: relative;
+  width: 100%;
+}
+
+.wzfield--icon .wzfield__control {
+  padding-right: 48px;
+}
+
+.wzfield__icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+/* ---- Payment method  —  node 31960:3240 ---- */
+
+.wzpay {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzpayopt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  /* 15 + 1px border = the design's 16px inset. */
+  padding: 15px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+.wzpayopt:hover:not(:has(input:checked)) {
+  border-color: var(--neutral-400);
+}
+
+/* Direct child only — the nested card-number / expiry / CVV inputs inside
+   .wzpayfields must not be hidden by this rule. */
+.wzpayopt > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wzpayopt:has(input:focus-visible) {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+.wzpayopt__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.wzpayopt__mark {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wzpayopt__mark--on { display: none; }
+.wzpayopt:has(input:checked) .wzpayopt__mark--off { display: none; }
+.wzpayopt:has(input:checked) .wzpayopt__mark--on  { display: block; }
+
+.wzpayopt__head span {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+/* Card fields reveal only for the selected method. */
+.wzpayfields {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.wzpayopt:has(input:checked) .wzpayfields {
+  display: flex;
+}
+
+/* ==========================================================================
+   Back / Next  —  node 31960:3547
+   ========================================================================== */
+
+.wznav {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 620px;
+  max-width: 100%;
+}
+
+.wznav__btn {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  transition: background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.wznav__btn--back {
+  background: var(--neutral-100);
+  color: var(--secondary-950);
+}
+
+.wznav__btn--back:hover {
+  background: var(--neutral-200);
+}
+
+.wznav__btn--next {
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.wznav__btn--next:hover {
+  background: var(--primary-400);
+}
+
+.wznav__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Confirmation screen  —  node 31960:3327  (post-order)
+   Centred column, no progress rail.
+   ========================================================================== */
+
+.wzconfirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 620px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+  text-align: center;
+}
+
+.wzconfirm__icon {
+  width: 128px;
+  height: 128px;
+}
+
+.wzconfirm__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  letter-spacing: var(--tracking-normal);
+  word-break: break-word;
+}
+
+.wzconfirm__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-section);
+  line-height: normal;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+}
+
+.wzconfirm__sub {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  color: var(--neutral-500);
+}
+
+.wzconfirm__order {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 99px;
+  background: var(--primary-200);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--primary-500);
+  white-space: nowrap;
+}
+
+/* Card back preview, sized for this screen. */
+.wzconfirm__card {
+  width: 572px;
+  max-width: 100%;
+  aspect-ratio: 572 / 327;
+  border-radius: 13.2px;
+  overflow: hidden;
+}
+
+.wzconfirm__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wzconfirm__delivery {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--neutral-50);
+  text-align: left;
+}
+
+.wzconfirm__delivery img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.wzconfirm__delivery div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wzconfirm__delivery b {
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.wzconfirm__delivery span {
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+}
+
+.wzconfirm__actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Full-width primary + outline actions (reusing the base .btn system). */
+.wzconfirm__actions .btn {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* When the final panel is active the rail is removed entirely. */
+.wz[data-final] .wzsteps {
+  display: none;
+}
+
+/* ==========================================================================
+   Footer variant  —  node 31960:3552  (1440 x 474)
+   Same footer, 50px less headroom.
+   ========================================================================== */
+
+.footer--compact {
+  padding-top: 70px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1280px) {
+  /* Card artwork is a fixed 556x318; scale rather than distort it. */
+  .wzpreview .card-front,
+  .wzpreview .card-back {
+    transform: scale(0.82);
+    margin: -29px 0;
+  }
+
+  .wzpreview {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .wzsplit {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .wzpreview .card-front,
+  .wzpreview .card-back {
+    transform: none;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .wz {
+    gap: 32px;
+    padding-bottom: 80px;
+  }
+
+  .wz__body {
+    padding: 0 40px;
+    gap: 32px;
+  }
+
+  .wzpanel {
+    gap: 40px;
+  }
+
+  /* Labels would collide well before this; keep numbers, drop words. */
+  .wzstep__label {
+    font-size: 12px;
+  }
+
+  .footer--compact {
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wz__body {
+    padding: 0 24px;
+  }
+
+  .wzpanel {
+    gap: 32px;
+  }
+
+  /* The seven-marker rail cannot fit; it scrolls horizontally instead. */
+  .wzsteps {
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .wzsteps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wzstep {
+    flex: 0 0 72px;
+    width: 72px;
+  }
+
+  .wzstep__label {
+    width: 72px;
+  }
+
+  .wzsteps__line {
+    flex: 0 0 40px;
+    margin-inline: -8px;
+  }
+
+  .wzpreview {
+    height: auto;
+    gap: 24px;
+    padding: 24px 16px;
+  }
+
+  .wzpreview .card-front,
+  .wzpreview .card-back {
+    transform: scale(0.6);
+    margin: -64px 0;
+  }
+
+  .wzpreview--tall {
+    height: auto;
+    padding: 32px 16px;
+  }
+
+  .wzphone {
+    width: 100%;
+    max-width: 402px;
+    height: auto;
+    aspect-ratio: 402 / 874;
+  }
+
+  .wzrow,
+  .wzcolors,
+  .wzthemes,
+  .wzsocials,
+  .wztoggles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wzimages {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .wzplans {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 60px 20px;
+  }
+
+  .wzplans__badge {
+    top: 40px;
+  }
+
+  .wzoptions {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .wzopt__tags {
+    gap: 8px;
+  }
+
+  .wznav {
+    width: 100%;
+  }
+}

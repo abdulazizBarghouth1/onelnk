@@ -1,0 +1,568 @@
+/* ==========================================================================
+   contact.css — Contact page
+   Canvas reference: 1440 x 4304 (Figma node 31960:5347)
+   Loaded after base.css and sections.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   Header  —  node 31960:5348  (1440 x 424)
+   Same shape as the about/package headers.
+   ========================================================================== */
+
+.cthead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 0 60px;
+  background: var(--white);
+}
+
+.cthead__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* Capped so the lede wraps to two lines, matching the 108px block. */
+.cthead .phead-block__text {
+  width: 900px;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Form  —  node 31960:5375  (1440 x 869)
+   Left: 610px message form. Right: fluid contact rail.
+   ========================================================================== */
+
+.contact {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x) 120px;
+  background: var(--white);
+}
+
+/* ---- Left column ---- */
+
+.cform {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 0 1 610px;
+  min-width: 0;
+}
+
+.cform__head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  letter-spacing: var(--tracking-normal);
+  word-break: break-word;
+}
+
+.cform__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-section);
+  line-height: normal;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+}
+
+.cform__lede {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  color: var(--neutral-400);
+}
+
+.cform__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  padding: 32px;
+  border-radius: var(--radius-2xl);
+  background: var(--neutral-100);
+}
+
+.cform__fields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.cform__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ---- Fields ---- */
+
+.field {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+}
+
+.field__label {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+  word-break: break-word;
+}
+
+/* "(Optional)" runs in the muted tone inside the label. */
+.field__label span {
+  color: var(--neutral-400);
+}
+
+/* Height is pinned rather than left to intrinsic line-box metrics, which
+   round up by a pixel and drift the card off the 561px design height. */
+.field__control {
+  width: 100%;
+  height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.field__control::placeholder {
+  color: var(--neutral-400);
+  opacity: 1;
+}
+
+.field__control:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(39, 170, 225, 0.15);
+  outline: none;
+}
+
+/* Native chevron is replaced by the exported icon. */
+select.field__control {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 48px;
+  background-image: url("../images/tm-caret-down.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 24px 24px;
+  cursor: pointer;
+}
+
+textarea.field__control {
+  height: 120px;
+  resize: vertical;
+}
+
+.cform__submit {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Contact rail  —  node 31960:5413
+   ========================================================================== */
+
+.crail {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  min-width: 0;
+}
+
+.crail__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  background: var(--primary-50);
+  overflow: hidden;
+}
+
+.crail__card--whatsapp {
+  background: #f8fffa;
+}
+
+/* Two blurred orbs bleed out of each card; the card clips them. */
+.crail__glow {
+  position: absolute;
+  width: 384.87px;
+  height: 384.87px;
+  pointer-events: none;
+}
+
+.crail__glow--a {
+  left: -109.87px;
+  top: -68px;
+}
+
+.crail__glow--b {
+  right: -133.7px;
+  top: -158.43px;
+}
+
+.crail__main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.crail__main img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.crail__label {
+  font-size: var(--text-xl);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.crail__value {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+}
+
+.crail__value b {
+  font-weight: var(--weight-medium);
+  color: var(--neutral-800);
+}
+
+/* ---- Social buttons ---- */
+
+.crail__socials {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.crail__soc {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 48px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  overflow: hidden;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.crail__soc:hover {
+  border-color: var(--neutral-400);
+}
+
+.crail__soc--solid {
+  border-color: var(--neutral-800);
+  background: var(--neutral-800);
+}
+
+.crail__soc--solid:hover {
+  background: var(--neutral-950);
+  border-color: var(--neutral-950);
+}
+
+/* Each glyph keeps its own designed dimensions. */
+.crail__soc--ig img { width: 16.25px;  height: 16.25px; }
+.crail__soc--fb img { width: 9.981px;  height: 18.75px; }
+.crail__soc--x  img { width: 14.677px; height: 15px; }
+.crail__soc--yt img { width: 16.663px; height: 12.5px; }
+
+.crail__hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.crail__hours img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.crail__hours span {
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+}
+
+/* ==========================================================================
+   Planning a Team Rollout?  —  node 31960:5454  (1420 x 952)
+   Dark band: the standing radius + 10px inset rule applies.
+   ========================================================================== */
+
+.corp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  padding: 120px 85px;
+  border-radius: var(--radius-xl);
+  margin-inline: 10px;
+  background: var(--neutral-950);
+  overflow: hidden;
+}
+
+.corp .phead-block__title {
+  color: var(--white);
+}
+
+.corp .phead-block__text {
+  width: 900px;
+  max-width: 100%;
+  color: var(--neutral-400);
+}
+
+/* Two columns here rather than the three .share__grid defaults to. */
+.corp__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   Visit Us  —  node 31960:5502  (1440 x 948)
+   ========================================================================== */
+
+.visit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  padding: 120px var(--pad-x) 60px;
+  background: var(--white);
+}
+
+.visit .phead-block__text {
+  width: 600px;
+  max-width: 100%;
+}
+
+.visit__map {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-radius: var(--radius-2xl);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.visit__map > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.visit__controls {
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 1200px;
+  max-width: calc(100% - 80px);
+}
+
+.visit__zoom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+}
+
+.visit__locate {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+}
+
+.visit__zoom button,
+.visit__locate button {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.visit__zoom img,
+.visit__locate img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .contact {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .cform,
+  .crail {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .corp__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .cthead {
+    gap: 32px;
+    padding-bottom: 48px;
+  }
+
+  .cthead__inner {
+    padding: 0 40px;
+  }
+
+  .contact {
+    padding: 48px 40px 80px;
+  }
+
+  .corp {
+    gap: 40px;
+    padding: 80px 40px;
+  }
+
+  .visit {
+    gap: 40px;
+    padding: 80px 40px 48px;
+  }
+
+  .visit__map {
+    height: 460px;
+  }
+
+  .visit__controls {
+    max-width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 768px) {
+  .cthead__inner {
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  .contact {
+    padding: 40px 24px 64px;
+    gap: 32px;
+  }
+
+  .cform__card {
+    padding: 20px;
+  }
+
+  /* Paired fields stack rather than squeeze. */
+  .cform__row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .crail__card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px;
+  }
+
+  .crail__main {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .crail__label {
+    font-size: var(--text-base);
+    line-height: var(--leading-6);
+  }
+
+  .crail__socials {
+    gap: 12px;
+  }
+
+  .corp {
+    gap: 32px;
+    padding: 64px 24px;
+  }
+
+  .corp__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visit {
+    gap: 32px;
+    padding: 64px 24px 40px;
+  }
+
+  .visit__map {
+    height: 340px;
+  }
+
+  .visit__controls {
+    bottom: 20px;
+    max-width: calc(100% - 32px);
+  }
+}

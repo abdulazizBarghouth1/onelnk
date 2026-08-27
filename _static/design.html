@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Lnk &mdash; Create Your Card</title>
+  <meta name="description" content="Design your One Lnk NFC card step by step: card type, design, theme, profile, package, review and checkout.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css?v=1786049899">
+  <link rel="stylesheet" href="assets/css/sections.css?v=1786049899">
+  <link rel="stylesheet" href="assets/css/wizard.css?v=1786049899">
+</head>
+<body>
+
+  <!-- ====================================================================
+       Create your card wizard  —  Figma node 31960:3420 et al
+       ==================================================================== -->
+  <div class="wz" data-wizard>
+    <nav class="topnav" aria-label="Main">
+      <div class="topnav__pill">
+        <a href="index.html" class="topnav__logo" aria-label="One Lnk home">
+          <img src="assets/images/p1-logo-dark.svg" alt="One Lnk">
+        </a>
+        <button class="topnav__menu" type="button" aria-label="Open menu" aria-expanded="false">
+          <img src="assets/images/p1-menu-dark.svg" alt="">
+        </button>
+      </div>
+    </nav>
+
+    <div class="wz__body">
+
+      <!-- Progress rail  —  Figma node 31960:3440 -->
+      <ol class="wzsteps" aria-label="Progress">
+        <li class="wzstep" data-state="current" aria-current="step">
+          <span class="wzstep__dot">1</span>
+          <span class="wzstep__label">Card Type</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">2</span>
+          <span class="wzstep__label">Design</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">3</span>
+          <span class="wzstep__label">Theme</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">4</span>
+          <span class="wzstep__label">Profile</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">5</span>
+          <span class="wzstep__label">Package</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">6</span>
+          <span class="wzstep__label">Review</span>
+        </li>
+        <li class="wzsteps__line" aria-hidden="true"></li>
+        <li class="wzstep" data-state="upcoming" aria-current="false">
+          <span class="wzstep__dot">7</span>
+          <span class="wzstep__label">Checkout</span>
+        </li>
+      </ol>
+
+      <section class="wzpanel" id="step-1" aria-labelledby="step-1-title">
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-1-title">Choose your Card</h1>
+          <p class="wzpanel__lede">Pick the experience that best matches your networking needs.</p>
+        </div>
+
+      <div class="wzsplit">
+        <div class="wzpreview">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="card-front">
+            <img src="assets/images/s6-card-front.svg" alt="One Lnk card front preview">
+            <div class="card-front__pattern" aria-hidden="true">
+              <img src="assets/images/s6-card-pattern.svg" alt="">
+            </div>
+            <div class="card-front__logo" aria-hidden="true">
+              <img src="assets/images/s6-card-logo.svg" alt="">
+            </div>
+            <div class="card-front__nfc" aria-hidden="true">
+              <img src="assets/images/s6-card-nfc.svg" alt="">
+            </div>
+          </div>
+
+          <div class="preview__tabs" role="tablist" aria-label="Card side">
+            <button class="preview__tab" type="button" role="tab" aria-selected="true">Front</button>
+            <button class="preview__tab" type="button" role="tab" aria-selected="false">Back</button>
+          </div>
+        </div>
+
+        <div class="wzoptions">
+          <label class="wzopt">
+            <input type="radio" name="card-type" value="classic" checked>
+            <span class="wzopt__head">
+              <span class="wzopt__row">
+                <span class="wzopt__name">Classic Card</span>
+                <img class="wzopt__mark wzopt__mark--off" src="assets/images/wz-radio-off.svg" alt="">
+                <img class="wzopt__mark wzopt__mark--on" src="assets/images/wz-radio-on.svg" alt="">
+              </span>
+              <span class="wzopt__desc">Pre-designed clean templates.</span>
+            </span>
+            <span class="wzopt__rule"></span>
+            <span class="wzopt__tags">
+              <span>Individuals</span>
+              <span>Frelancers</span>
+              <span>Consultant</span>
+              <span>Quick Orders</span>
+            </span>
+          </label>
+
+          <label class="wzopt">
+            <input type="radio" name="card-type" value="custom">
+            <span class="wzopt__head">
+              <span class="wzopt__row">
+                <span class="wzopt__name">Custom Card</span>
+                <img class="wzopt__mark wzopt__mark--off" src="assets/images/wz-radio-off.svg" alt="">
+                <img class="wzopt__mark wzopt__mark--on" src="assets/images/wz-radio-on.svg" alt="">
+              </span>
+              <span class="wzopt__desc">More control over card style and visual identity.</span>
+            </span>
+            <span class="wzopt__rule"></span>
+            <span class="wzopt__tags">
+              <span>Personal Brands</span>
+              <span>Creatives</span>
+              <span>Premium Users</span>
+            </span>
+          </label>
+
+          <label class="wzopt">
+            <input type="radio" name="card-type" value="teams">
+            <span class="wzopt__head">
+              <span class="wzopt__row">
+                <span class="wzopt__name">Teams Card</span>
+                <img class="wzopt__mark wzopt__mark--off" src="assets/images/wz-radio-off.svg" alt="">
+                <img class="wzopt__mark wzopt__mark--on" src="assets/images/wz-radio-on.svg" alt="">
+              </span>
+              <span class="wzopt__desc">Company-branded cards for multiple employees.</span>
+            </span>
+            <span class="wzopt__rule"></span>
+            <span class="wzopt__tags">
+              <span>Sales Teams</span>
+              <span>Corporate Dept.</span>
+              <span>Business</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+        <div class="wznav">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+          <button type="button" class="wznav__btn wznav__btn--next">Next Step</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-2" aria-labelledby="step-2-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-2-title">Design your NFC Card</h1>
+          <p class="wzpanel__lede">Personalise every detail. Changes appear on your live preview instantly.</p>
+        </div>
+
+      <div class="wzsplit">
+        <div class="wzpreview">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="card-back">
+            <img src="assets/images/wz-card-back.svg" alt="One Lnk card back preview">
+          </div>
+
+          <div class="preview__tabs" role="tablist" aria-label="Card side">
+            <button class="preview__tab" type="button" role="tab" aria-selected="false">Front</button>
+            <button class="preview__tab" type="button" role="tab" aria-selected="true">Back</button>
+          </div>
+        </div>
+
+        <div class="wzoptions">
+          <div class="wzfields">
+            <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz-name">Full Name</label>
+              <input class="wzfield__control" id="wz-name" name="full-name" type="text" placeholder="e.g. Alex Rahman">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz-job">Job Title</label>
+              <input class="wzfield__control" id="wz-job" name="job-title" type="text" placeholder="e.g. Senior Product Designer">
+            </div>
+            </div>
+
+            <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz-phone">Phone</label>
+              <input class="wzfield__control" id="wz-phone" name="phone" type="tel" placeholder="e.g. (704) 555-0127">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz-email">Email</label>
+              <input class="wzfield__control" id="wz-email" name="email" type="email" placeholder="e.g. alex.rahman@example.com">
+            </div>
+            </div>
+
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz-site">Website</label>
+              <input class="wzfield__control" id="wz-site" name="website" type="url" placeholder="e.g. www.novotechsolution.com">
+            </div>
+          </div>
+
+          <div class="wzfield">
+            <span class="wzfield__label">Logo Upload</span>
+            <label class="wzdrop">
+              <input type="file" name="logo" accept="image/*">
+              <img src="assets/images/p5-upload.svg" alt="">
+              <span>Upload your logo image</span>
+            </label>
+          </div>
+
+          <div class="wzcolors">
+            <div class="wzfield">
+              <span class="wzfield__label">Card Colors</span>
+              <div class="wzswatches" role="listbox" aria-label="Card colour">
+                <button class="wzswatch" type="button" role="option" aria-selected="true" aria-label="Midnight" style="background:#050e22"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#96ddea" style="background:#96ddea"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#c396ea" style="background:#c396ea"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#ea9697" style="background:#ea9697"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#eac796" style="background:#eac796"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#96caea" style="background:#96caea"></button>
+              </div>
+            </div>
+            <div class="wzfield">
+              <span class="wzfield__label">Text Colors</span>
+              <div class="wzswatches" role="listbox" aria-label="Text colour">
+                <button class="wzswatch" type="button" role="option" aria-selected="true" aria-label="White" style="background:#ffffff"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#96ddea" style="background:#96ddea"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#c396ea" style="background:#c396ea"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#ea9697" style="background:#ea9697"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#eac796" style="background:#eac796"></button>
+                <button class="wzswatch" type="button" role="option" aria-selected="false" aria-label="#96caea" style="background:#96caea"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="wznav">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+          <button type="button" class="wznav__btn wznav__btn--next">Next Step</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-3" aria-labelledby="step-3-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-3-title">Choose your profile style</h1>
+          <p class="wzpanel__lede">Personalise every detail. Changes appear on your live preview instantly.</p>
+        </div>
+
+      <div class="wzsplit">
+        <div class="wzpreview wzpreview--tall">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="wzphone">
+            <img src="assets/images/wz-profile-phone.png" alt="Digital profile preview on a phone">
+          </div>
+        </div>
+
+        <div class="wzoptions">
+          <div class="wzthemes">
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="professional" checked>
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Professional</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">Crisp corporate clean layout with trustworthy royal blue highlights.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="minimal">
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Minimal</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">High-contrast monochrome aesthetic utilizing strong grid alignments.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="dark-cyber">
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Dark Cyber</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">Deep futuristic obsidian canvas with electric cyan indicators.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="creative-canvas">
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Creative Canvas</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">Friendly warm pastels, playful squircles, and optimistic vibe.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="corporate-executive">
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Corporate Executive</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">Structured grid with traditional dark slate, silver and navy.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+
+          <label class="wztheme">
+            <input type="radio" name="profile-style" value="luxury-obsidian">
+            <span class="wztheme__head">
+              <span class="wztheme__row">
+                <span class="wztheme__name">Luxury Obsidian</span>
+                <img class="wztheme__mark wztheme__mark--off" src="assets/images/wz-check-off.svg" alt="">
+                <img class="wztheme__mark wztheme__mark--on" src="assets/images/wz-check-on.svg" alt="">
+              </span>
+              <span class="wztheme__desc">Exclusive imperial emerald/black background with gilded typography.</span>
+            </span>
+            <span class="wztheme__rule"></span>
+            <span class="wztheme__colors">
+              <span>Colors</span>
+              <span class="wztheme__dots">
+                <i style="background:#050e22"></i>
+                <i style="background:#96ddea"></i>
+                <i style="background:#c396ea"></i>
+                <i style="background:#ea9697"></i>
+              </span>
+            </span>
+          </label>
+          </div>
+        </div>
+      </div>
+
+        <div class="wznav">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+          <button type="button" class="wznav__btn wznav__btn--next">Next Step</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-4" aria-labelledby="step-4-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-4-title">Build your digital profile</h1>
+          <p class="wzpanel__lede">Personalise every detail. Changes appear on your live preview instantly.</p>
+        </div>
+
+      <div class="wzsplit">
+        <div class="wzpreview wzpreview--tall">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="wzphone">
+            <img src="assets/images/wz-profile-phone.png" alt="Digital profile preview on a phone">
+          </div>
+        </div>
+
+        <div class="wzstack">
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Image</h2>
+            <div class="wzimages">
+              <div class="wztile">
+                <span class="wztile__label">Profile</span>
+                <label class="wztile__drop" style="background-image:url('assets/images/wz-profile-ph.jpg')">
+                  <input type="file" name="profile-image" accept="image/*">
+                  <span class="wztile__bar"><img src="assets/images/wz-camera.svg" alt="Upload profile image"></span>
+                </label>
+              </div>
+              <div class="wztile">
+                <span class="wztile__label">Cover</span>
+                <label class="wztile__drop" style="background-image:url('assets/images/wz-cover-ph.png')">
+                  <input type="file" name="cover-image" accept="image/*">
+                  <span class="wztile__bar"><img src="assets/images/wz-camera.svg" alt="Upload cover image"></span>
+                </label>
+              </div>
+              <div class="wztile">
+                <span class="wztile__label">Logo <span>(PNG)</span></span>
+                <label class="wztile__drop wztile__drop--logo">
+                  <input type="file" name="logo-image" accept="image/png">
+                  <span class="wztile__logo" aria-hidden="true"><img src="assets/images/wz-logo-ph.svg" alt=""></span>
+                  <span class="wztile__bar"><img src="assets/images/wz-camera.svg" alt="Upload logo"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Basic Fields</h2>
+            <div class="wzfields">
+              <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-name">Full Name</label>
+              <input class="wzfield__control" id="wz4-name" name="full-name" type="text" value="Alex Rahman">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-job">Job Title</label>
+              <input class="wzfield__control" id="wz4-job" name="job-title" type="text" value="Product Designer">
+            </div>
+              </div>
+              <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-bio">Bio</label>
+              <input class="wzfield__control" id="wz4-bio" name="bio" type="text" placeholder="e.g. Creating intuitive digital experiences.">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-company">Company</label>
+              <input class="wzfield__control" id="wz4-company" name="company" type="text" placeholder="e.g. NovaTech Solutions">
+            </div>
+              </div>
+              <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-phone">Phone</label>
+              <input class="wzfield__control" id="wz4-phone" name="phone" type="tel" value="+1 (704) 555-0127">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-whatsapp">WhatsApp</label>
+              <input class="wzfield__control" id="wz4-whatsapp" name="whatsapp" type="tel" placeholder="e.g. +1 (704) 555-0127">
+            </div>
+              </div>
+              <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-email">Email</label>
+              <input class="wzfield__control" id="wz4-email" name="email" type="email" value="alex.rahman@example.com">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-website">Website</label>
+              <input class="wzfield__control" id="wz4-website" name="website" type="url" value="www.novatech.com">
+            </div>
+              </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz4-location">Location</label>
+              <input class="wzfield__control" id="wz4-location" name="location" type="text" placeholder="e.g. New York, USA">
+            </div>
+            </div>
+          </div>
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Social Links</h2>
+            <div class="wzsocials">
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-twitter.svg" alt="">
+              <span>Add Twitter</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-instagram.svg" alt="">
+              <span>Add Instagram</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-linkedin.svg" alt="">
+              <span>Add LinkedIn</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-tiktok.svg" alt="">
+              <span>Add TikTok</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-snapchat.svg" alt="">
+              <span>Add Snapchat</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-youtube.svg" alt="">
+              <span>Add YouTube</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-portfolio.svg" alt="">
+              <span>Add Portfolio</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+
+            <button type="button" class="wzsocial">
+              <img src="assets/images/wz-soc-custom.svg" alt="">
+              <span>Add Custom Links</span>
+              <img src="assets/images/pd-plus.svg" alt="" aria-hidden="true">
+            </button>
+            </div>
+          </div>
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Feature Toggles</h2>
+            <div class="wztoggles">
+            <div class="wztoggle">
+              <span>Show WhatsApp Button</span>
+              <label class="wzswitch">
+                <input type="checkbox" name="show-whatsapp">
+              </label>
+            </div>
+
+            <div class="wztoggle">
+              <span>Show Save Contact Button</span>
+              <label class="wzswitch">
+                <input type="checkbox" name="show-save-contact">
+              </label>
+            </div>
+
+            <div class="wztoggle">
+              <span>Show Social Links</span>
+              <label class="wzswitch">
+                <input type="checkbox" name="show-social-links" checked>
+              </label>
+            </div>
+
+            <div class="wztoggle">
+              <span>Show Location</span>
+              <label class="wzswitch">
+                <input type="checkbox" name="show-location" checked>
+              </label>
+            </div>
+
+            <div class="wztoggle">
+              <span>Show Company Logo</span>
+              <label class="wzswitch">
+                <input type="checkbox" name="show-company-logo" checked>
+              </label>
+            </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+        <div class="wznav">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+          <button type="button" class="wznav__btn wznav__btn--next">Next Step</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-5" aria-labelledby="step-5-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-5-title">Choose your plan</h1>
+          <p class="wzpanel__lede">Select the package that fits your networking needs.</p>
+        </div>
+
+      <div class="wzplans">
+        <span class="wzplans__badge">Recommended</span>
+
+          <label class="wzplan">
+            <input type="radio" name="plan" value="free">
+            <span class="wzplan__top">
+              <span class="wzplan__head">
+                <span class="wzplan__id">
+                  <span class="wzplan__name">FREE</span>
+                  <span class="wzplan__price"><b>$0</b><span> / forever</span></span>
+                </span>
+                <span class="wzplan__desc">Get started with your digital profile and basic sharing tools.</span>
+              </span>
+              <span class="wzplan__features">
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Digital profile</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Basic Link Sharing</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Limited Customization</span></span>
+              </span>
+            </span>
+            <span class="wzplan__cta">Start Free</span>
+          </label>
+
+          <label class="wzplan wzplan--featured">
+            <input type="radio" name="plan" value="premium" checked>
+            <span class="wzplan__top">
+              <span class="wzplan__head">
+                <span class="wzplan__id">
+                  <span class="wzplan__name">Premium NFC Card</span>
+                  <span class="wzplan__price"><b>$49</b><span> One-time</span></span>
+                </span>
+                <span class="wzplan__desc">The complete package &mdash; premium physical card with a powerful digital profile.</span>
+              <span class="wzplan__badge">4 months FREE included</span>
+              </span>
+              <span class="wzplan__features">
+                <span class="wzplan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Digital profile</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>PVC NFC card</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Custom card design</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>More profile sections</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Priority design options</span></span>
+              </span>
+            </span>
+            <span class="wzplan__cta">Create My Card</span>
+          </label>
+
+          <label class="wzplan">
+            <input type="radio" name="plan" value="teams">
+            <span class="wzplan__top">
+              <span class="wzplan__head">
+                <span class="wzplan__id">
+                  <span class="wzplan__name">Teams</span>
+                  <span class="wzplan__price"><b>Custom</b></span>
+                </span>
+                <span class="wzplan__desc">Branded employee cards with centralized team management.</span>
+              </span>
+              <span class="wzplan__features">
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Multiple employee cards</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Company branding</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Team management</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Bulk order</span></span>
+                <span class="wzplan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Centralized control</span></span>
+              </span>
+            </span>
+            <span class="wzplan__cta">Request a Quote</span>
+          </label>
+      </div>
+
+        <div class="wznav">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+          <button type="button" class="wznav__btn wznav__btn--next">Next Step</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-6" aria-labelledby="step-6-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-6-title">Review your Order</h1>
+          <p class="wzpanel__lede">Personalise every detail. Changes appear on your live preview instantly.</p>
+        </div>
+
+      <div class="wzsplit wzsplit--review">
+        <div class="wzpreview">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="card-front">
+            <img src="assets/images/s6-card-front.svg" alt="One Lnk card front preview">
+            <div class="card-front__pattern" aria-hidden="true">
+              <img src="assets/images/s6-card-pattern.svg" alt="">
+            </div>
+            <div class="card-front__logo" aria-hidden="true">
+              <img src="assets/images/s6-card-logo.svg" alt="">
+            </div>
+            <div class="card-front__nfc" aria-hidden="true">
+              <img src="assets/images/s6-card-nfc.svg" alt="">
+            </div>
+          </div>
+
+          <div class="preview__tabs" role="tablist" aria-label="Card side">
+            <button class="preview__tab" type="button" role="tab" aria-selected="true">Front</button>
+            <button class="preview__tab" type="button" role="tab" aria-selected="false">Back</button>
+          </div>
+        </div>
+
+        <div class="wzsummary">
+          <div class="wzsummary__head">Order Summary</div>
+          <div class="wzsummary__body">
+
+            <div class="wzsummary__rows">
+          <div class="wzsumrow"><span>Card Type</span><span>Classic Card</span></div>
+          <div class="wzsumrow"><span>Card Color</span><span>Navy</span></div>
+          <div class="wzsumrow"><span>Logo</span><span>Uploaded</span></div>
+          <div class="wzsumrow"><span>Theme</span><span>Dark</span></div>
+          <div class="wzsumrow"><span>Package</span><span>Premium NFC Card</span></div>
+              <div class="wzsumrow">
+                <span>Quantity</span>
+                <div class="wzqty">
+                  <button type="button" data-qty-dec aria-label="Decrease quantity" disabled><img src="assets/images/wz-minus.svg" alt=""></button>
+                  <output>1</output>
+                  <button type="button" data-qty-inc aria-label="Increase quantity"><img src="assets/images/pd-plus.svg" alt=""></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="wzsummary__rule"></div>
+
+            <div class="wzsummary__totals">
+          <div class="wzsumrow"><span>Subtotal</span><span>$49.00</span></div>
+          <div class="wzsumrow wzsumrow--credit"><span>Discount (4 months free)</span><span>-$0.00</span></div>
+          <div class="wzsumrow"><span>Shipping</span><span class="wzsumrow__free">FREE</span></div>
+            </div>
+
+            <div class="wzsummary__total"><span>Total</span><span>$49.00</span></div>
+
+            <button type="button" class="wzsummary__cta" data-wz-next>Continue to Checkout</button>
+          </div>
+        </div>
+      </div>
+
+        <div class="wznav wznav--single">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-7" aria-labelledby="step-7-title" hidden>
+        <div class="wzpanel__head">
+          <h1 class="wzpanel__title" id="step-7-title">Complete Your Order</h1>
+          <p class="wzpanel__lede">Personalise every detail. Changes appear on your live preview instantly.</p>
+        </div>
+
+      <div class="wzsplit wzsplit--checkout">
+
+        <div class="wzstack">
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Delivery Information</h2>
+            <div class="wzfields">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-name">Full Name</label>
+              <input class="wzfield__control" id="wz7-name" name="full-name" type="text" value="Alex Rahman">
+            </div>
+              <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-phone">Phone</label>
+              <input class="wzfield__control" id="wz7-phone" name="phone" type="tel" value="+1 (704) 555-0127">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-email">Email</label>
+              <input class="wzfield__control" id="wz7-email" name="email" type="email" value="alex.rahman@example.com">
+            </div>
+              </div>
+            <div class="wzfield wzfield--icon">
+              <label class="wzfield__label" for="wz7-city">City</label>
+              <div class="wzfield__wrap">
+                <input class="wzfield__control" id="wz7-city" name="city" type="text" placeholder="e.g. New York">
+                <img class="wzfield__icon" src="assets/images/wz-locate.svg" alt="" aria-hidden="true">
+              </div>
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-address">Delivery Adress</label>
+              <textarea class="wzfield__control wzfield__control--area" id="wz7-address" name="address" placeholder="e.g. 123 Main Street, Apt 4B, New York, NY 10001"></textarea>
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-notes">Order Notes (Optional)</label>
+              <textarea class="wzfield__control wzfield__control--area" id="wz7-notes" name="notes" placeholder="e.g. Please leave the package at the front door."></textarea>
+            </div>
+            </div>
+          </div>
+
+          <div class="wzcard">
+            <h2 class="wzcard__title">Payment Method</h2>
+            <div class="wzpay">
+
+              <div class="wzpayopt">
+                <input type="radio" id="pay-card" name="payment" value="card" checked>
+                <label class="wzpayopt__head" for="pay-card">
+                  <img class="wzpayopt__mark wzpayopt__mark--off" src="assets/images/wz-radio-off.svg" alt="">
+                  <img class="wzpayopt__mark wzpayopt__mark--on" src="assets/images/p5-radio-on.svg" alt="">
+                  <span>Credit/Debit Card</span>
+                </label>
+                <div class="wzpayfields">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-cardno">Card Number</label>
+              <input class="wzfield__control" id="wz7-cardno" name="card-number" type="text" value="4532********8274">
+            </div>
+                  <div class="wzrow">
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-exp">Expiry</label>
+              <input class="wzfield__control" id="wz7-exp" name="expiry" type="text" placeholder="MM / YY">
+            </div>
+            <div class="wzfield">
+              <label class="wzfield__label" for="wz7-cvv">CVV</label>
+              <input class="wzfield__control" id="wz7-cvv" name="cvv" type="text" placeholder="****">
+            </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wzpayopt">
+                <input type="radio" id="pay-cod" name="payment" value="cod">
+                <label class="wzpayopt__head" for="pay-cod">
+                  <img class="wzpayopt__mark wzpayopt__mark--off" src="assets/images/wz-radio-off.svg" alt="">
+                  <img class="wzpayopt__mark wzpayopt__mark--on" src="assets/images/p5-radio-on.svg" alt="">
+                  <span>Cash on Delivery</span>
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="wzsummary">
+          <div class="wzsummary__head">Order Summary</div>
+          <div class="wzsummary__body">
+            <div class="wzsummary__rows">
+          <div class="wzsumrow"><span>Custom Card - Navy</span><span>$49.00</span></div>
+          <div class="wzsumrow"><span>Shipping</span><span class="wzsumrow__free">FREE</span></div>
+            </div>
+            <div class="wzsummary__rule"></div>
+            <div class="wzsummary__total"><span>Total</span><span>$49.00</span></div>
+            <button type="button" class="wzsummary__cta" data-wz-next>Place Order</button>
+          </div>
+        </div>
+      </div>
+
+        <div class="wznav wznav--single">
+          <button type="button" class="wznav__btn wznav__btn--back">Back</button>
+        </div>
+      </section>
+
+      <section class="wzpanel" id="step-8" data-final hidden>
+        <div class="wzconfirm">
+          <img class="wzconfirm__icon" src="assets/images/wz-success.svg" alt="">
+          <div class="wzconfirm__heading">
+            <h1 class="wzconfirm__title">Order Confirmed!</h1>
+            <p class="wzconfirm__sub">Thank you, Alex! Your NFC card being crafted.</p>
+          </div>
+          <span class="wzconfirm__order">ORDER #CYC-20249382</span>
+
+          <div class="wzconfirm__card">
+            <img src="assets/images/wz-card-back.svg" alt="Your One Lnk card back">
+          </div>
+
+          <div class="wzconfirm__delivery">
+            <img src="assets/images/wz-truck.svg" alt="">
+            <div>
+              <b>Estimated Delivery 5-7 business days</b>
+              <span>New York, USA</span>
+            </div>
+          </div>
+
+          <div class="wzconfirm__actions">
+            <a class="btn btn--primary" href="#">Completed your digital profile</a>
+            <a class="btn btn--outline" href="contact.html">Chat with support</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<footer class="footer footer--compact">
+
+    <div class="footer__top">
+
+      <div class="footer__brand">
+        <div class="footer__brand-head">
+          <a href="#" class="footer__logo" aria-label="One Lnk home">
+            <img src="assets/images/footer-logo.svg" alt="One Lnk">
+          </a>
+          <p class="footer__tagline">
+            Smart NFC business cards for modern professionals.<br>One tap. Every connection.
+          </p>
+        </div>
+
+        <div class="footer__socials">
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-1.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-2.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-3.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-4.svg" alt=""></a>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <div class="footer__col">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#">Create Your Card</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Teams</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__rule" role="presentation"></div>
+
+    <p class="footer__copyright">© 2026 OneLnk. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/js/home.js?v=1786049899"></script>
+  <script src="assets/js/wizard.js?v=1786049899"></script>
+</body>
+</html>

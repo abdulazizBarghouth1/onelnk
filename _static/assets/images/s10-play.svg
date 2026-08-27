@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="play-button-container">
+<g id="glow-halo" opacity="0.15" filter="url(#filter0_f_0_4)">
+<circle cx="110" cy="110" r="70" fill="#27AAE1"/>
+</g>
+<g id="button-circle">
+<rect x="50" y="50" width="80" height="80" rx="40" fill="#27AAE1"/>
+<path id="Polygon 1" d="M103 88.2679C104.333 89.0378 104.333 90.9623 103 91.7321L85 102.124C83.6667 102.894 82 101.932 82 100.392L82 79.6077C82 78.0681 83.6667 77.1058 85 77.8756L103 88.2679Z" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_4" x="0" y="0" width="220" height="220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="20" result="effect1_foregroundBlur_0_4"/>
+</filter>
+</defs>
+</svg>

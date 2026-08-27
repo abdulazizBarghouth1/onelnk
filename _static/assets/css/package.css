@@ -1,0 +1,266 @@
+/* ==========================================================================
+   package.css — Package page sections
+   Canvas reference: 1440 x 5407 (Figma node 31960:7596)
+   Loaded after base.css and sections.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   Header  —  node 31960:7597  (1440 x 424)
+   ========================================================================== */
+
+.pkhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 0 60px;
+  background: var(--white);
+}
+
+.pkhead__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* ==========================================================================
+   Compare  —  node 31960:7726  (1420 x 1216)
+   Dark panel, inset and rounded like the other dark bands.
+   ========================================================================== */
+
+.compare-plans {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  padding: 120px var(--pad-x);
+  border-radius: var(--radius-xl);
+  margin-inline: 10px;
+  background: var(--neutral-950);
+  overflow: hidden;
+}
+
+.compare-plans .phead-block__title {
+  color: var(--white);
+}
+
+.compare-plans .phead-block__text {
+  color: var(--neutral-400);
+}
+
+.compare-plans__glow {
+  position: absolute;
+  right: -200px;
+  top: 100px;
+  width: 600px;
+  height: 600px;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* ---- Comparison table ---- */
+
+.cmp {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.cmp__row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+.cmp__cell {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--neutral-200);
+  border-left-width: 0;
+  background: var(--white);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+}
+
+/* Feature column carries the left border and wider padding */
+.cmp__cell--feature {
+  justify-content: flex-start;
+  padding: 20px 28px;
+  border-left-width: 1px;
+  text-align: left;
+}
+
+/* Highlighted middle column */
+.cmp__cell--hi {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+}
+
+/* Rows share borders — collapse the doubled edge */
+.cmp__row + .cmp__row .cmp__cell {
+  border-top-width: 0;
+}
+
+/* Header row */
+.cmp__row--head .cmp__cell {
+  background: var(--neutral-50);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  color: var(--neutral-500);
+}
+
+.cmp__row--head .cmp__cell--hi {
+  background: var(--primary-50);
+  color: var(--primary-500);
+}
+
+/* Rounded outer corners */
+.cmp__row:first-child .cmp__cell:first-child { border-top-left-radius: var(--radius-lg); }
+.cmp__row:first-child .cmp__cell:last-child  { border-top-right-radius: var(--radius-lg); }
+.cmp__row:last-child  .cmp__cell:first-child { border-bottom-left-radius: var(--radius-lg); }
+.cmp__row:last-child  .cmp__cell:last-child  { border-bottom-right-radius: var(--radius-lg); }
+
+/* ---- Yes / no marks (two layered vectors, as exported) ---- */
+
+.cmp__mark {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.cmp__mark img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+.cmp__mark--yes img:first-child,
+.cmp__mark--no img:first-child {
+  inset: 8.33%;
+}
+
+.cmp__mark--yes img:last-child {
+  inset: 33.33% 33.33% 37.5% 33.33%;
+}
+
+.cmp__mark--no img:last-child {
+  inset: 37.5%;
+}
+
+/* ==========================================================================
+   Include  —  node 31960:7849  (1440 x 1152)
+   Reuses the shared .share card in a 3-up grid; see sections.css.
+   ========================================================================== */
+
+.include {
+  padding: 120px var(--pad-x) 60px;
+}
+
+/* ==========================================================================
+   Reused sections — package page paddings
+   Plan  (31960:7625): content at y=60, 576 tall in a 756 section -> 60 / 120
+   FAQ   (31960:7935): content at y=60, 628 tall in a 748 section -> 60 / 60
+   ========================================================================== */
+
+.packages--pk {
+  padding: 60px var(--pad-x) 120px;
+}
+
+.faq--pk {
+  padding: 60px var(--pad-x);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .pkhead {
+    gap: 32px;
+    padding-bottom: 48px;
+  }
+
+  .pkhead__inner {
+    padding: 0 40px;
+  }
+
+  .compare-plans {
+    gap: 40px;
+    padding: 80px 40px;
+  }
+
+  .include {
+    padding: 80px 40px 48px;
+  }
+
+  .cmp__cell {
+    padding: 16px 12px;
+    font-size: var(--text-sm);
+  }
+
+  .cmp__cell--feature {
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pkhead__inner {
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  .compare-plans {
+    padding: 64px 16px;
+    gap: 32px;
+  }
+
+  .include {
+    padding: 64px 24px 40px;
+  }
+
+  /* Table stops fitting — let it scroll horizontally inside the panel
+     rather than crushing the columns. */
+  .cmp {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cmp__row {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .cmp__cell {
+    flex: 0 0 110px;
+  }
+
+  .cmp__cell--feature {
+    flex: 0 0 200px;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .pkhead__actions .btn {
+    width: 100%;
+  }
+}

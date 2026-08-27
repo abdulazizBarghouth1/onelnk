@@ -1,0 +1,401 @@
+/* OneLnk create-card wizard — live digital-card preview + real-template picker.
+   Hand-written (NOT generated); complements the scoped onelnk-wizard.css. */
+
+/* Template picker (step 3) — searchable grid of the 41 real templates. */
+.onelnk-wizard .wztplsearch {
+  margin-bottom: 16px;
+}
+.onelnk-wizard .wztemplates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-height: 860px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.onelnk-wizard .wztpl {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.onelnk-wizard .wztpl:hover {
+  border-color: #27aae1;
+}
+.onelnk-wizard .wztpl--active {
+  border-color: #27aae1;
+  box-shadow: 0 0 0 2px rgba(39, 170, 225, 0.25);
+}
+.onelnk-wizard .wztpl input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.onelnk-wizard .wztpl__icon {
+  font-size: 22px;
+  line-height: 1;
+  flex: none;
+}
+.onelnk-wizard .wztpl__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  word-break: break-word;
+}
+.onelnk-wizard .wztpl__empty {
+  grid-column: 1 / -1;
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Live preview mounted inside the phone frame (replaces the static PNG). */
+.onelnk-wizard .wzphone--live {
+  background: #fff;
+  border: 10px solid #0b1220;
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(5, 14, 34, 0.25);
+}
+.onelnk-wizard .wzphone__scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.onelnk-wizard .wzphone__loading {
+  padding: 48px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .onelnk-wizard .wztemplates {
+    grid-template-columns: 1fr;
+    max-height: 420px;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * PhysicalCard — live, data-bound NFC-card preview (steps 2 & 6).
+ * Internals sized in container-query units (cqw) so the whole card
+ * scales proportionally and stays legible/fits down to small screens.
+ * ------------------------------------------------------------------ */
+.onelnk-wizard .pcard-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.onelnk-wizard .pcard {
+  width: clamp(230px, 84%, 340px);
+  aspect-ratio: 1.75 / 1;
+  perspective: 1400px;
+  container-type: inline-size;
+}
+.onelnk-wizard .pcard__flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.onelnk-wizard .pcard__flip--back {
+  transform: rotateY(180deg);
+}
+.onelnk-wizard .pcard__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 7cqw;
+  border-radius: 6cqw;
+  overflow: hidden;
+  background: var(--pcard-bg, #050e22);
+  color: var(--pcard-fg, #ffffff);
+  box-shadow: 0 22px 55px rgba(5, 14, 34, 0.35);
+}
+.onelnk-wizard .pcard__face--back {
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+  gap: 3cqw;
+  text-align: center;
+}
+/* front — info side */
+.onelnk-wizard .pcard__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.onelnk-wizard .pcard__logo {
+  width: 15cqw;
+  height: 15cqw;
+  display: block;
+}
+.onelnk-wizard .pcard__logo img,
+.onelnk-wizard .pcard__logo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.onelnk-wizard .pcard__id {
+  margin-top: auto;
+}
+.onelnk-wizard .pcard__id .pcard__line {
+  margin-top: 2.5cqw;
+}
+.onelnk-wizard .pcard__name {
+  display: block;
+  font-size: 8cqw;
+  font-weight: 700;
+  line-height: 1.12;
+}
+.onelnk-wizard .pcard__title {
+  display: block;
+  font-size: 4.4cqw;
+  opacity: 0.72;
+  margin-top: 1cqw;
+}
+.onelnk-wizard .pcard__contact {
+  margin-top: 4cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 2cqw;
+}
+.onelnk-wizard .pcard__line {
+  display: flex;
+  align-items: center;
+  gap: 2.5cqw;
+  font-size: 3.9cqw;
+  opacity: 0.92;
+  word-break: break-all;
+}
+.onelnk-wizard .pcard__line i {
+  width: 4cqw;
+  height: 4cqw;
+  flex: none;
+  display: inline-flex;
+}
+.onelnk-wizard .pcard__line svg {
+  width: 100%;
+  height: 100%;
+}
+/* back — QR + company logo, two columns in one row */
+.onelnk-wizard .pcard__backgrid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8cqw;
+  width: 100%;
+  height: 100%;
+}
+.onelnk-wizard .pcard__qr {
+  width: 34cqw;
+  height: 34cqw;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 3cqw;
+  padding: 2cqw;
+  box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, 0.22);
+}
+.onelnk-wizard .pcard__qr img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.onelnk-wizard .pcard__brandmark {
+  width: 30cqw;
+  height: 30cqw;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.onelnk-wizard .pcard__brandmark img,
+.onelnk-wizard .pcard__brandmark svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* front/back segmented control (matches the design mock) */
+.onelnk-wizard .pcard__tabs {
+  display: inline-flex;
+  gap: 6px;
+  padding: 5px;
+  background: #f1f3f5;
+  border-radius: 12px;
+}
+.onelnk-wizard .pcard__tabs button {
+  border: 0;
+  background: transparent;
+  padding: 9px 34px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+.onelnk-wizard .pcard__tabs button.is-active {
+  background: #23272e;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* The physical-card preview box centers its content; give it extra bottom room
+   so the card + Front/Back control aren't crowded against the bottom edge. */
+.onelnk-wizard .wzpreview:has(.pcard-wrap) {
+  padding-bottom: 64px;
+}
+
+/* Step-2 colour controls — custom colour swatch + gradient builder. */
+.onelnk-wizard .wzswatch--pick {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: conic-gradient(from 0deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff0000);
+}
+.onelnk-wizard .wzswatch--pick input[type="color"] {
+  position: absolute;
+  inset: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  border: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.onelnk-wizard .wzgradient {
+  margin-top: 14px;
+}
+.onelnk-wizard .wzgradient__toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f1f3f5;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+.onelnk-wizard .wzgradient__toggle button {
+  border: 0;
+  background: transparent;
+  padding: 6px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+}
+.onelnk-wizard .wzgradient__toggle button.is-active {
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.onelnk-wizard .wzgradient__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.onelnk-wizard .wzgradient__stop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+.onelnk-wizard .wzgradient__stop input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.onelnk-wizard .wzgradient__angles {
+  display: inline-flex;
+  gap: 6px;
+}
+.onelnk-wizard .wzgradient__angle {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.onelnk-wizard .wzgradient__angle.is-active {
+  border-color: #27aae1;
+  color: #0f172a;
+  box-shadow: 0 0 0 2px rgba(39, 170, 225, 0.2);
+}
+.onelnk-wizard .wzgradient__presets {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.onelnk-wizard .wzgradient__preset {
+  width: 40px;
+  height: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Inline checkout auth (step 7) — sign in / create account without leaving the wizard. */
+.onelnk-wizard .wzauth__toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: #f1f3f5;
+  border-radius: 999px;
+}
+.onelnk-wizard .wzauth__toggle button {
+  border: 0;
+  background: transparent;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.onelnk-wizard .wzauth__toggle button.is-active {
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.onelnk-wizard .wzterms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+}
+.onelnk-wizard .wzfield__error {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #dc2626;
+}

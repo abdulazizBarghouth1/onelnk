@@ -1,0 +1,393 @@
+/* ==========================================================================
+   gallery.css — Gallery page sections
+   Canvas reference: 1440 x 3889 (Figma node 31960:8034)
+   Loaded after base.css and sections.css.
+   ========================================================================== */
+
+/* ==========================================================================
+   Header  —  node 31960:8035  (1440 x 424)
+   Same shape as the package header: nav, gap 40, copy block, 60 bottom.
+   ========================================================================== */
+
+.glhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 0 60px;
+  background: var(--white);
+}
+
+.glhead__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* ==========================================================================
+   Gallery grid  —  node 31960:8063  "Include"  (1440 x 2294)
+   ========================================================================== */
+
+.glgrid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x);
+  background: var(--white);
+}
+
+/* ---- Search + filter ---- */
+
+.glbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.glbar__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+.glsearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 400px;
+  max-width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+.glsearch img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.glsearch input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.glsearch input::placeholder {
+  color: var(--neutral-500);
+}
+
+.glsearch input:focus {
+  outline: none;
+}
+
+.glbar__count {
+  flex-shrink: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-align: right;
+  color: var(--neutral-500);
+  white-space: nowrap;
+}
+
+.glbar__count b {
+  font-weight: var(--weight-medium);
+  color: var(--neutral-800);
+}
+
+/* ---- Filter row ---- */
+
+.glfilter {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+.glfilter__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+  white-space: nowrap;
+}
+
+.glfilter__label img {
+  width: 24px;
+  height: 24px;
+}
+
+.glfilter__tags {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-width: 0;
+}
+
+.gltag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--neutral-100);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+  white-space: nowrap;
+  transition: background-color 0.18s ease;
+}
+
+.gltag:hover {
+  background: var(--neutral-200);
+}
+
+/* Reproduces the exported 1px #E5E5E5 rule between tag groups */
+.glfilter__sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--neutral-200);
+  flex-shrink: 0;
+}
+
+.glfilter__toggle {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.glfilter__toggle img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---- Card grid ---- */
+
+.glcards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.glcard {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.glcard__art {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.glcard__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.glcard__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+}
+
+.glcard__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.glcard__tags {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.glcard__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  padding: 5px 12px 7px;
+  border-radius: var(--radius-md);
+  background: var(--neutral-100);
+  font-size: var(--text-base);
+  line-height: normal;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-normal);
+  text-align: center;
+  color: var(--neutral-800);
+  white-space: nowrap;
+}
+
+.glcard__tag--accent {
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+.glcard__name {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-title);
+  line-height: var(--leading-7);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.glcard__role {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+}
+
+/* Reproduces the exported 1px #E5E5E5 rule */
+.glcard__rule {
+  width: 100%;
+  height: 1px;
+  background: var(--neutral-200);
+}
+
+.glcard__quote {
+  width: 100%;
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+}
+
+/* ==========================================================================
+   Closing CTA  —  node 31960:8695
+   Same band as the other pages; this page pads 120 top and bottom.
+   ========================================================================== */
+
+.cta--gl {
+  padding: 120px var(--pad-x);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .glhead {
+    gap: 32px;
+    padding-bottom: 48px;
+  }
+
+  .glhead__inner {
+    padding: 0 40px;
+  }
+
+  .glgrid {
+    gap: 40px;
+    padding: 48px 40px;
+  }
+
+  .glcards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cta--gl {
+    padding: 80px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .glhead__inner {
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  .glgrid {
+    padding: 40px 24px;
+    gap: 32px;
+  }
+
+  .glbar__top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .glsearch {
+    width: 100%;
+  }
+
+  .glbar__count {
+    text-align: left;
+  }
+
+  .glfilter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .glfilter__tags {
+    gap: 8px;
+  }
+
+  /* Vertical rules make no sense once the tags wrap */
+  .glfilter__sep {
+    display: none;
+  }
+
+  .glcards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .glcard__body {
+    padding: 20px;
+  }
+
+  .cta--gl {
+    padding: 64px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .glhead__actions .btn {
+    width: 100%;
+  }
+}

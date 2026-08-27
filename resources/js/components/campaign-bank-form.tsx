@@ -1,0 +1,219 @@
+import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { router } from '@inertiajs/react';
+import { toast } from '@/components/custom-toast';
+import { Copy, CheckCircle, Upload, FileText, X } from 'lucide-react';
+
+interface CampaignBankFormProps {
+  campaignData: any;
+  bankDetails: string;
+  onSuccess: () => void;
+  onCancel: () => void;
+}
+
+export function CampaignBankForm({ 
+  campaignData,
+  bankDetails,
+  onSuccess, 
+  onCancel 
+}: CampaignBankFormProps) {
+  const { t } = useTranslation();
+  const [processing, setProcessing] = useState(false);
+  const [receipt, setReceipt] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleCopyLink = (text: string) => {
+    // Fallback clipboard function for HTTP environments
+    const copyToClipboard = (text: string) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        // Use modern clipboard API for HTTPS
+        return navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for HTTP environments
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        return new Promise<void>((resolve, reject) => {
+          if (document.execCommand('copy')) {
+            textArea.remove();
+            resolve();
+          } else {
+            textArea.remove();
+            reject(new Error('Copy failed'));
+          }
+        });
+      }
+    };
+    copyToClipboard(text)
+      .then(() => {
+        toast.success(t('Amount copied to clipboard'));
+      })
+      .catch(() => {
+        toast.error(t('Failed to copy amount'));
+      });
+  };
+
+  const handleConfirmPayment = () => {
+    if (!receipt) {
+      toast.error(t('Please upload your bank transfer receipt'));
+      return;
+    }
+
+    setProcessing(true);
+
+    const formData = new FormData();
+    formData.append('campaign_data', JSON.stringify(campaignData));
+    formData.append('coupon_code', campaignData.coupon_code || '');
+    formData.append('amount', String(campaignData.final_amount || campaignData.total_amount || 0));
+    formData.append('receipt', receipt);
+
+    router.post(route('campaigns.bank.payment'), formData, {
+      onSuccess: () => {
+        toast.success(t('Campaign created. Payment verification pending.'));
+        onSuccess();
+      },
+      onError: () => {
+        toast.error(t('Failed to submit payment request'));
+      },
+      onFinish: () => {
+        setProcessing(false);
+      }
+    });
+  };
+
+  const finalAmount = campaignData.final_amount || campaignData.total_amount || 0;
+
+  const handleReceiptChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+    if (file) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      const maxSize = 5 * 1024 * 1024;
+
+      if (!allowedTypes.includes(file.type)) {
+        toast.error(t('Only JPG, PNG, and PDF files are allowed'));
+        return;
+      }
+
+      if (file.size > maxSize) {
+        toast.error(t('File size must not exceed 5MB'));
+        return;
+      }
+    }
+    setReceipt(file);
+  };
+
+  const handleRemoveFile = () => {
+    setReceipt(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <Card>
+        <CardContent className="p-4">
+          <h3 className="font-medium mb-3">{t('Bank Transfer Details')}</h3>
+          <div className="space-y-3 text-sm">
+            <div className="whitespace-pre-line">{bankDetails}</div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                <span className="font-medium">{t('Campaign')}: {campaignData.name}</span>
+              </div>
+              <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                <span className="font-medium">{t('Amount')}: {window.appSettings.formatCurrency(finalAmount)}</span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleCopyLink(window.appSettings.formatCurrency(finalAmount))}
+                >
+                  <Copy className="h-3 w-3 mr-1" />
+                  {t('Copy')}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="border-orange-200 bg-orange-50">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-2">
+            <CheckCircle className="h-5 w-5 text-orange-600 mt-0.5" />
+            <div className="text-sm text-orange-800">
+              <p className="font-medium mb-1">{t('Important Instructions')}</p>
+              <ul className="space-y-1 text-xs">
+                <li>• {t('Transfer the exact amount shown above')}</li>
+                <li>• {t('Include the campaign name in the transfer description')}</li>
+                <li>• {t('Your campaign will be activated after payment verification')}</li>
+                <li>• {t('Verification may take 1-3 business days')}</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent className="p-4 space-y-3">
+          <Label htmlFor="campaign-bank-receipt">
+            {t('Bank Transfer Receipt')} <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            id="campaign-bank-receipt"
+            ref={fileInputRef}
+            type="file"
+            accept=".jpg,.jpeg,.png,.pdf"
+            onChange={handleReceiptChange}
+            className="hidden"
+          />
+          {!receipt ? (
+            <label
+              htmlFor="campaign-bank-receipt"
+              className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors"
+            >
+              <Upload className="h-5 w-5 text-gray-400 mb-1" />
+              <span className="text-xs text-gray-500">{t('Click to upload receipt')}</span>
+              <span className="text-xs text-gray-400">{t('JPG, PNG, PDF up to 5MB')}</span>
+            </label>
+          ) : (
+            <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg bg-gray-50">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <FileText className="h-4 w-4 text-primary flex-shrink-0" />
+                <span className="text-sm truncate">{receipt.name}</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleRemoveFile}
+                className="p-1 hover:bg-gray-200 rounded flex-shrink-0"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <div className="flex gap-3">
+        <Button variant="outline" onClick={onCancel} className="flex-1">
+          {t('Cancel')}
+        </Button>
+        <Button 
+          onClick={handleConfirmPayment} 
+          disabled={processing}
+          className="flex-1"
+        >
+          {processing ? t('Processing...') : t('I have made the payment')}
+        </Button>
+      </div>
+    </div>
+  );
+}

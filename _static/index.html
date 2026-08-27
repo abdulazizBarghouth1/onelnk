@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Lnk — Your Smart Business Card, Designed Your Way</title>
+  <meta name="description" content="Create a digital profile, customize your NFC card, and share your contact details instantly with one tap.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css?v=1786016006">
+  <link rel="stylesheet" href="assets/css/sections.css?v=1786016006">
+  <link rel="stylesheet" href="assets/css/home.css?v=1786016006">
+</head>
+<body>
+
+  <!-- ====================================================================
+       Hero  —  Figma node 31960:649  "Hero Dark 1"
+       ==================================================================== -->
+  <header class="hero">
+
+    <!-- Decorative background layers -->
+    <div class="hero__grid" aria-hidden="true">
+      <img src="assets/images/hero-grid.svg" alt="">
+    </div>
+
+    <div class="hero__stars" aria-hidden="true">
+      <img src="assets/images/hero-stars.svg" alt="">
+    </div>
+
+    <div class="hero__lights" aria-hidden="true">
+      <div class="hero__lights-a">
+        <img src="assets/images/hero-lights.svg" alt="">
+      </div>
+      <div class="hero__lights-b">
+        <img src="assets/images/hero-lights-2.svg" alt="">
+      </div>
+    </div>
+
+    <!-- Everything below is pinned to a centred 1440 stage so the pieces
+         keep their designed relationship on wider screens. -->
+    <div class="hero__stage">
+
+    <!-- Floating nav pill -->
+    <nav class="hero__nav" aria-label="Main">
+      <a href="#" class="hero__logo" aria-label="One Lnk home">
+        <img src="assets/images/onelnk-logo.svg" alt="One Lnk">
+      </a>
+      <button class="hero__menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+        <img src="assets/images/icon-menu.svg" alt="">
+      </button>
+    </nav>
+
+    <!-- Copy block -->
+    <div class="hero__content">
+      <div class="hero__heading">
+        <h1 class="hero__title">
+          Your Smart Business Card
+          <span class="hero__title-accent">Designed Your Way</span>
+        </h1>
+        <p class="hero__subtitle">
+          Create a digital profile, customize your NFC card, and share your contact details instantly with one tap.
+        </p>
+      </div>
+
+      <div class="hero__actions">
+        <a href="#" class="btn btn--primary">Create My Card</a>
+        <a href="#" class="btn btn--light">Contact Us</a>
+      </div>
+    </div>
+
+    <!-- NFC card render -->
+    <div class="hero__nfc" aria-hidden="true">
+      <div class="hero__nfc-inner">
+        <img src="assets/images/hero-nfc-card.png" alt="">
+      </div>
+    </div>
+
+    <!-- iPhone mockup -->
+    <div class="hero__phone" aria-hidden="true">
+      <img class="hero__phone-frame" src="assets/images/hero-phone.png" alt="">
+      <div class="hero__phone-screen">
+        <img src="assets/images/hero-phone-screen.png" alt="">
+      </div>
+      <div class="hero__phone-island"></div>
+    </div>
+
+    <!-- Feature card -->
+    <div class="hero__features featurecard">
+      <div class="feature">
+        <img src="assets/images/icon-check.svg" alt="">
+        <span>No App Required</span>
+      </div>
+      <div class="feature feature--fixed">
+        <img src="assets/images/icon-check.svg" alt="">
+        <span>Premium PVC NFC Card</span>
+      </div>
+      <div class="feature">
+        <img src="assets/images/icon-check.svg" alt="">
+        <span>Instant Sharing</span>
+      </div>
+    </div>
+
+    </div><!-- /.hero__stage -->
+
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         Trusted  —  Figma node 31960:889  "Frame 52"
+         ================================================================== -->
+    <section class="trusted" aria-labelledby="trusted-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title" id="trusted-title">
+          Trusted by<br>professionals worldwide
+        </h2>
+        <p class="section-head__lede">
+          Powering modern networking and digital identities for teams of all sizes, from solo creators to global enterprises.
+        </p>
+      </div>
+
+      <div class="trusted__body">
+
+        <div class="trusted__glow" aria-hidden="true">
+          <div class="trusted__glow-inner">
+            <img src="assets/images/s2-glow.svg" alt="">
+          </div>
+        </div>
+
+        <div class="trusted__photo">
+          <img src="assets/images/s2-hand-card.png" alt="A hand holding a black One Lnk NFC card">
+        </div>
+
+        <div class="trusted__grid">
+          <article class="audience-card">
+            <p class="audience-card__num">01</p>
+            <div>
+              <h3 class="audience-card__title">Freelancers</h3>
+              <p class="audience-card__text">Hand off a portfoilio link before the coffee gets cold.</p>
+            </div>
+          </article>
+
+          <article class="audience-card">
+            <p class="audience-card__num">02</p>
+            <div>
+              <h3 class="audience-card__title">Consultants</h3>
+              <p class="audience-card__text">Lead with credentials a client can verify instantly.</p>
+            </div>
+          </article>
+
+          <article class="audience-card">
+            <p class="audience-card__num">03</p>
+            <div>
+              <h3 class="audience-card__title">Sales teams</h3>
+              <p class="audience-card__text">Turn handshake in to a tracked, qualified lead.</p>
+            </div>
+          </article>
+
+          <article class="audience-card">
+            <p class="audience-card__num">04</p>
+            <div>
+              <h3 class="audience-card__title">Business Owners</h3>
+              <p class="audience-card__text">One card, every channel - booking, socials, storefront.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="trusted__bar">
+          <div class="pillar">
+            <p class="pillar__eyebrow">HARDWARE</p>
+            <div>
+              <h3 class="pillar__title">Customs NFC cards</h3>
+              <p class="pillar__text">Printed to your brand, embedded chip inside. No app required to received.</p>
+            </div>
+          </div>
+
+          <div class="pillar">
+            <p class="pillar__eyebrow">PROFILE</p>
+            <div>
+              <h3 class="pillar__title">Digital Profiles</h3>
+              <p class="pillar__text">Edit your links, title, and details anytime - the card never needs reprinting</p>
+            </div>
+          </div>
+
+          <div class="pillar">
+            <p class="pillar__eyebrow">EXCHANGE</p>
+            <div>
+              <h3 class="pillar__title">Fast Sharing</h3>
+              <p class="pillar__text">One tap on any modern phone. Saved to their contacts in under two seconds.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Benefits  —  Figma node 31960:938  "OneLnk Benefits"
+         ================================================================== -->
+    <section class="benefits" aria-labelledby="benefits-title">
+      <div class="benefits__inner">
+
+        <h2 class="benefits__title" id="benefits-title">
+          Traditional Cards Get Lost.<br>OneLnk Gets Saved.
+        </h2>
+
+        <div class="benefits__body">
+
+          <div class="benefits__glow" aria-hidden="true">
+            <img src="assets/images/s3-glow.svg" alt="">
+          </div>
+
+          <!-- Traditional cards -->
+          <article class="compare compare--con">
+            <div class="compare__head">
+              <h3>Traditional Cards</h3>
+            </div>
+            <div class="compare__body">
+              <ul class="compare__list">
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-con-1.svg" alt=""></span>
+                  <p>Easy to lose or damage</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-con-2.svg" alt=""></span>
+                  <p>Static information only</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-con-3.svg" alt=""></span>
+                  <p>Limited space for details</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-con-4.svg" alt=""></span>
+                  <p>Requires expensive reprinting</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-con-5.svg" alt=""></span>
+                  <p>No performance analytics</p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Centre badge -->
+          <div class="benefits__badge" aria-hidden="true">
+            <img src="assets/images/s3-badge-icon.svg" alt="">
+          </div>
+
+          <!-- OneLnk -->
+          <article class="compare compare--pro">
+            <div class="compare__head">
+              <img src="assets/images/s3-logo-icon.svg" alt="">
+              <h3>Onelnk</h3>
+            </div>
+            <div class="compare__body">
+              <ul class="compare__list">
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-pro-1.svg" alt=""></span>
+                  <p>Saved directly to phone</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-pro-2.svg" alt=""></span>
+                  <p>Update your info anytime</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-pro-3.svg" alt=""></span>
+                  <p>Unlimited links &amp; content</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-pro-4.svg" alt=""></span>
+                  <p>No reprinting ever needed</p>
+                </li>
+                <li class="compare__row">
+                  <span class="compare__icon"><img src="assets/images/s3-pro-5.svg" alt=""></span>
+                  <p>Track views &amp; interactions</p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+
+        <a href="#" class="btn btn--primary benefits__cta">Upgrade your Networking</a>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         How it works  —  Figma node 31960:1037
+         ================================================================== -->
+    <section class="howto" aria-labelledby="howto-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title" id="howto-title">How OneLnk Works</h2>
+        <p class="section-head__lede">Three simple steps to go fully digital</p>
+      </div>
+
+      <ol class="howto__steps">
+        <li class="step">
+          <p class="step__num">01</p>
+          <div class="step__body">
+            <h3 class="step__title">Customize your NFC card</h3>
+            <p class="step__text">Choose your card style, colors, logo placement, and layout to match your brand.</p>
+          </div>
+        </li>
+
+        <li class="step">
+          <p class="step__num">02</p>
+          <div class="step__body">
+            <h3 class="step__title">Build your digital profile</h3>
+            <p class="step__text">Add your photo, contact details, social links, WhatsApp, portfolio links, and more.</p>
+          </div>
+        </li>
+
+        <li class="step">
+          <p class="step__num">03</p>
+          <div class="step__body">
+            <h3 class="step__title">Tap and share instantly</h3>
+            <p class="step__text">Hand your card to anyone one tap opens your full digital profile. No app needed.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ==================================================================
+         The Process  —  Figma node 31960:1061
+         ================================================================== -->
+    <section class="process" aria-labelledby="process-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title" id="process-title">More Than Just a Business Card</h2>
+        <p class="section-head__lede">Three simple steps to go fully digital</p>
+      </div>
+
+      <div class="process__list">
+
+        <article class="tier tier--classic">
+          <div class="tier__text">
+            <div class="tier__heading">
+              <h3 class="tier__title">Classic Card</h3>
+              <p class="tier__subtitle">Effortless Professionalism in Minutes</p>
+            </div>
+            <ul class="tier__points">
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>The Pitch:</b> Clean, pre-designed templates optimized for a fast, sleek turnaround.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Best For:</b> Individuals, freelancers, and independent consultants who want immediate professionalism.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Included:</b> Premium PVC card, custom text laser-engraving, standard digital profile features, and built-in QR backup.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="tier__media">
+            <img src="assets/images/s5-classic.png" alt="A One Lnk classic card">
+          </div>
+        </article>
+
+        <article class="tier tier--custom">
+          <div class="tier__text">
+            <div class="tier__heading">
+              <h3 class="tier__title">Custom Card</h3>
+              <p class="tier__subtitle">Your Unique Identity, Laser-Engraved</p>
+            </div>
+            <ul class="tier__points">
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>The Pitch:</b> Complete control over your physical visual identity to truly stand out.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Best For:</b> Personal brands, founders, executives, creatives, and premium users.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Included:</b> Full logo upload support, custom card canvas colors, accent controls, and premium digital profile layouts.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="tier__media">
+            <img src="assets/images/s5-custom.png" alt="A custom laser-engraved One Lnk card">
+          </div>
+        </article>
+
+        <article class="tier tier--teams">
+          <div class="tier__text">
+            <div class="tier__heading">
+              <h3 class="tier__title">Teams &amp; Enterprise Cards</h3>
+              <p class="tier__subtitle">Centralized Networking for Modern Workforces</p>
+            </div>
+            <ul class="tier__points">
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>The Pitch:</b> Cohesive, brand-consistent smart cards managed from a centralized dashboard.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Best For:</b> Growing sales departments, corporate teams, real estate brokerages, and entire organizations.</p>
+              </li>
+              <li class="tier__point">
+                <img src="assets/images/s5-check.svg" alt="">
+                <p><b>Included:</b> Bulk pricing scales, central admin dashboard, locked corporate branding templates, and employee seat management.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="tier__media">
+            <img src="assets/images/s5-teams.png" alt="One Lnk cards for teams and enterprise">
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Card Designer  —  Figma node 31960:1130
+         ================================================================== -->
+    <section class="designer" aria-labelledby="designer-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title" id="designer-title">Digital Profile Preview</h2>
+      </div>
+
+      <div class="designer__body">
+
+        <!-- Controls -->
+        <div class="panel">
+          <div class="designer__intro">
+            <span class="pill">Card Designer</span>
+            <h3 class="designer__title">See Your Card Before You Buy</h3>
+          </div>
+
+          <div class="designer__controls">
+            <div class="field">
+              <label class="field__label" for="designer-name">Enter Name</label>
+              <div class="field__box">
+                <div class="field__input" id="designer-name">Esther Howard</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <p class="field__label" id="layout-label">Layout Style</p>
+              <div class="seg" role="tablist" aria-labelledby="layout-label">
+                <button class="seg__item" type="button" role="tab" aria-selected="true">Modern</button>
+                <button class="seg__item" type="button" role="tab" aria-selected="false">Minimal</button>
+                <button class="seg__item" type="button" role="tab" aria-selected="false">Bold</button>
+              </div>
+            </div>
+
+            <div class="designer__colors">
+              <div class="field">
+                <p class="field__label" id="card-colors-label">Card Colors</p>
+                <div class="swatches" role="group" aria-labelledby="card-colors-label">
+                  <button class="swatch" type="button" aria-selected="true"  aria-label="Midnight" style="background:#050e22"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Sky"      style="background:#96ddea"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Lilac"    style="background:#c396ea"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Rose"     style="background:#ea9697"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Sand"     style="background:#eac796"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Azure"    style="background:#96caea"></button>
+                </div>
+              </div>
+
+              <div class="field">
+                <p class="field__label" id="text-colors-label">Text Colors</p>
+                <div class="swatches" role="group" aria-labelledby="text-colors-label">
+                  <button class="swatch" type="button" aria-selected="true"  aria-label="Midnight" style="background:#050e22"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Sky"      style="background:#96ddea"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Lilac"    style="background:#c396ea"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Rose"     style="background:#ea9697"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Sand"     style="background:#eac796"></button>
+                  <button class="swatch" type="button" aria-selected="false" aria-label="Azure"    style="background:#96caea"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="design.html" class="btn btn--primary benefits__cta">Continue Designing</a>
+        </div>
+
+        <!-- Preview -->
+        <div class="panel panel--preview">
+          <span class="pill pill--plain">Preview</span>
+
+          <div class="preview__tabs" role="tablist" aria-label="Card side">
+            <button class="preview__tab" type="button" role="tab" aria-selected="true">Front</button>
+            <button class="preview__tab" type="button" role="tab" aria-selected="false">Back</button>
+          </div>
+
+          <div class="card-front">
+            <img src="assets/images/s6-card-front.svg" alt="One Lnk card front preview">
+            <div class="card-front__pattern" aria-hidden="true">
+              <img src="assets/images/s6-card-pattern.svg" alt="">
+            </div>
+            <div class="card-front__logo" aria-hidden="true">
+              <img src="assets/images/s6-card-logo.svg" alt="">
+            </div>
+            <div class="card-front__nfc" aria-hidden="true">
+              <img src="assets/images/s6-card-nfc.svg" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Digital Identity  —  Figma node 31960:1212  "Frame 1244"
+         ================================================================== -->
+    <section class="identity" aria-labelledby="identity-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title section-head__title--cap" id="identity-title">
+          Your Complete Digital Identity
+        </h2>
+        <p class="section-head__lede">
+          One tab on your NFC card opens a stunning digital profile everything they need, right on their phone.
+        </p>
+      </div>
+
+      <div class="identity__card">
+        <div class="identity__text">
+          <div class="identity__heading">
+            <h3 class="identity__title">Everything they need, right on their phone.</h3>
+            <p class="identity__lede">
+              When someone taps your OneLnk card, they instantly see your complete digital profile no app required. Every detail, beautifully presented.
+            </p>
+          </div>
+
+          <ul class="identity__points">
+            <li class="identity__point">
+              <span class="identity__point-icon"><img src="assets/images/s7-check.svg" alt=""></span>
+              <p><b>Update Anytime:</b> Change your info, add new links, update your photo your card stays current without reprinting.</p>
+            </li>
+            <li class="identity__point">
+              <span class="identity__point-icon"><img src="assets/images/s7-check.svg" alt=""></span>
+              <p><b>No App Required:</b> Your profile opens directly in any browser. No downloads, no sign-ups needed for the person you're sharing with.</p>
+            </li>
+            <li class="identity__point">
+              <span class="identity__point-icon"><img src="assets/images/s7-check.svg" alt=""></span>
+              <p><b>Works Everywhere:</b> Compatible with every smartphone and operating system. iPhone, Android, whatever it just works.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="identity__media">
+          <img src="assets/images/s7-profile.png" alt="A One Lnk digital profile shown on a phone">
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Packages  —  Figma node 31960:1240  "Package"
+         ================================================================== -->
+    <section class="packages" aria-labelledby="packages-title">
+
+      <h2 class="packages__title" id="packages-title">Choose Your<br>Networking Package</h2>
+
+      <div class="packages__grid">
+
+        <!-- Free -->
+        <article class="plan">
+          <div class="plan__top">
+            <div class="plan__intro">
+              <p class="plan__eyebrow">Free</p>
+              <p class="plan__price"><b>$0</b> / forever</p>
+              <p class="plan__desc">Get started with your digital profile and basic sharing tools.</p>
+            </div>
+            <ul class="plan__features">
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Digital profile</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Basic Link Sharing</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Limited Customization</span></li>
+            </ul>
+          </div>
+          <a href="#" class="plan__cta">Start Free</a>
+        </article>
+
+        <!-- Premium (featured) -->
+        <article class="plan plan--featured">
+          <span class="ribbon">Recommended</span>
+          <div class="plan__top">
+            <div class="plan__intro">
+              <p class="plan__eyebrow">Premium NFC Card</p>
+              <p class="plan__price"><b>$49</b> One-time</p>
+              <p class="plan__desc">The complete package — premium physical card with a powerful digital profile.</p>
+              <span class="plan__tag">4 months FREE included</span>
+            </div>
+            <ul class="plan__features">
+              <li class="plan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Digital profile</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>PVC NFC card</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Custom card design</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>More profile sections</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-light.svg" alt=""><span>Priority design options</span></li>
+            </ul>
+          </div>
+          <a href="#" class="plan__cta plan__cta--accent">Create My Card</a>
+        </article>
+
+        <!-- Teams -->
+        <article class="plan">
+          <div class="plan__top">
+            <div class="plan__intro">
+              <p class="plan__eyebrow">Teams</p>
+              <p class="plan__price"><b>Custom</b></p>
+              <p class="plan__desc">Branded employee cards with centralized team management.</p>
+            </div>
+            <ul class="plan__features">
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Multiple employee cards</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Company branding</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Team management</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Bulk order</span></li>
+              <li class="plan__feature"><img src="assets/images/s8-check-dark.svg" alt=""><span>Centralized control</span></li>
+            </ul>
+          </div>
+          <a href="#" class="plan__cta">Request a Quote</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Card Gallery  —  Figma node 31960:1342
+         ================================================================== -->
+    <section class="gallery" aria-labelledby="gallery-title">
+
+      <div class="gallery__head">
+        <h2 class="gallery__title" id="gallery-title">Explore Real Card Designs</h2>
+
+        <div class="gallery__filters" role="tablist" aria-label="Filter card designs">
+          <button class="gallery__filter" type="button" role="tab" aria-selected="true">All</button>
+          <button class="gallery__filter" type="button" role="tab" aria-selected="false">Minimal</button>
+          <button class="gallery__filter" type="button" role="tab" aria-selected="false">Luxury</button>
+          <button class="gallery__filter" type="button" role="tab" aria-selected="false">Corporate</button>
+          <button class="gallery__filter" type="button" role="tab" aria-selected="false">Creative</button>
+          <button class="gallery__filter" type="button" role="tab" aria-selected="false">Personal Brand</button>
+        </div>
+      </div>
+
+      <div class="gallery__rows">
+        <div class="gallery__row">
+          <img src="assets/images/s9-row-1.png" alt="A row of One Lnk card designs">
+          <img src="assets/images/s9-row-1.png" alt="">
+        </div>
+        <div class="gallery__row gallery__row--offset">
+          <img src="assets/images/s9-row-2.png" alt="A second row of One Lnk card designs">
+          <img src="assets/images/s9-row-2.png" alt="">
+        </div>
+      </div>
+
+      <a href="#" class="btn btn--primary benefits__cta">View Full Gallery</a>
+    </section>
+
+    <!-- ==================================================================
+         See It In Action  —  Figma node 31960:1838
+         ================================================================== -->
+    <section class="showcase" aria-labelledby="showcase-title">
+
+      <div class="section-head">
+        <h2 class="section-head__title" id="showcase-title">See It In Action</h2>
+        <p class="section-head__lede">Watch how a single tap transforms the way you network.</p>
+      </div>
+
+      <div class="player">
+        <img class="player__poster" src="assets/images/s10-video-poster.png" alt="">
+        <div class="player__scrim" aria-hidden="true"></div>
+        <div class="player__glass" aria-hidden="true"></div>
+
+        <button class="player__play" type="button" aria-label="Play video">
+          <img src="assets/images/s10-play.svg" alt="">
+        </button>
+
+        <div class="player__footer" aria-hidden="true">
+          <div class="player__track"><div class="player__fill"></div></div>
+          <p class="player__time">0:12 / 0:45</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Industries  —  Figma node 31960:1853  "User"
+         ================================================================== -->
+    <section class="industries" aria-labelledby="industries-title">
+
+      <h2 class="industries__title" id="industries-title">Designed for Every Industry</h2>
+
+      <div class="industries__grid">
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-pen.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Freelancers</h3>
+            <p class="industry__text">Look professional and share your details in seconds.</p>
+          </div>
+        </article>
+
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-work.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Consultants</h3>
+            <p class="industry__text">Present your services and booking links effortlessly.</p>
+          </div>
+        </article>
+
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-chart.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Sales Teams</h3>
+            <p class="industry__text">Give every rep a branded, easy-to-share digital card.</p>
+          </div>
+        </article>
+
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-building03.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Real Estate Agents</h3>
+            <p class="industry__text">Share listings, WhatsApp, and contact info instantly.</p>
+          </div>
+        </article>
+
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-tie.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Business Owners</h3>
+            <p class="industry__text">Bridge offline networking with your online presence.</p>
+          </div>
+        </article>
+
+        <article class="industry">
+          <span class="industry__icon"><img src="assets/images/s11-building.svg" alt=""></span>
+          <div class="industry__body">
+            <h3 class="industry__title">Companies</h3>
+            <p class="industry__text">Maintain brand consistency across every employee.</p>
+          </div>
+        </article>
+      </div>
+
+      <a href="#" class="btn btn--primary benefits__cta">Upgrade your Networking</a>
+    </section>
+
+    <!-- ==================================================================
+         FAQ  —  Figma node 31960:1918
+         Built as a real accordion (native <details>). Only the "team"
+         question has answer copy in the design file.
+         ================================================================== -->
+    <section class="faq" aria-labelledby="faq-title">
+
+      <div class="faq__intro">
+        <h2 class="faq__title" id="faq-title">Frequently Asked<br>Questions</h2>
+        <a href="#" class="btn btn--primary benefits__cta">Contact Us</a>
+      </div>
+
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Do people need an app to open my card?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Can I update my information later?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Can I customize the physical card?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>Does it work with iPhone and Android?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+        </details>
+
+        <details class="faq__item" open>
+          <summary class="faq__q">
+            <span>Can I order for my team?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+          <p class="faq__a">
+            Yes, our Teams plan is built exactly for this. You can manage all employee profiles from one dashboard, apply consistent branding, and place bulk orders with discounted pricing. Contact us for a custom quote.
+          </p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">
+            <span>How long does delivery take?</span>
+            <span class="faq__toggle">
+              <img class="is-closed" src="assets/images/s12-plus.svg" alt="">
+              <img class="is-open" src="assets/images/s12-minus.svg" alt="">
+            </span>
+          </summary>
+        </details>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Closing CTA  —  Figma node 31960:1961
+         ================================================================== -->
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="cta__band">
+
+        <div class="cta__content">
+          <div class="cta__copy">
+            <h2 class="cta__title" id="cta-title">Ready to create<br>your smart business card?</h2>
+            <p class="cta__lede">
+              Join thousands of professionals who've gone digital with OneLnk. Start making better connections today.
+            </p>
+          </div>
+
+          <div class="cta__row">
+            <a href="#" class="btn btn--primary benefits__cta">Create My Card</a>
+            <a href="#" class="btn btn--ghost benefits__cta">Talk to Us on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="cta__glow" aria-hidden="true">
+          <img src="assets/images/s13-glow.svg" alt="">
+        </div>
+        <div class="cta__art" aria-hidden="true">
+          <img src="assets/images/s13-cta.png" alt="">
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       Footer  —  Figma node 31960:1975
+       ==================================================================== -->
+  <footer class="footer">
+
+    <div class="footer__top">
+
+      <div class="footer__brand">
+        <div class="footer__brand-head">
+          <a href="#" class="footer__logo" aria-label="One Lnk home">
+            <img src="assets/images/footer-logo.svg" alt="One Lnk">
+          </a>
+          <p class="footer__tagline">
+            Smart NFC business cards for modern professionals.<br>One tap. Every connection.
+          </p>
+        </div>
+
+        <div class="footer__socials">
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-1.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-2.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-3.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-4.svg" alt=""></a>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <div class="footer__col">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#">Create Your Card</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Teams</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__rule" role="presentation"></div>
+
+    <p class="footer__copyright">© 2026 OneLnk. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/js/home.js?v=1786011398"></script>
+</body>
+</html>

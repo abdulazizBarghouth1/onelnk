@@ -1,0 +1,225 @@
+/* ==========================================================================
+   base.css — design tokens, reset, typography
+   Tokens mirror the Figma variable set for "One Lnk (Source file)".
+   ========================================================================== */
+
+:root {
+  /* ---- Brand ---- */
+  --primary-50:  #f1fafe;
+  --primary-100: #e2f4fc;
+  --primary-200: #bfe5f8;
+  --primary-300: #86d2f3;
+  --primary-400: #46baea;
+  --primary-500: #27aae1; /* Primary/500 Main */
+  --primary-600: #1186b8;
+  --primary-700: #0f6d95;
+  --primary-800: #105c7c;
+
+  --secondary-50:  #f1f7fe;
+  --secondary-400: #4092f0;
+  --secondary-950: #061628; /* Secondary/950 Main */
+
+  /* ---- Neutrals ---- */
+  --white:       #ffffff;
+  --neutral-50:  #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a1a1a1;
+  --neutral-500: #737373;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
+  --neutral-950: #0a0a0a;
+
+  /* ---- Support ---- */
+  --emerald-50:  #ecfdf5;
+  --emerald-100: #d0fae5;
+  --emerald-600: #009966;
+  --emerald-800: #006045;
+  --amber-100:   #fef3c6;
+  --amber-800:   #973c00;
+  --red-600:     #e7000b;
+  --slate-700:   #314158;
+  --gray-6:      #f2f2f7;
+  --accent-rust: #c93d11;
+
+  /* ---- Type ---- */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  36px;
+  --text-5xl:  48px;
+  --text-6xl:  60px;
+
+  --leading-5: 20px;
+  --leading-6: 24px;
+  --leading-7: 28px;
+  --leading-8: 32px;
+  --leading-9: 36px;
+  --leading-10: 40px;
+
+  /* ---- Fluid type ----
+     Scales linearly between the 375px and 1440px viewports, hitting the
+     floor at 375 and the exact Figma size at 1440.
+     Slope = (max - min) / (1440 - 375) * 100vw. */
+  --fluid-hero:    clamp(28px, 1.05rem + 3vw,    60px); /* hero h1       60 */
+  --fluid-numeral: clamp(56px, 2.71rem + 3.38vw, 92px); /* step numeral  92 */
+  --fluid-section: clamp(24px, 1.15rem + 1.5vw,  40px); /* section h2    40 */
+  --fluid-stat:    clamp(24px, 1.32rem + 0.75vw, 32px); /* big numerals  32 */
+  --fluid-h3:      clamp(18px, 0.99rem + 0.56vw, 24px); /* card titles   24 */
+  --fluid-lg:      clamp(16px, 0.91rem + 0.38vw, 20px); /* 20px body     20 */
+  --fluid-title:   clamp(17px, 1rem + 0.28vw,    20px); /* small titles  20 */
+  --fluid-body:    clamp(15px, 0.87rem + 0.28vw, 18px); /* lede copy     18 */
+
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  --tracking-normal:  0;
+  --tracking-tighter: -0.8px;
+
+  /* ---- Radius ---- */
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-4xl:  32px;
+  --radius-full: 9999px;
+
+  /* ---- Layout ---- */
+  --canvas-width: 1440px;   /* Figma artboard */
+  --container: 1280px;      /* Figma content width (1440 − 2×80 gutter) */
+  --gutter: 80px;
+
+  /* Horizontal padding that behaves like a centred container:
+     keeps the 80px gutter until the viewport exceeds 1440, then grows
+     so content never stretches past --container on wide screens. */
+  --pad-x: max(var(--gutter), calc((100% - var(--container)) / 2));
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-normal);
+  color: var(--neutral-900);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, blockquote {
+  margin: 0;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Shared primitives
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  white-space: nowrap;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.btn--primary {
+  background: var(--primary-500);
+  color: var(--white);
+}
+
+.btn--primary:hover {
+  background: var(--primary-400);
+}
+
+.btn--light {
+  background: var(--white);
+  color: var(--neutral-800);
+}
+
+.btn--light:hover {
+  background: var(--neutral-200);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Centred content column, for sections that need an explicit wrapper. */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

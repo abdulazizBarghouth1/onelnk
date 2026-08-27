@@ -1,0 +1,1309 @@
+/* ==========================================================================
+   home.css — Home page sections
+   Canvas reference: 1440 x 13726 (Figma node 31960:646)
+   ========================================================================== */
+
+/* ==========================================================================
+   Hero  —  node 31960:649  "Hero Dark 1"  (1440 x 1000)
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 1000px;
+  overflow: hidden;
+  isolation: isolate;
+  background-image:
+    radial-gradient(
+      63.94% 63.94% at 50% 0%,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(3, 11, 20) 100%);
+}
+
+/* ---- Decorative layers ---- */
+
+.hero__grid,
+.hero__stars {
+  position: absolute;
+  pointer-events: none;
+}
+
+.hero__grid {
+  inset: 21.11% 27.01% 26.89% 26.94%;
+}
+
+.hero__stars {
+  inset: 24.11% 6.04% 28.38% 6.04%;
+}
+
+.hero__grid img,
+.hero__stars img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.hero__lights {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 900px;
+  pointer-events: none;
+}
+
+.hero__lights-a,
+.hero__lights-b {
+  position: absolute;
+  width: 1693.858px;
+  height: 1401.859px;
+}
+
+.hero__lights-a {
+  left: 394px;
+  top: -1109px;
+}
+
+.hero__lights-b {
+  left: -757px;
+  top: 580px;
+  transform: rotate(180deg);
+}
+
+.hero__lights-a img,
+.hero__lights-b img {
+  position: absolute;
+  left: -5.41%;
+  top: -8.56%;
+  width: 112.49%;
+  height: 116.27%;
+  max-width: none;
+}
+
+/* Centred 1440 stage. Decorative layers stay full-bleed; everything
+   pinned by percentage resolves against this instead of the viewport,
+   so the composition holds together on ultrawide displays. */
+.hero__stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: var(--canvas-width);
+  margin-inline: auto;
+}
+
+/* ---- Floating nav pill  —  node 31960:849 ---- */
+
+.hero__nav {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(400px, calc(100% - 32px));
+  padding: 16px 24px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.hero__logo {
+  width: 59.659px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.hero__menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.hero__menu-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ---- Copy block  —  node 31960:840 ---- */
+
+.hero__content {
+  position: absolute;
+  top: 172px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 var(--pad-x);
+}
+
+.hero__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  text-align: center;
+  word-break: break-word;
+}
+
+.hero__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-hero);
+  line-height: 1.2;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tighter);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.hero__title-accent {
+  display: block;
+  color: var(--primary-500);
+}
+
+.hero__subtitle {
+  font-size: var(--fluid-body);
+  line-height: var(--leading-7);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-300);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ---- NFC card render  —  node 31960:865 ---- */
+
+.hero__nfc {
+  position: absolute;
+  left: 58.4%;
+  top: 619px;
+  width: 323.829px;
+  height: 446.502px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hero__nfc-inner {
+  position: relative;
+  flex: none;
+  width: 401.229px;
+  height: 227.744px;
+  border-radius: var(--radius-3xl);
+  overflow: hidden;
+  transform: rotate(105deg);
+}
+
+.hero__nfc-inner img {
+  position: absolute;
+  left: -6.07%;
+  top: -5.75%;
+  width: 106.1%;
+  height: 112.09%;
+  max-width: none;
+}
+
+/* ---- iPhone mockup  —  node 31960:866 ---- */
+
+.hero__phone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__phone-frame {
+  position: absolute;
+  left: 50%;
+  top: 939.49px;
+  width: 413.878px;
+  height: 844.971px;
+  max-width: none;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.hero__phone-screen {
+  position: absolute;
+  left: calc(50% + 0.52px);
+  top: 532.77px;
+  width: 375.823px;
+  height: 833.887px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  -webkit-mask-image: url("../images/hero-phone-mask.svg");
+  mask-image: url("../images/hero-phone-mask.svg");
+  -webkit-mask-size: 375.822px 813.777px;
+  mask-size: 375.822px 813.777px;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.hero__phone-screen img {
+  position: absolute;
+  left: 0;
+  top: 2.3%;
+  width: 100%;
+  height: 112.67%;
+  max-width: none;
+}
+
+.hero__phone-island {
+  position: absolute;
+  left: calc(50% + 0.52px);
+  top: 560.33px;
+  width: 119.64px;
+  height: 35.648px;
+  border-radius: 49.539px;
+  background: #000;
+  transform: translate(-50%, -50%);
+}
+
+/* ---- Feature card  —  node 31960:873 ---- */
+
+.hero__features {
+  position: absolute;
+  left: 27.74%;
+  top: 585px;
+  z-index: 6;
+  transform: translateX(-50%);
+}
+
+/* ==========================================================================
+   Section: Trusted  —  node 31960:889  "Frame 52"  (1440 x 1111)
+   ========================================================================== */
+
+.trusted {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+  padding: 120px var(--pad-x);
+  /* Glow and the bleeding photo extend past the left edge; clip so they can
+     never widen the page. `clip` avoids creating a scroll container. */
+  overflow-x: clip;
+}
+
+/* ---- Section heading (shared pattern across light sections) ---- */
+
+/* ---- Body canvas ---- */
+
+.trusted__body {
+  position: relative;
+  width: 100%;
+  height: 661px;
+}
+
+.trusted__glow {
+  position: absolute;
+  left: 171.26px;
+  top: 44px;
+  width: 273.763px;
+  height: 273.763px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.trusted__glow-inner {
+  position: relative;
+  flex: none;
+  width: 232.721px;
+  height: 232.721px;
+  transform: rotate(11.29deg);
+}
+
+.trusted__glow-inner img {
+  position: absolute;
+  inset: -163.29%;
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+/* ---- Photo (bleeds past the left gutter, as designed) ---- */
+
+.trusted__photo {
+  position: absolute;
+  left: -5px;
+  top: 0;
+  width: 628px;
+  height: 452px;
+}
+
+.trusted__photo img {
+  position: absolute;
+  left: -83px;
+  top: 0;
+  width: 759px;
+  height: 438px;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ---- Audience cards (2 x 2) ---- */
+
+.trusted__grid {
+  position: absolute;
+  left: 646px;
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 624px;
+  height: 452px;
+}
+
+.audience-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
+  background: var(--neutral-50);
+  border: 1px solid var(--gray-6);
+  border-radius: var(--radius-xl);
+}
+
+.audience-card__num {
+  width: 100%;
+  font-size: var(--fluid-stat);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  color: var(--primary-500);
+}
+
+.audience-card__title {
+  width: 100%;
+  font-size: var(--fluid-title);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  text-transform: capitalize;
+  color: var(--neutral-800);
+}
+
+.audience-card__text {
+  width: 100%;
+  margin-top: 4px;
+  font-size: var(--text-base);
+  line-height: normal;
+  opacity: 0.7;
+  color: var(--neutral-800);
+}
+
+/* ---- Dark pillars bar ---- */
+
+.trusted__bar {
+  position: absolute;
+  left: 50%;
+  top: 476px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  /* Figma: 40px gap on each side of a zero-width divider = 80px between columns */
+  gap: 80px;
+  width: 1270px;
+  max-width: 100%;
+  padding: 40px;
+  background: #081a2e;
+  border: 1px solid var(--gray-6);
+  border-radius: var(--radius-xl);
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Reproduces the exported 1px #27AAE1 @ 20% divider strokes.
+   Drawn in the gap via a pseudo-element so all three columns stay equal width. */
+.pillar + .pillar::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(39, 170, 225, 0.2);
+}
+
+.pillar__eyebrow {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  color: var(--primary-500);
+}
+
+.pillar__title {
+  width: 100%;
+  font-size: var(--fluid-title);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  text-transform: capitalize;
+  color: var(--white);
+}
+
+.pillar__text {
+  width: 100%;
+  margin-top: 4px;
+  font-size: var(--text-base);
+  line-height: normal;
+  opacity: 0.7;
+  color: var(--white);
+}
+
+/* ==========================================================================
+   Section: The Process  —  node 31960:1061  (1440 x 1811)
+   ========================================================================== */
+
+.process {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x);
+  background: var(--white);
+}
+
+.process__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.tier {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 40px;
+  background: var(--secondary-50);
+  border-radius: var(--radius-4xl);
+}
+
+.tier__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  min-width: 0;
+  padding: 24px 0;
+}
+
+.tier__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+  word-break: break-word;
+}
+
+.tier__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-stat);
+  line-height: var(--leading-9);
+  font-weight: var(--weight-semibold);
+}
+
+.tier__subtitle {
+  width: 100%;
+  font-size: var(--fluid-body);
+  line-height: normal;
+}
+
+.tier__points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.tier__point {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.tier__point img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.tier__point p {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-500);
+  word-break: break-word;
+}
+
+.tier__point b {
+  font-weight: var(--weight-semibold);
+  color: #000;
+}
+
+.tier__media {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 418px;
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.tier__media img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Per-card crop framing, from the Figma fill transforms */
+.tier--classic .tier__media img { left: 0; top: -0.09%; width: 100%; height: 141.39%; }
+.tier--custom  .tier__media img { left: 0; top: -16.96%; width: 100%; height: 139.47%; }
+.tier--teams   .tier__media img { left: -7.38%; top: -44.15%; width: 114.75%; height: 160.05%; }
+
+/* ==========================================================================
+   Section: Card Designer  —  node 31960:1130  (1440 x 873)
+   ========================================================================== */
+
+.designer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+  padding: 60px var(--pad-x);
+  background: var(--white);
+}
+
+.designer__body {
+  display: flex;
+  align-items: stretch;
+  gap: 40px;
+  width: 100%;
+}
+
+.panel {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-width: 0;
+  padding: 32px 65px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--primary-100) 0%, var(--primary-300) 197.32%);
+}
+
+.panel--preview {
+  gap: 40px;
+  overflow: hidden;
+}
+
+.designer__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.designer__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-section);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+  word-break: break-word;
+}
+
+.designer__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.field__label {
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.field__box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: var(--radius-xl);
+  background: var(--neutral-100);
+}
+
+.field__input {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 8px 0;
+  border-radius: var(--radius-md);
+  background: var(--neutral-100);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  font-weight: var(--weight-medium);
+  color: var(--neutral-800);
+}
+
+/* ---- Segmented control ---- */
+
+.seg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius-xl);
+  background: var(--neutral-100);
+}
+
+.seg__item {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 8px 20px;
+  border-radius: var(--radius-md);
+  background: var(--neutral-100);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  text-align: center;
+  color: var(--neutral-800);
+}
+
+.seg__item[aria-selected="true"] {
+  background: var(--neutral-800);
+  font-weight: var(--weight-semibold);
+  color: var(--white);
+}
+
+/* ---- Swatches ---- */
+
+.designer__colors {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius-xl);
+  background: var(--neutral-100);
+}
+
+.swatch {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 36px;
+  border-radius: var(--radius-md);
+}
+
+.swatch[aria-selected="true"] {
+  border: 8px solid var(--white);
+  border-radius: var(--radius-full);
+}
+
+
+
+/* ==========================================================================
+   Section: Digital Identity  —  node 31960:1212  "Frame 1244"  (1440 x 996)
+   ========================================================================== */
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x) 120px;
+}
+
+.identity__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+  padding: 24px 24px 24px 40px;
+  background: var(--neutral-50);
+  border-radius: var(--radius-4xl);
+}
+
+.identity__text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+  min-width: 0;
+}
+
+.identity__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  color: var(--neutral-800);
+  word-break: break-word;
+}
+
+.identity__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-stat);
+  line-height: 1.3;
+  font-weight: var(--weight-semibold);
+}
+
+.identity__lede {
+  width: 100%;
+  font-size: var(--fluid-lg);
+  line-height: normal;
+  opacity: 0.7;
+}
+
+.identity__points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+
+.identity__point {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.identity__point-icon {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: var(--radius-xl);
+  background: rgba(134, 210, 243, 0.3);
+}
+
+.identity__point-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.identity__point p {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--fluid-body);
+  line-height: normal;
+  color: rgba(38, 38, 38, 0.8);
+  word-break: break-word;
+}
+
+.identity__point b {
+  font-weight: var(--weight-medium);
+  color: var(--neutral-800);
+}
+
+.identity__media {
+  flex: 0 1 623px;
+  min-width: 0;
+  height: 598px;
+  border: 1px solid var(--gray-6);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.identity__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Section: See It In Action  —  node 31960:1838  (1440 x 1049)
+   ========================================================================== */
+
+.showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x) 120px;
+  background: var(--white);
+}
+
+.player {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-4xl);
+  overflow: hidden;
+}
+
+.player__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.player__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.4);
+}
+
+.player__glass {
+  position: absolute;
+  inset: 0 0 0.25px 0;
+  background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.player__play {
+  position: relative;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.2s ease;
+}
+
+.player__play img {
+  position: absolute;
+  inset: -40% -80% -80% -40%;
+  width: auto;
+  height: auto;
+  max-width: none;
+}
+
+.player__play:hover {
+  transform: scale(1.06);
+}
+
+.player__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32.25px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 40px;
+}
+
+.player__track {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.player__fill {
+  width: 220px;
+  max-width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--primary-500);
+}
+
+.player__time {
+  flex-shrink: 0;
+  font-size: 12px;
+  line-height: normal;
+  font-weight: var(--weight-semibold);
+  opacity: 0.8;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .hero__nfc {
+    left: 62%;
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 1280px) {
+  /* Below the 1440 canvas the absolute body layout stops fitting —
+     switch to a stacked flow. */
+  .trusted__body {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .trusted__glow {
+    display: none;
+  }
+
+  .trusted__photo,
+  .trusted__grid,
+  .trusted__bar {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+
+  .trusted__photo {
+    height: 452px;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+  }
+
+  .trusted__photo img {
+    position: relative;
+    left: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .trusted__grid {
+    height: auto;
+    grid-template-rows: auto auto;
+  }
+
+  .audience-card {
+    gap: 24px;
+    min-height: 214px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: 920px;
+  }
+
+  /* Text + image side by side stops working — stack them. */
+  .process {
+    gap: 40px;
+    padding: 48px 40px;
+  }
+
+  .tier {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .tier__text {
+    padding: 8px 0 0;
+    gap: 24px;
+  }
+
+  .tier__media {
+    flex: 0 0 auto;
+    height: 320px;
+  }
+
+  .designer {
+    gap: 40px;
+    padding: 48px 40px;
+  }
+
+  .designer__body {
+    flex-direction: column;
+  }
+
+  .panel {
+    padding: 32px;
+  }
+
+  /* Card artwork is fixed 529x303; scale it rather than distort it. */
+  .card-front {
+    transform: scale(0.8);
+    margin: -30px 0;
+  }
+
+  .identity {
+    gap: 40px;
+    padding: 48px 40px 80px;
+  }
+
+  .identity__card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    padding: 24px;
+  }
+
+  .identity__text {
+    gap: 32px;
+  }
+
+  .identity__media {
+    flex: 0 0 auto;
+    height: 420px;
+  }
+
+  .showcase {
+    gap: 40px;
+    padding: 48px 40px 80px;
+  }
+
+  .trusted {
+    padding: 80px 40px;
+  }
+
+  .trusted__bar {
+    flex-direction: column;
+    gap: 56px;
+    padding: 32px;
+  }
+
+  .pillar + .pillar::before {
+    left: 0;
+    right: 0;
+    top: -28px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .hero__features {
+    left: 22%;
+    top: 600px;
+  }
+
+  .hero__nfc {
+    left: 66%;
+    transform: scale(0.75);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 880px;
+  }
+
+  .hero__content {
+    top: 148px;
+    gap: 32px;
+    padding: 0 24px;
+  }
+
+  .hero__grid {
+    inset: 18% 10% 30% 10%;
+  }
+
+  /* The card render and the feature card collide at this width. */
+  .hero__nfc {
+    display: none;
+  }
+
+  .hero__features {
+    left: 50%;
+    top: 560px;
+  }
+
+  .hero__phone-frame,
+  .hero__phone-screen,
+  .hero__phone-island {
+    display: none;
+  }
+
+  .trusted {
+    padding: 64px 24px;
+    gap: 32px;
+  }
+
+  .process {
+    padding: 40px 24px;
+    gap: 32px;
+  }
+
+  .tier {
+    padding: 20px;
+    border-radius: var(--radius-3xl);
+  }
+
+  .tier__point {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .tier__media {
+    height: 220px;
+  }
+
+  .designer {
+    padding: 40px 24px;
+    gap: 32px;
+  }
+
+  .panel {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .designer__colors {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .swatches {
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .swatch[aria-selected="true"] {
+    border-width: 5px;
+  }
+
+  .preview__tab {
+    flex: 1 1 0;
+    width: auto;
+    max-width: none;
+  }
+
+  .card-front {
+    transform: scale(0.52);
+    margin: -73px 0;
+  }
+
+  .identity {
+    padding: 40px 24px 64px;
+    gap: 32px;
+  }
+
+  .identity__card {
+    padding: 20px;
+    border-radius: var(--radius-3xl);
+  }
+
+  .identity__points {
+    gap: 24px;
+  }
+
+  .identity__point {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .identity__media {
+    height: 300px;
+  }
+
+  .showcase {
+    padding: 40px 24px 64px;
+    gap: 32px;
+  }
+
+  .player {
+    border-radius: var(--radius-2xl);
+  }
+
+  .player__play {
+    width: 64px;
+    height: 64px;
+  }
+
+  .player__footer {
+    bottom: 16px;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .trusted__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .trusted__photo {
+    height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 760px;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .hero__features {
+    top: 520px;
+  }
+}

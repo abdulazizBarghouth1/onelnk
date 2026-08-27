@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Lnk &mdash; Contact Us</title>
+  <meta name="description" content="Questions, support, or a business solution? Our UK-based team replies in under 2 hours.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/base.css?v=1786016006">
+  <link rel="stylesheet" href="assets/css/sections.css?v=1786016006">
+  <link rel="stylesheet" href="assets/css/contact.css?v=1786016006">
+</head>
+<body>
+
+  <!-- ====================================================================
+       Header  —  Figma node 31960:5348
+       ==================================================================== -->
+  <header class="cthead">
+    <nav class="topnav" aria-label="Main">
+      <div class="topnav__pill">
+        <a href="index.html" class="topnav__logo" aria-label="One Lnk home">
+          <img src="assets/images/p1-logo-dark.svg" alt="One Lnk">
+        </a>
+        <button class="topnav__menu" type="button" aria-label="Open menu" aria-expanded="false">
+          <img src="assets/images/p1-menu-dark.svg" alt="">
+        </button>
+      </div>
+    </nav>
+
+    <div class="cthead__inner">
+      <div class="phead-block">
+        <h1 class="phead-block__title">Contact Us</h1>
+        <p class="phead-block__text">
+          Whether you have a question, need support, or want a solution for your business, our UK-based team is ready to help you switch to smart networking.
+        </p>
+      </div>
+
+      <div class="phead__actions">
+        <a href="#" class="btn btn--primary">Create My Card</a>
+        <a href="#contact-form" class="btn btn--outline">Contact Us</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================================================================
+         Send Us a Message  —  Figma node 31960:5375
+         ================================================================== -->
+    <section class="contact" id="contact-form" aria-labelledby="ct-form-title">
+
+      <div class="cform">
+        <div class="cform__head">
+          <h2 class="cform__title" id="ct-form-title">Send Us a Message</h2>
+          <p class="cform__lede">
+            Complete the form below and we&rsquo;ll get back to you as soon as possible. Our average response time is under 2 hours.
+          </p>
+        </div>
+
+        <form class="cform__card" method="post" action="#" novalidate>
+          <div class="cform__fields">
+
+            <div class="cform__row">
+            <div class="field">
+              <label class="field__label" for="ct-name">Full Name*</label>
+              <input class="field__control" id="ct-name" name="name" type="text"
+                     placeholder="e.g. Sara Williams" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ct-company">Company Name<span> (Optional)</span></label>
+              <input class="field__control" id="ct-company" name="company" type="text"
+                     placeholder="e.g. Acme Solution LTD">
+            </div>
+            </div>
+
+            <div class="cform__row">
+            <div class="field">
+              <label class="field__label" for="ct-email">Work Email*</label>
+              <input class="field__control" id="ct-email" name="email" type="email"
+                     placeholder="e.g. sarah@acme.co.uk" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="ct-phone">Phone Number*</label>
+              <input class="field__control" id="ct-phone" name="phone" type="tel"
+                     placeholder="+44 7700 900000" required>
+            </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="ct-subject">Subject*</label>
+              <select class="field__control" id="ct-subject" name="subject" required>
+                <option value="" selected disabled>Select number of cards</option>
+                <option>1 &ndash; 10 cards</option>
+                <option>11 &ndash; 50 cards</option>
+                <option>51 &ndash; 200 cards</option>
+                <option>200+ cards</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="ct-message">Your Message*</label>
+              <textarea class="field__control" id="ct-message" name="message"
+                        placeholder="How can we help?" required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary benefits__cta cform__submit">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact rail  —  Figma node 31960:5413 -->
+      <div class="crail">
+        <a class="crail__card crail__card--whatsapp" href="https://wa.me/442079460915">
+          <img class="crail__glow crail__glow--a" src="assets/images/ct-glow-green.svg" alt="" aria-hidden="true">
+          <img class="crail__glow crail__glow--b" src="assets/images/ct-glow-green.svg" alt="" aria-hidden="true">
+          <span class="crail__main">
+            <img src="assets/images/ct-whatsapp.svg" alt="">
+            <span class="crail__label">Chat on WhatsApp Now</span>
+          </span>
+          <span class="crail__value">Average reply time: <b>45 seconds</b></span>
+        </a>
+
+        <a class="crail__card" href="tel:+442079460915">
+          <img class="crail__glow crail__glow--a" src="assets/images/ct-glow-blue.svg" alt="" aria-hidden="true">
+          <img class="crail__glow crail__glow--b" src="assets/images/ct-glow-blue.svg" alt="" aria-hidden="true">
+          <span class="crail__main">
+            <img src="assets/images/ct-phone.svg" alt="">
+            <span class="crail__label">Phone Number</span>
+          </span>
+          <span class="crail__value">+44 (0) 20 7946 0915</span>
+        </a>
+
+        <a class="crail__card" href="mailto:enquiries@onelnk.co.uk">
+          <img class="crail__glow crail__glow--a" src="assets/images/ct-glow-blue.svg" alt="" aria-hidden="true">
+          <img class="crail__glow crail__glow--b" src="assets/images/ct-glow-blue.svg" alt="" aria-hidden="true">
+          <span class="crail__main">
+            <img src="assets/images/ct-mail.svg" alt="">
+            <span class="crail__label">Email Address</span>
+          </span>
+          <span class="crail__value">enquiries@onelnk.co.uk</span>
+        </a>
+
+        <div class="crail__socials">
+          <a class="crail__soc crail__soc--ig" href="#" aria-label="Instagram">
+            <img src="assets/images/ct-soc-ig.svg" alt="">
+          </a>
+          <a class="crail__soc crail__soc--fb crail__soc--solid" href="#" aria-label="Facebook">
+            <img src="assets/images/ct-soc-fb.svg" alt="">
+          </a>
+          <a class="crail__soc crail__soc--x" href="#" aria-label="X">
+            <img src="assets/images/ct-soc-x.svg" alt="">
+          </a>
+          <a class="crail__soc crail__soc--yt" href="#" aria-label="YouTube">
+            <img src="assets/images/ct-soc-yt.svg" alt="">
+          </a>
+        </div>
+
+        <p class="crail__hours">
+          <img src="assets/images/ct-clock.svg" alt="">
+          <span>Business Hour Mon - Fri: 09:00 - 18:00 GMT</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Planning a Team Rollout?  —  Figma node 31960:5454
+         ================================================================== -->
+    <section class="corp" aria-labelledby="ct-corp-title">
+      <div class="phead-block">
+        <h2 class="phead-block__title" id="ct-corp-title">Planning a Team Rollout?</h2>
+        <p class="phead-block__text">
+          Talk to our corporate specialists about bulk orders, bespoke custom branded NFC cards, employee directory management, and enterprise-grade networking solutions.
+        </p>
+      </div>
+
+      <div class="share__grid corp__grid">
+        <article class="share__card share__card--dark">
+          <div class="share__head">
+            <span class="share__icon"><img src="assets/images/ct-corp-1.svg" alt=""></span>
+          </div>
+          <div class="share__body">
+            <h3 class="share__title">Bulk Pricing</h3>
+            <p class="share__text">Save up to 50% on large orders. One-off purchase, no ongoing subscription fees for digital profiles.</p>
+          </div>
+        </article>
+        <article class="share__card share__card--dark">
+          <div class="share__head">
+            <span class="share__icon"><img src="assets/images/ab-why-2.svg" alt=""></span>
+          </div>
+          <div class="share__body">
+            <h3 class="share__title">Custom Branding</h3>
+            <p class="share__text">Full-bleed CMYK printing or deep laser engraving matching your company brand book and guidelines.</p>
+          </div>
+        </article>
+        <article class="share__card share__card--dark">
+          <div class="share__head">
+            <span class="share__icon"><img src="assets/images/ct-corp-3.svg" alt=""></span>
+          </div>
+          <div class="share__body">
+            <h3 class="share__title">Team Dashboard</h3>
+            <p class="share__text">Central administrator panel to deploy, update, lock, or transfer employee profiles in 10 seconds.</p>
+          </div>
+        </article>
+        <article class="share__card share__card--dark">
+          <div class="share__head">
+            <span class="share__icon"><img src="assets/images/ab-why-4.svg" alt=""></span>
+          </div>
+          <div class="share__body">
+            <h3 class="share__title">Dedicated Onboarding</h3>
+            <p class="share__text">Our design studio formats card mockups, assists with CSV lists, and syncs directly with Entra ID.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Visit Us  —  Figma node 31960:5502
+         ================================================================== -->
+    <section class="visit" aria-labelledby="ct-visit-title">
+      <div class="phead-block">
+        <h2 class="phead-block__title" id="ct-visit-title">Visit Us</h2>
+        <p class="phead-block__text">
+          Stop by our Shoreditch office for a live product demonstration or to consult directly with our enterprise team.
+        </p>
+      </div>
+
+      <div class="visit__map">
+        <img src="assets/images/ct-map.png" alt="Map showing the One Lnk office in Shoreditch, London">
+
+        <div class="visit__controls">
+          <div class="visit__zoom">
+            <button type="button" aria-label="Zoom in"><img src="assets/images/ct-zoom-in.svg" alt=""></button>
+            <button type="button" aria-label="Zoom out"><img src="assets/images/ct-zoom-out.svg" alt=""></button>
+          </div>
+          <div class="visit__locate">
+            <button type="button" aria-label="Recentre map"><img src="assets/images/ct-locate.svg" alt=""></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="cta" aria-labelledby="cta-title">
+      <div class="cta__band">
+
+        <div class="cta__content">
+          <div class="cta__copy">
+            <h2 class="cta__title" id="cta-title">Ready to create<br>your smart business card?</h2>
+            <p class="cta__lede">
+              Join thousands of professionals who've gone digital with OneLnk. Start making better connections today.
+            </p>
+          </div>
+
+          <div class="cta__row">
+            <a href="#" class="btn btn--primary benefits__cta">Create My Card</a>
+            <a href="#" class="btn btn--ghost benefits__cta">Talk to Us on WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="cta__glow" aria-hidden="true">
+          <img src="assets/images/s13-glow.svg" alt="">
+        </div>
+        <div class="cta__art" aria-hidden="true">
+          <img src="assets/images/s13-cta.png" alt="">
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+
+    <div class="footer__top">
+
+      <div class="footer__brand">
+        <div class="footer__brand-head">
+          <a href="#" class="footer__logo" aria-label="One Lnk home">
+            <img src="assets/images/footer-logo.svg" alt="One Lnk">
+          </a>
+          <p class="footer__tagline">
+            Smart NFC business cards for modern professionals.<br>One tap. Every connection.
+          </p>
+        </div>
+
+        <div class="footer__socials">
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-1.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-2.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-3.svg" alt=""></a>
+          <a href="#" aria-label="Social profile"><img src="assets/images/social-4.svg" alt=""></a>
+        </div>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <div class="footer__col">
+          <h3>Navigation</h3>
+          <ul>
+            <li><a href="#">Create Your Card</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Teams</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__rule" role="presentation"></div>
+
+    <p class="footer__copyright">© 2026 OneLnk. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/js/home.js?v=1786014341"></script>
+</body>
+</html>

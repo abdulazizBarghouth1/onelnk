@@ -1,0 +1,298 @@
+/* ==========================================================================
+   faq.css — FAQ page
+   Canvas reference: 1440 x 5201 (Figma node 31960:4523)
+   Loaded after base.css and sections.css.
+
+   The accordion items reuse .faq__item / .faq__q / .faq__toggle / .faq__a
+   from sections.css unchanged; only the page shell is new.
+   ========================================================================== */
+
+/* ==========================================================================
+   Header  —  node 31960:4524  (1440 x 368)
+   ========================================================================== */
+
+.fhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 0 60px;
+  background: var(--white);
+}
+
+.fhead__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  padding: 0 var(--pad-x);
+}
+
+/* ==========================================================================
+   FAQ body  —  node 31960:4550  (1440 x 3774)
+   Sidebar (280) + grouped accordions (920), 60px gutter.
+   ========================================================================== */
+
+.faqpage {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 60px var(--pad-x);
+  background: var(--white);
+}
+
+/* ---- Sidebar ---- */
+
+.faqnav {
+  display: flex;
+  flex: 0 0 280px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  position: sticky;
+  top: 24px;
+}
+
+.faqnav__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+}
+
+.faqnav__search img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.faqnav__search input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  color: var(--neutral-800);
+}
+
+.faqnav__search input::placeholder {
+  color: var(--neutral-500);
+}
+
+.faqnav__search input:focus {
+  outline: none;
+}
+
+.faqnav__search:focus-within {
+  border-color: var(--primary-400);
+  outline: 2px solid var(--primary-400);
+  outline-offset: 1px;
+}
+
+/* Reproduces the exported 1px #E5E5E5 rule */
+.faqnav__rule {
+  width: 100%;
+  height: 1px;
+  background: var(--neutral-200);
+}
+
+.faqnav__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+}
+
+.faqnav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-base);
+  line-height: var(--leading-6);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+  color: var(--neutral-500);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.faqnav__link img {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.faqnav__link span {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.faqnav__link:hover {
+  background: var(--neutral-100);
+}
+
+.faqnav__link[aria-current="true"] {
+  background: var(--primary-100);
+  font-weight: var(--weight-medium);
+  color: var(--primary-500);
+}
+
+/* 6x32 marker on the active item's left edge */
+.faqnav__link[aria-current="true"]::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  width: 6px;
+  height: 32px;
+  transform: translateY(-50%);
+  border-radius: var(--radius-full);
+  background: var(--primary-500);
+}
+
+/* ---- Grouped accordions ---- */
+
+.faqgroups {
+  display: flex;
+  flex: 1 1 920px;
+  flex-direction: column;
+  gap: 60px;
+  min-width: 0;
+}
+
+.faqgroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  scroll-margin-top: 24px;
+}
+
+.faqgroup__title {
+  margin: 0;
+  width: 100%;
+  font-size: var(--fluid-stat);
+  line-height: 1.2;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  color: var(--neutral-800);
+  word-break: break-word;
+}
+
+.faqgroup__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Home and product pin collapsed rows to 84px; on this page they sit at
+   their natural 72px, so drop the shared floor here. */
+.faqgroup__list .faq__item {
+  min-height: 0;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .fhead {
+    gap: 32px;
+    padding-bottom: 48px;
+  }
+
+  .fhead__inner {
+    padding: 0 40px;
+  }
+
+  .faqpage {
+    gap: 40px;
+    padding: 48px 40px;
+  }
+
+  .faqnav {
+    flex: 0 0 240px;
+  }
+
+  .faqnav__link {
+    padding: 12px 16px;
+    font-size: var(--text-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .fhead__inner {
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  .faqpage {
+    flex-direction: column;
+    gap: 32px;
+    padding: 40px 24px;
+  }
+
+  .faqnav {
+    position: static;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  /* Categories become a horizontal chip row */
+  .faqnav__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .faqnav__link {
+    width: auto;
+    padding: 8px 14px;
+  }
+
+  .faqnav__link img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .faqnav__link span {
+    flex: 0 0 auto;
+  }
+
+  .faqnav__link[aria-current="true"]::before {
+    display: none;
+  }
+
+  .faqgroups {
+    flex: 0 0 auto;
+    width: 100%;
+    gap: 40px;
+  }
+
+  .faqgroup__list {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fhead__actions .btn {
+    width: 100%;
+  }
+}
