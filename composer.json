@@ -9,7 +9,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
+        "ext-exif": "*",
+        "ext-gd": "*",
         "authorizenet/authorizenet": "^2.0",
         "barryvdh/laravel-dompdf": "^3.1",
         "cashfree/cashfree-pg": "^5.0",
