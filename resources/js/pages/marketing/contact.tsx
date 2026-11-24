@@ -1,23 +1,31 @@
+import { useRef, type CSSProperties } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import CTASection from '../landing-page/components/CTASection';
+import { useMagneticFill } from '@/hooks/useMagneticFill';
 import '../../../css/onelnk-landing.css';
 import '../../../css/onelnk-contact.css';
+import '../../../css/onelnk-contact-fx.css';
 
 const img = (name: string) => `/images/onelnk/${name}`;
 
 export default function Contact() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
+  const socialsRef = useRef<HTMLDivElement>(null);
+  useMagneticFill(socialsRef);
   const { settings, auth } = usePage<any>().props;
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   const rail = [
-    { cls: 'crail__card crail__card--whatsapp', href: 'https://wa.me/442079460915', glow: 'ct-glow-green.svg', icon: 'ct-whatsapp.svg', label: t('Chat on WhatsApp Now'), value: <>{t('Average reply time:')} <b>{t('45 seconds')}</b></> },
-    { cls: 'crail__card', href: 'tel:+442079460915', glow: 'ct-glow-blue.svg', icon: 'ct-phone.svg', label: t('Phone Number'), value: '+44 (0) 20 7946 0915' },
-    { cls: 'crail__card', href: 'mailto:enquiries@onelnk.co.uk', glow: 'ct-glow-blue.svg', icon: 'ct-mail.svg', label: t('Email Address'), value: 'enquiries@onelnk.co.uk' },
+    { cls: 'crail__card crail__card--whatsapp', href: 'https://wa.me/442079460915', icon: 'ct-whatsapp.svg', label: t('Chat on WhatsApp Now'), value: <>{t('Average reply time:')} <b>{t('45 seconds')}</b></> },
+    { cls: 'crail__card', href: 'tel:+442079460915', icon: 'ct-phone.svg', label: t('Phone Number'), value: '+44 (0) 20 7946 0915' },
+    { cls: 'crail__card', href: 'mailto:enquiries@onelnk.co.uk', icon: 'ct-mail.svg', label: t('Email Address'), value: 'enquiries@onelnk.co.uk' },
   ];
 
   const socials = [
@@ -39,8 +47,8 @@ export default function Contact() {
       <Head title={`${t('Contact Us')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-contact">
-        <header className="cthead">
+      <div className="onelnk-landing onelnk-contact" ref={revealRef}>
+        <header className="cthead page-hero">
           <div className="cthead__inner">
             <div className="phead-block">
               <h1 className="phead-block__title">{t('Contact Us')}</h1>
@@ -48,23 +56,24 @@ export default function Contact() {
                 {t('Whether you have a question, need support, or want a solution for your business, our UK-based team is ready to help you switch to smart networking.')}
               </p>
             </div>
-            <div className="phead__actions">
+            <div className="btn-row phead__actions">
               <Link href={route('register')} className="btn btn--primary">{t('Create My Card')}</Link>
-              <a href="#contact-form" className="btn btn--outline">{t('Contact Us')}</a>
+              <a href="#contact-form" className="btn btn--navy">{t('Contact Us')}</a>
             </div>
           </div>
         </header>
 
         <main>
           <section className="contact" id="contact-form" aria-labelledby="ct-form-title">
-            <div className="cform">
-              <div className="cform__head">
-                <h2 className="cform__title" id="ct-form-title">{t('Send Us a Message')}</h2>
-                <p className="cform__lede">
-                  {t("Complete the form below and we'll get back to you as soon as possible. Our average response time is under 2 hours.")}
-                </p>
-              </div>
+            <div className="cform__head">
+              <h2 className="cform__title" id="ct-form-title">{t('Send Us a Message')}</h2>
+              <p className="cform__lede">
+                {t("Complete the form below and we'll get back to you as soon as possible. Our average response time is under 2 hours.")}
+              </p>
+            </div>
 
+            <div className="ccard">
+            <div className="cform">
               <form className="cform__card" onSubmit={(e) => e.preventDefault()} noValidate>
                 <div className="cform__fields">
                   <div className="cform__row">
@@ -113,20 +122,19 @@ export default function Contact() {
             <div className="crail">
               {rail.map((c) => (
                 <a className={c.cls} href={c.href} key={c.label}>
-                  <img className="crail__glow crail__glow--a" src={img(c.glow)} alt="" aria-hidden="true" />
-                  <img className="crail__glow crail__glow--b" src={img(c.glow)} alt="" aria-hidden="true" />
                   <span className="crail__main">
-                    <img src={img(c.icon)} alt="" />
+                    <span className="ct-ic" style={{ '--ic': `url(${img(c.icon)})` } as CSSProperties} aria-hidden="true" />
                     <span className="crail__label">{c.label}</span>
                   </span>
                   <span className="crail__value">{c.value}</span>
                 </a>
               ))}
 
-              <div className="crail__socials">
+              <div className="crail__socials" ref={socialsRef}>
                 {socials.map((s) => (
-                  <a className={s.cls} href="#" aria-label={s.label} key={s.label}>
-                    <img src={img(s.icon)} alt="" />
+                  <a className={`${s.cls} mfx mfx--invert`} href="#" aria-label={s.label} key={s.label}>
+                    <span className="mfx__fill" aria-hidden="true" />
+                    <img className="mfx__icon" src={img(s.icon)} alt="" />
                   </a>
                 ))}
               </div>
@@ -135,6 +143,7 @@ export default function Contact() {
                 <img src={img('ct-clock.svg')} alt="" />
                 <span>{t('Business Hour Mon - Fri: 09:00 - 18:00 GMT')}</span>
               </p>
+            </div>
             </div>
           </section>
 
@@ -149,7 +158,7 @@ export default function Contact() {
               {corp.map((c) => (
                 <article className="share__card share__card--dark" key={c.title}>
                   <div className="share__head">
-                    <span className="share__icon"><img src={img(c.icon)} alt="" /></span>
+                    <span className="share__icon"><span className="corp__ic" style={{ '--ic': `url(${img(c.icon)})` } as CSSProperties} aria-hidden="true" /></span>
                   </div>
                   <div className="share__body">
                     <h3 className="share__title">{c.title}</h3>

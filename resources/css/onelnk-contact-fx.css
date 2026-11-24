@@ -1,0 +1,145 @@
+/* Contact page — identity refit. Kept OUT of the generated onelnk-contact.css
+   (which is "do not edit by hand") so scope_pages.py never clobbers it. The
+   `.onelnk-landing.onelnk-contact` prefix (both classes on the page root) beats
+   the generated 2-class rules regardless of load order. */
+
+/* ---- Contact section: one centred card, form + contact side-panel ---- */
+.onelnk-landing.onelnk-contact .contact {
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-33);
+  padding: var(--sp-68) var(--pad-x) var(--sp-110);
+  background: var(--surface);
+}
+.onelnk-landing.onelnk-contact .cform__head {
+  align-items: center;
+  text-align: center;
+  max-width: 760px;
+}
+.onelnk-landing.onelnk-contact .cform__title { color: var(--ink); }
+.onelnk-landing.onelnk-contact .cform__lede { color: var(--ink-muted); }
+
+/* ONE card, surface-2 ground, holding both columns (form + contact rail).
+   The inner columns are transparent so it reads as a single card, and only the
+   fields / contact rows / socials are white to pop against the surface-2. */
+.onelnk-landing.onelnk-contact .ccard {
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-33);
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: var(--sp-33);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.onelnk-landing.onelnk-contact .cform {
+  flex: 1.4 1 0;
+  gap: 0;
+}
+.onelnk-landing.onelnk-contact .cform__card {
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.onelnk-landing.onelnk-contact .field__label { color: var(--ink); }
+.onelnk-landing.onelnk-contact .field__control {
+  border-color: var(--card-border);
+  background: var(--surface-card);
+  color: var(--ink);
+}
+.onelnk-landing.onelnk-contact .field__control:focus {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 3px rgba(194, 90, 20, 0.15);
+}
+
+/* ---- Contact rail → the right column of the same card (transparent) ---- */
+.onelnk-landing.onelnk-contact .crail {
+  flex: 1 1 0;
+  justify-content: flex-start;
+  gap: var(--sp-13);
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+/* Kill the coloured glow blobs — off-identity. */
+.onelnk-landing.onelnk-contact .crail__glow { display: none; }
+
+.onelnk-landing.onelnk-contact .crail__card {
+  padding: var(--sp-16);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+.onelnk-landing.onelnk-contact .crail__card--whatsapp { background: var(--surface-card); }
+.onelnk-landing.onelnk-contact .crail__label {
+  font-size: var(--text-base);
+  color: var(--ink);
+}
+.onelnk-landing.onelnk-contact .crail__value { color: var(--ink-muted); }
+.onelnk-landing.onelnk-contact .crail__value b { color: var(--ink); }
+
+/* Masked, ember-tinted icons (any source colour → one identity orange). */
+.onelnk-landing.onelnk-contact .ct-ic {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: var(--cta);
+  -webkit-mask: var(--ic) center / contain no-repeat;
+  mask: var(--ic) center / contain no-repeat;
+}
+
+/* Socials → consistent identity buttons (ember fill on hover via .mfx). */
+.onelnk-landing.onelnk-contact .crail__socials { gap: 12px; }
+.onelnk-landing.onelnk-contact .crail__soc,
+.onelnk-landing.onelnk-contact .crail__soc--solid {
+  border: 1px solid var(--card-border);
+  background: var(--surface-card);
+}
+.onelnk-landing.onelnk-contact .crail__soc:hover { border-color: var(--cta); }
+/* Uniform dark glyphs at rest (the fb icon ships white, which vanished on the
+   light button). The .mfx hover rule still flips them to white over the ember. */
+.onelnk-landing.onelnk-contact .crail__soc.mfx:not(.is-hot) .mfx__icon {
+  filter: brightness(0);
+}
+.onelnk-landing.onelnk-contact .crail__hours span { color: var(--ink-muted); }
+
+/* ---- Corp (the old navy block): dark section, white cards, orange icons ---- */
+.onelnk-landing.onelnk-contact .corp {
+  background: var(--dark);
+  border-radius: var(--radius);
+}
+.onelnk-landing.onelnk-contact .corp .phead-block__title { color: var(--on-dark); }
+.onelnk-landing.onelnk-contact .corp .phead-block__text { color: var(--on-dark-muted); }
+
+.onelnk-landing.onelnk-contact .corp .share__card,
+.onelnk-landing.onelnk-contact .corp .share__card--dark {
+  background: var(--surface-card);
+  border: 1px solid transparent;
+}
+.onelnk-landing.onelnk-contact .corp .share__card--dark .share__title { color: var(--ink); }
+.onelnk-landing.onelnk-contact .corp .share__card--dark .share__text { color: var(--ink-muted); }
+
+/* No circular background behind the icon; icon itself is ember. */
+.onelnk-landing.onelnk-contact .corp .share__icon {
+  padding: 0;
+  background: transparent;
+}
+.onelnk-landing.onelnk-contact .corp__ic {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: var(--cta);
+  -webkit-mask: var(--ic) center / contain no-repeat;
+  mask: var(--ic) center / contain no-repeat;
+}
+
+@media (max-width: 900px) {
+  .onelnk-landing.onelnk-contact .ccard { flex-direction: column; }
+}

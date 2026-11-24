@@ -15,6 +15,7 @@ class Plan extends Model
         'business',
         'bio_links',
         'max_users',
+        'max_circles',
         'themes',
         'bio_links_themes',
         'addons',

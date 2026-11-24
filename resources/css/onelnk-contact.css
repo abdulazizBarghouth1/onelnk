@@ -162,7 +162,7 @@
   overflow: hidden;
  }
 .onelnk-contact .crail__card--whatsapp {
-  background: #f8fffa;
+  background: var(--white);
  }
 .onelnk-contact .crail__glow {
   position: absolute;
@@ -446,3 +446,14 @@
     max-width: calc(100% - 32px);
    }
 }
+
+/* Social buttons keep their rounded-rect shape under the magnetic fill (.mfx). */
+.onelnk-contact.onelnk-landing .crail__soc.mfx {
+  border-radius: var(--radius-md);
+  /* These already have a real 1px border; no extra ring. */
+  box-shadow: none;
+ }
+/* Border disappears on hover so only the ember fill shows. */
+.onelnk-contact.onelnk-landing .crail__soc.mfx.is-hot {
+  border-color: transparent;
+ }

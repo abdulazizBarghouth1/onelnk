@@ -18,14 +18,22 @@ export default function GallerySection({ galleryItems = [] }: Props) {
 
   return (
     <div className="onelnk-landing">
+      {/* Heading and CTA are handed to the gallery so they render INSIDE its
+          pinned panel — they then stay beside the cards for the whole scrub
+          instead of being pushed away by the panel's vertical centring. */}
       <section className="gallery" aria-labelledby="gallery-title">
-        <div className="gallery__head">
-          <h2 className="gallery__title" id="gallery-title">{t('Explore Real Card Designs')}</h2>
-        </div>
-
-        <HorizontalGallery items={galleryItems} fallback={FALLBACK} />
-
-        <Link href={route('marketing.gallery')} className="btn btn--primary benefits__cta">{t('View Full Gallery')}</Link>
+        <HorizontalGallery
+          items={galleryItems}
+          fallback={FALLBACK}
+          header={
+            <div className="gallery__head">
+              <h2 className="gallery__title" id="gallery-title">{t('Explore Real Card Designs')}</h2>
+            </div>
+          }
+          footer={
+            <Link href={route('marketing.gallery')} className="btn btn--line benefits__cta">{t('View Full Gallery')}</Link>
+          }
+        />
       </section>
     </div>
   );

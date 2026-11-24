@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { Link } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { getImageDisplayUrl } from '@/utils/imageUrlHelper';
+import { useMagneticFill } from '@/hooks/useMagneticFill';
 
 interface FooterLink {
   name: string;
@@ -33,6 +35,8 @@ interface FooterProps {
  */
 export default function Footer({ settings, sectionData = {} }: FooterProps) {
   const { t } = useTranslation();
+  const socialsRef = useRef<HTMLDivElement>(null);
+  useMagneticFill(socialsRef);
   const year = new Date().getFullYear();
 
   // Dark footer → the light-on-dark logo.
@@ -63,6 +67,10 @@ export default function Footer({ settings, sectionData = {} }: FooterProps) {
     : [{ href: '#' }, { href: '#' }, { href: '#' }, { href: '#' }]
   ).slice(0, 4);
 
+  // WhatsApp — rendered first, linking to the brand's contact number when set.
+  const waDigits = (settings.contact_phone || '').replace(/[^0-9]/g, '');
+  const whatsappHref = waDigits ? `https://wa.me/${waDigits}` : '#';
+
   return (
     <div className="onelnk-landing">
       <footer className="footer">
@@ -79,10 +87,20 @@ export default function Footer({ settings, sectionData = {} }: FooterProps) {
               <p className="footer__tagline">{tagline}</p>
             </div>
 
-            <div className="footer__socials">
+            <div className="footer__socials" ref={socialsRef}>
+              <a
+                className="mfx"
+                href={whatsappHref}
+                aria-label={t('WhatsApp')}
+                {...(whatsappHref !== '#' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                <span className="mfx__fill" aria-hidden="true" />
+                <img className="mfx__icon" src="/images/onelnk/social-whatsapp.svg" alt="" />
+              </a>
               {socials.map((s, i) => (
-                <a key={i} href={s.href || '#'} aria-label={t('Social profile')}>
-                  <img src={`/images/onelnk/social-${i + 1}.svg`} alt="" />
+                <a className="mfx" key={i} href={s.href || '#'} aria-label={t('Social profile')}>
+                  <span className="mfx__fill" aria-hidden="true" />
+                  <img className="mfx__icon" src={`/images/onelnk/social-${i + 1}.svg`} alt="" />
                 </a>
               ))}
             </div>

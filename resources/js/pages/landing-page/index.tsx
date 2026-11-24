@@ -2,6 +2,7 @@ import React from 'react';
 import { Head, usePage } from '@inertiajs/react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
+import HeroScrollStory from './components/HeroScrollStory';
 import StatsSection from './components/StatsSection';
 import FeaturesSection from './components/FeaturesSection';
 import ScreenshotsSection from './components/ScreenshotsSection';
@@ -30,6 +31,7 @@ import IndustriesSection from './components/IndustriesSection';
 import { useBrand } from '@/contexts/BrandContext';
 import { THEME_COLORS } from '@/hooks/use-appearance';
 import { useFavicon } from '@/hooks/use-favicon';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import { useTranslation } from 'react-i18next';
 // OneLnk landing design — ported from the static build, scoped under
 // `.onelnk-landing` (see resources/css/onelnk-landing.css). Only elements
@@ -145,6 +147,12 @@ export default function LandingPage() {
   const { i18n } = useTranslation();
 
   useFavicon();
+  // Scroll-reveal for the marketing sections (headings split into words, blocks
+  // fade up, media scales in). Header is untouched — it carries none of the
+  // section-level classes the hook targets. Re-runs on language change so the
+  // word-splits stay valid across EN⇄AR.
+  const revealRef = React.useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
   // Get brand colors - prioritize config_sections theme over brand context
   const { themeColor, customColor } = useBrand();
   // Homepage brand accent is pinned to the OneLnk PDF orange (#F3801E) so the
@@ -208,7 +216,7 @@ export default function LandingPage() {
   // hide/show still honours the admin `section_visibility`; ordering is fixed to
   // the OneLnk design. Sections not yet ported are simply skipped (null).
   const sectionOrder = [
-    'header', 'hero', 'trusted', 'benefits', 'howto', 'process', 'designer',
+    'header', 'hero', 'story', 'trusted', 'benefits', 'howto', 'process', 'designer',
     'identity', 'plans', 'gallery', 'showcase', 'industries', 'faq', 'cta', 'footer',
   ];
 
@@ -231,6 +239,8 @@ export default function LandingPage() {
         brandColor={primaryColor}
       />
     ),
+    // Scroll story — pinned card → tap → profile sequence, right under the hero.
+    story: () => isSectionVisible('hero') && <HeroScrollStory />,
     trusted: () => isSectionVisible('trusted') && (
       <TrustedSection
         settings={settings}
@@ -252,7 +262,7 @@ export default function LandingPage() {
       <ProcessSection settings={settings} sectionData={getSectionData('process')} brandColor={primaryColor} />
     ),
     designer: () => isSectionVisible('designer') && (
-      <DesignerSection settings={settings} sectionData={getSectionData('designer')} brandColor={primaryColor} />
+      <DesignerSection settings={settings} sectionData={getSectionData('designer')} brandColor={primaryColor} variant="surface" stickyPreview />
     ),
     identity: () => isSectionVisible('identity') && (
       <IdentitySection settings={settings} sectionData={getSectionData('identity')} brandColor={primaryColor} />
@@ -414,8 +424,9 @@ export default function LandingPage() {
         {seo_data?.og_image && <meta name="twitter:image" content={seo_data.og_image} />}
       </Head>
       
-      <div 
-        className="min-h-screen bg-white" 
+      <div
+        ref={revealRef}
+        className="min-h-screen bg-white"
         data-landing-page="true"
         style={{ 
           scrollBehavior: 'smooth', 

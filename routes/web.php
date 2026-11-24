@@ -19,6 +19,8 @@ use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CircleController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\NfcCardController;
 use App\Http\Controllers\GalleryController;
@@ -435,6 +437,26 @@ Route::middleware(['auth', 'verified','setting'])->group(function () {
             Route::put('contacts/{contact}', [ContactController::class, 'update'])->middleware('permission:edit-contacts')->name('contacts.update');
             Route::post('contacts/{contact}/reply', [ContactController::class, 'reply'])->middleware('permission:reply-contacts')->name('contacts.reply');
             Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->middleware('permission:delete-contacts')->name('contacts.destroy');
+        });
+
+        // Circles routes (contact segments)
+        Route::middleware('permission:manage-circles')->group(function () {
+            Route::get('circles', [CircleController::class, 'index'])->middleware('permission:view-circles')->name('circles.index');
+            Route::post('circles', [CircleController::class, 'store'])->middleware('permission:create-circles')->name('circles.store');
+            Route::put('circles/{circle}', [CircleController::class, 'update'])->middleware('permission:edit-circles')->name('circles.update');
+            Route::delete('circles/{circle}', [CircleController::class, 'destroy'])->middleware('permission:delete-circles')->name('circles.destroy');
+            Route::post('circles/{circle}/contacts', [CircleController::class, 'attachContacts'])->middleware('permission:edit-circles')->name('circles.contacts.attach');
+            Route::delete('circles/{circle}/contacts', [CircleController::class, 'detachContacts'])->middleware('permission:edit-circles')->name('circles.contacts.detach');
+            Route::get('circles/{circle}/export', [CircleController::class, 'export'])->middleware('permission:view-circles')->name('circles.export');
+        });
+
+        // Organizations routes (companies a contact belongs to)
+        Route::middleware('permission:manage-organizations')->group(function () {
+            Route::get('organizations', [OrganizationController::class, 'index'])->middleware('permission:view-organizations')->name('organizations.index');
+            Route::get('organizations/list', [OrganizationController::class, 'list'])->middleware('permission:view-organizations')->name('organizations.list');
+            Route::post('organizations', [OrganizationController::class, 'store'])->middleware('permission:create-organizations')->name('organizations.store');
+            Route::put('organizations/{organization}', [OrganizationController::class, 'update'])->middleware('permission:edit-organizations')->name('organizations.update');
+            Route::delete('organizations/{organization}', [OrganizationController::class, 'destroy'])->middleware('permission:delete-organizations')->name('organizations.destroy');
         });
 
         // Appointments routes

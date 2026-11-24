@@ -124,7 +124,7 @@
   flex-shrink: 0;
   padding: 16px;
   border-radius: var(--radius-full);
-  background: #e9e9ed;
+  background: var(--neutral-100);
  }
 .onelnk-about .split__value-icon img {
   width: 24px;
@@ -502,3 +502,121 @@
     gap: 16px;
    }
 }
+
+/* ---- about-page brand overrides (appended) ----
+   Homepage card system: white cards + 1px --card-border + --radius; dark
+   surfaces --dark/--dark-2 + --dark-border; ember (--cta / --accent-dark)
+   accents. Compound `.onelnk-about.onelnk-landing` wins over the scoped rules
+   above and the landing bundle regardless of CSS order. */
+
+
+/* Splits */
+.onelnk-about.onelnk-landing .split__title { color: var(--ink); }
+.onelnk-about.onelnk-landing .split__lede,
+.onelnk-about.onelnk-landing .split__value span {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+.onelnk-about.onelnk-landing .split__value b { color: var(--ink); }
+.onelnk-about.onelnk-landing .split__media {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+/* Badge bullets: plain ember dots in place of the old check icons. */
+.onelnk-about.onelnk-landing .split__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--cta);
+  /* Override `.split__badge span { flex: 1 0 0 }`, which would stretch the dot. */
+  flex: 0 0 10px;
+ }
+.onelnk-about.onelnk-landing .split__badge span { color: var(--ink-muted); }
+/* Value icons: dark disc with the orange icon. */
+.onelnk-about.onelnk-landing .split__value-icon {
+  padding: 14px;
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+ }
+
+/* Why choose: brand dark section, white cards, 50px orange icons, no icon chip. */
+.onelnk-about.onelnk-landing .why-choose { background: var(--dark); }
+.onelnk-about.onelnk-landing .why-choose .phead-block__title { color: var(--on-dark); }
+.onelnk-about.onelnk-landing .why-choose .phead-block__text { color: var(--on-dark-faint); }
+.onelnk-about.onelnk-landing .why-choose .share__card {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-about.onelnk-landing .why-choose .share__icon {
+  padding: 0;
+  background: transparent;
+ }
+.onelnk-about.onelnk-landing .why-choose .share__icon img {
+  width: 50px;
+  height: 50px;
+ }
+.onelnk-about.onelnk-landing .why-choose .share__title { color: var(--ink); }
+.onelnk-about.onelnk-landing .why-choose .share__text {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+
+/* Milestones */
+.onelnk-about.onelnk-landing .mstrip::before { background: var(--card-border); }
+.onelnk-about.onelnk-landing .mstep .mstep__dot {
+  border-color: var(--card-border);
+  background: var(--surface-card);
+ }
+.onelnk-about.onelnk-landing .mstep > span:last-child { color: var(--ink-muted); }
+.onelnk-about.onelnk-landing .mstep[aria-current="true"] .mstep__dot { border-color: var(--cta); }
+.onelnk-about.onelnk-landing .mstep[aria-current="true"] > span:last-child { color: var(--cta); }
+.onelnk-about.onelnk-landing .mcard {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-about.onelnk-landing .mcard__icon {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+ }
+.onelnk-about.onelnk-landing .mcard__head h3 { color: var(--ink); }
+.onelnk-about.onelnk-landing .mcard__tag {
+  background: var(--pro-tint);
+  font-size: var(--text-sm);
+  color: var(--pro-ink);
+ }
+.onelnk-about.onelnk-landing .mcard__lead { color: var(--cta); }
+.onelnk-about.onelnk-landing .mcard__text {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+
+/* Team */
+.onelnk-about.onelnk-landing .person {
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-about.onelnk-landing .person__photo { border: 4px solid var(--surface); }
+.onelnk-about.onelnk-landing .person__id b { color: var(--ink); }
+.onelnk-about.onelnk-landing .person__id span { color: var(--ink-muted); }
+
+@media (max-width: 768px) {
+.onelnk-about.onelnk-landing .why-choose .share__card,
+.onelnk-about.onelnk-landing .mcard {
+    padding: 24px 20px;
+   }
+}
+
+/* Team socials — magnetic fill (.mfx): centre the glyph, drop the old opacity
+   hover; the light ring comes from .mfx via --mfx-ring. */
+.onelnk-about.onelnk-landing .person__socials a.mfx {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+.onelnk-about.onelnk-landing .person__socials a.mfx:hover { opacity: 1; }
+.onelnk-about.onelnk-landing .person__socials a.mfx { --mfx-ring: #E5E5E5; }

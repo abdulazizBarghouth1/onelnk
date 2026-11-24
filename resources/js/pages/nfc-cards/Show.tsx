@@ -140,7 +140,13 @@ export default function View({ orderRequest }: ViewProps) {
               {(orderRequest as any).card_design.colors?.background && (
                 <div className="flex items-center gap-2 mt-3">
                   <span className="inline-block w-10 h-6 rounded-md border" style={{ background: (orderRequest as any).card_design.colors.background }} />
-                  <span className="text-xs text-muted-foreground">{(orderRequest as any).card_design.colors.type === 'gradient' ? t('Gradient background') : t('Card background')}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {(orderRequest as any).card_design.colors.type === 'preset'
+                      ? `${t('Design preset')}: ${(orderRequest as any).card_design.colors.preset}`
+                      : (orderRequest as any).card_design.colors.type === 'gradient'
+                        ? t('Gradient background')
+                        : t('Card background')}
+                  </span>
                 </div>
               )}
             </div>

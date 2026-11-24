@@ -187,9 +187,17 @@ class MediaController extends Controller
             return getImageUrlPrefix() . '/' . $relativePath;
         }
         
-        // For local storage, use the standard getUrl method
+        // For local storage: take spatie's URL but rebase it onto the CURRENT
+        // request host. Spatie builds the URL from APP_URL (config), which in dev
+        // is often a different host/port than the app is actually served on
+        // (e.g. APP_URL=http://localhost while serving on 127.0.0.1:8000) — that
+        // mismatch makes the <img> 404 and the media-library thumbnails never load.
         try {
             $url = $conversion ? $media->getUrl($conversion) : $media->getUrl();
+            $path = parse_url($url, PHP_URL_PATH);
+            if ($path) {
+                return request()->getSchemeAndHttpHost() . $path;
+            }
             return $this->getFullImageUrl($url);
         } catch (\Exception $e) {
             // Fallback to constructing URL manually

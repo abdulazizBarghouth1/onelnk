@@ -10,7 +10,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { DashboardOverview } from '@/components/dashboard/dashboard-overview';
 import VCardPreview from '@/pages/vcard-builder/components/VCardPreview';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import QRCode from 'qrcode';
+import BrandQR from '@/components/BrandQR';
 import { toast } from '@/components/custom-toast';
 import { ShareModal } from '@/components/ShareModal';
 import { usePermissions } from '@/components/PermissionGate';
@@ -394,21 +394,7 @@ export default function Dashboard({ dashboardData }: { dashboardData: CompanyDas
                               ? route('public.vcard.show', { prefix: currentBusiness.url_prefix, slug: currentBusiness.slug }, true)
                               : route('public.vcard.show.direct', currentBusiness.slug, true);
                           }
-                          const [qrCode, setQrCode] = React.useState('');
-                          
-                          React.useEffect(() => {
-                            QRCode.toDataURL(businessUrl, { width: 96, margin: 1 })
-                              .then(url => setQrCode(url))
-                              .catch(err => console.error(err));
-                          }, [businessUrl]);
-                          
-                          return qrCode ? (
-                            <img src={qrCode} alt="QR Code" className="w-full h-full rounded" />
-                          ) : (
-                            <div className="w-full h-full bg-gray-100 rounded flex items-center justify-center">
-                              <QrCode className="h-8 w-8 sm:h-12 sm:w-12 text-gray-500" />
-                            </div>
-                          );
+                          return <BrandQR value={businessUrl} fluid embossed={false} logo={false} />;
                         })()}
                       </div>
                       <p className="text-xs text-center text-muted-foreground px-2">

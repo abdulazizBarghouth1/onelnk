@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import QRCode from 'qrcode';
+import BrandQR from '@/components/BrandQR';
+import { getCardPreset } from './cardPresets';
 
 /**
  * Live, data-bound preview of the physical NFC card the user designs in step 2.
@@ -22,6 +23,8 @@ interface PhysicalCardProps {
   /** URL the back QR encodes (the profile page; a placeholder before the card exists). */
   qrUrl?: string;
   initialSide?: 'front' | 'back';
+  /** Predesigned face id (see cardPresets). Overrides cardColor/textColor when set. */
+  preset?: string | null;
 }
 
 // Inline phone icon inherits the card's text colour via `currentColor`.
@@ -42,25 +45,18 @@ const DotMark = () => (
 );
 
 export default function PhysicalCard({
-  name, title, phone, cardColor = '#050e22', textColor = '#ffffff', logoUrl, qrUrl, initialSide = 'front',
+  name, title, phone, cardColor = '#050e22', textColor = '#ffffff', logoUrl, qrUrl, initialSide = 'front', preset,
 }: PhysicalCardProps) {
   const { t } = useTranslation();
   const [side, setSide] = useState<'front' | 'back'>(initialSide);
-  const [qrData, setQrData] = useState<string>('');
+  // The profile URL the back QR encodes (placeholder before the card exists).
+  const qrValue = qrUrl && qrUrl.trim() ? qrUrl : 'https://onelnk.sa';
 
-  // Generate a real, scannable QR (reuses the project's `qrcode` dep — same
-  // pattern as dashboard.tsx / QRCodeModal.tsx). Encodes the profile URL; a
-  // placeholder before the card is created, the real /v/{slug} after.
-  useEffect(() => {
-    let active = true;
-    const url = qrUrl && qrUrl.trim() ? qrUrl : 'https://onelnk.sa';
-    QRCode.toDataURL(url, { margin: 1, width: 200, color: { dark: '#0b1220', light: '#ffffff' } })
-      .then((d) => { if (active) setQrData(d); })
-      .catch(() => { /* ignore */ });
-    return () => { active = false; };
-  }, [qrUrl]);
-
-  const cssVars = { '--pcard-bg': cardColor, '--pcard-fg': textColor } as React.CSSProperties;
+  // A predesigned preset overrides the plain colour/gradient controls.
+  const p = getCardPreset(preset);
+  const effectiveBg = p ? p.bg : cardColor;
+  const effectiveFg = p ? p.fg : textColor;
+  const cssVars = { '--pcard-bg': effectiveBg, '--pcard-fg': effectiveFg } as React.CSSProperties;
 
   return (
     <div className="pcard-wrap">
@@ -68,6 +64,7 @@ export default function PhysicalCard({
         <div className={`pcard__flip${side === 'back' ? ' pcard__flip--back' : ''}`}>
           {/* FRONT — logo, name, title, phone */}
           <div className="pcard__face pcard__face--front" aria-hidden={side !== 'front'}>
+            {p?.overlay && <span className={`pcard__overlay pcard__overlay--${p.overlay}`} aria-hidden="true" />}
             <div className="pcard__top">
               <span className="pcard__logo">
                 {logoUrl ? <img src={logoUrl} alt="" /> : <DotMark />}
@@ -75,7 +72,7 @@ export default function PhysicalCard({
             </div>
             <div className="pcard__id">
               <span className="pcard__name">{name || t('Your Name')}</span>
-              {(title || !name) && <span className="pcard__title">{title || t('Your Title')}</span>}
+              {(title || !name) && <span className="pcard__title" style={p?.titleColor ? { color: p.titleColor } : undefined}>{title || t('Your Title')}</span>}
               {phone && <span className="pcard__line"><i><IconPhone /></i>{phone}</span>}
             </div>
           </div>
@@ -84,7 +81,7 @@ export default function PhysicalCard({
           <div className="pcard__face pcard__face--back" aria-hidden={side !== 'back'}>
             <div className="pcard__backgrid">
               <span className="pcard__qr">
-                {qrData ? <img src={qrData} alt={t('Card QR code')} /> : null}
+                <BrandQR value={qrValue} bare logo={false} dark={effectiveFg} />
               </span>
               <span className="pcard__brandmark">
                 {logoUrl ? <img src={logoUrl} alt="" /> : <DotMark />}

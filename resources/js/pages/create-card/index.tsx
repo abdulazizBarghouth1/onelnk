@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Header from '../landing-page/components/Header';
 import { getBusinessTemplate, businessTypeOptions } from '../vcard-builder/business-templates';
 import PhysicalCard from './components/PhysicalCard';
+import { CARD_PRESETS, getCardPreset } from './components/cardPresets';
 import '../../../css/onelnk-landing.css';
 import '../../../css/onelnk-wizard.css';
 import '../../../css/onelnk-wizard-live.css';
@@ -67,6 +68,7 @@ type WizardData = {
   card_gradient: boolean;
   card_color_2: string;
   card_gradient_angle: number;
+  card_preset: string | null;
   business_type: string;
   full_name: string;
   job_title: string;
@@ -110,6 +112,7 @@ export default function CreateCard() {
     card_gradient: false,
     card_color_2: '#1e3a8a',
     card_gradient_angle: 135,
+    card_preset: null,
     business_type: BASE_TEMPLATE,
     // Dummy Arabic starter content so the live card renders populated from step 3
     // onward — mirrors the dashboard vCard builder, whose preview is pre-seeded from
@@ -336,9 +339,11 @@ export default function CreateCard() {
       card_design: {
         full_name: d.full_name, job_title: d.job_title, phone: d.phone, email: d.email, website: d.website,
         colors: {
-          type: d.card_gradient ? 'gradient' : 'solid',
+          type: d.card_preset ? 'preset' : (d.card_gradient ? 'gradient' : 'solid'),
+          preset: d.card_preset,
           color: d.card_color, color2: d.card_color_2, angle: d.card_gradient_angle,
-          text_color: d.text_color, background: cardBackground,
+          text_color: d.card_preset ? (getCardPreset(d.card_preset)?.fg ?? d.text_color) : d.text_color,
+          background: d.card_preset ? (getCardPreset(d.card_preset)?.bg ?? cardBackground) : cardBackground,
         },
       },
       // Physical-card logo + digital-profile images (backend stores them and injects
@@ -380,7 +385,7 @@ export default function CreateCard() {
             <ol className="wzsteps" aria-label={t('Progress')}>
               {STEP_LABELS.map((label, i) => (
                 <Fragment key={label}>
-                  {i > 0 && <li className="wzsteps__line" aria-hidden="true"></li>}
+                  {i > 0 && <li className="wzsteps__line" data-state={step > i ? 'done' : 'upcoming'} aria-hidden="true"></li>}
                   <li className="wzstep" data-state={railState(i)} aria-current={step === i + 1 ? 'step' : 'false'}>
                     <span className="wzstep__dot">{i + 1}</span>
                     <span className="wzstep__label">{t(label)}</span>
@@ -397,8 +402,7 @@ export default function CreateCard() {
                   <p className="wzpanel__lede">{t('Pick the experience that best matches your networking needs.')}</p>
                 </div>
                 <div className="wzsplit">
-                  <div className="wzpreview">
-                    <span className="pill pill--plain">{t('Preview')}</span>
+                  <div className="wzpreview wzpreview--hero">
                     <PhysicalCard
                       name={data.full_name}
                       title={data.job_title}
@@ -407,6 +411,7 @@ export default function CreateCard() {
                       textColor={data.text_color}
                       logoUrl={cardLogoUrl}
                       qrUrl={qrUrl}
+                      preset={data.card_preset}
                     />
                   </div>
                   <div className="wzoptions">
@@ -444,8 +449,7 @@ export default function CreateCard() {
                   <p className="wzpanel__lede">{t('Personalise every detail. Changes appear on your live preview instantly.')}</p>
                 </div>
                 <div className="wzsplit">
-                  <div className="wzpreview">
-                    <span className="pill pill--plain">{t('Preview')}</span>
+                  <div className="wzpreview wzpreview--hero">
                     <PhysicalCard
                       name={data.full_name}
                       title={data.job_title}
@@ -454,6 +458,7 @@ export default function CreateCard() {
                       textColor={data.text_color}
                       logoUrl={cardLogoUrl}
                       qrUrl={qrUrl}
+                      preset={data.card_preset}
                     />
                   </div>
                   <div className="wzoptions">
@@ -491,15 +496,33 @@ export default function CreateCard() {
                         <span>{cardLogo ? cardLogo.name : t('Upload your logo image')}</span>
                       </label>
                     </div>
+                    <div className="wzfield">
+                      <span className="wzfield__label">{t('Choose a Design')}</span>
+                      <div className="wzpresets" role="listbox" aria-label={t('Card designs')}>
+                        {CARD_PRESETS.map((p) => (
+                          <button
+                            key={p.id}
+                            type="button"
+                            role="option"
+                            aria-selected={data.card_preset === p.id}
+                            className={data.card_preset === p.id ? 'wzpreset is-active' : 'wzpreset'}
+                            style={{ background: p.bg }}
+                            title={t(p.label)}
+                            aria-label={t(p.label)}
+                            onClick={() => setData('card_preset', data.card_preset === p.id ? null : p.id)}
+                          ></button>
+                        ))}
+                      </div>
+                    </div>
                     <div className="wzcolors">
                       <div className="wzfield">
                         <span className="wzfield__label">{t('Card Colors')}</span>
                         <div className="wzswatches" role="listbox" aria-label={t('Card colour')}>
                           {CARD_SWATCHES.slice(0, -1).map((c) => (
-                            <button key={c} className="wzswatch" type="button" role="option" aria-selected={!data.card_gradient && data.card_color === c} style={{ background: c }} onClick={() => { setData('card_color', c); setData('card_gradient', false); }}></button>
+                            <button key={c} className="wzswatch" type="button" role="option" aria-selected={!data.card_preset && !data.card_gradient && data.card_color === c} style={{ background: c }} onClick={() => { setData('card_color', c); setData('card_gradient', false); setData('card_preset', null); }}></button>
                           ))}
                           <label className="wzswatch wzswatch--pick" title={t('Custom colour')}>
-                            <input type="color" value={data.card_color} onChange={(e) => { setData('card_color', e.target.value); setData('card_gradient', false); }} />
+                            <input type="color" value={data.card_color} onChange={(e) => { setData('card_color', e.target.value); setData('card_gradient', false); setData('card_preset', null); }} />
                           </label>
                         </div>
                       </div>
@@ -507,33 +530,33 @@ export default function CreateCard() {
                         <span className="wzfield__label">{t('Text Colors')}</span>
                         <div className="wzswatches" role="listbox" aria-label={t('Text colour')}>
                           {TEXT_SWATCHES.slice(0, -1).map((c) => (
-                            <button key={c} className="wzswatch" type="button" role="option" aria-selected={data.text_color === c} style={{ background: c }} onClick={() => setData('text_color', c)}></button>
+                            <button key={c} className="wzswatch" type="button" role="option" aria-selected={!data.card_preset && data.text_color === c} style={{ background: c }} onClick={() => { setData('text_color', c); setData('card_preset', null); }}></button>
                           ))}
                           <label className="wzswatch wzswatch--pick" title={t('Custom colour')}>
-                            <input type="color" value={data.text_color} onChange={(e) => setData('text_color', e.target.value)} />
+                            <input type="color" value={data.text_color} onChange={(e) => { setData('text_color', e.target.value); setData('card_preset', null); }} />
                           </label>
                         </div>
                       </div>
                     </div>
                     <div className="wzgradient">
                       <div className="wzgradient__toggle" role="tablist" aria-label={t('Background type')}>
-                        <button type="button" role="tab" aria-selected={!data.card_gradient} className={!data.card_gradient ? 'is-active' : ''} onClick={() => setData('card_gradient', false)}>{t('Solid')}</button>
-                        <button type="button" role="tab" aria-selected={data.card_gradient} className={data.card_gradient ? 'is-active' : ''} onClick={() => setData('card_gradient', true)}>{t('Gradient')}</button>
+                        <button type="button" role="tab" aria-selected={!data.card_gradient} className={!data.card_gradient ? 'is-active' : ''} onClick={() => { setData('card_gradient', false); setData('card_preset', null); }}>{t('Solid')}</button>
+                        <button type="button" role="tab" aria-selected={data.card_gradient} className={data.card_gradient ? 'is-active' : ''} onClick={() => { setData('card_gradient', true); setData('card_preset', null); }}>{t('Gradient')}</button>
                       </div>
                       {data.card_gradient && (
                         <>
                           <div className="wzgradient__row">
-                            <label className="wzgradient__stop">{t('Start')}<input type="color" value={data.card_color} onChange={(e) => setData('card_color', e.target.value)} /></label>
-                            <label className="wzgradient__stop">{t('End')}<input type="color" value={data.card_color_2} onChange={(e) => setData('card_color_2', e.target.value)} /></label>
+                            <label className="wzgradient__stop">{t('Start')}<input type="color" value={data.card_color} onChange={(e) => { setData('card_color', e.target.value); setData('card_preset', null); }} /></label>
+                            <label className="wzgradient__stop">{t('End')}<input type="color" value={data.card_color_2} onChange={(e) => { setData('card_color_2', e.target.value); setData('card_preset', null); }} /></label>
                             <div className="wzgradient__angles" role="group" aria-label={t('Direction')}>
                               {GRADIENT_ANGLES.map((a) => (
-                                <button key={a.deg} type="button" className={data.card_gradient_angle === a.deg ? 'wzgradient__angle is-active' : 'wzgradient__angle'} onClick={() => setData('card_gradient_angle', a.deg)} aria-label={`${a.deg}°`}>{a.icon}</button>
+                                <button key={a.deg} type="button" className={data.card_gradient_angle === a.deg ? 'wzgradient__angle is-active' : 'wzgradient__angle'} onClick={() => { setData('card_gradient_angle', a.deg); setData('card_preset', null); }} aria-label={`${a.deg}°`}>{a.icon}</button>
                               ))}
                             </div>
                           </div>
                           <div className="wzgradient__presets">
                             {GRADIENT_PRESETS.map(([a, b]) => (
-                              <button key={a + b} type="button" className="wzgradient__preset" style={{ background: `linear-gradient(135deg, ${a}, ${b})` }} aria-label={t('Preset gradient')} onClick={() => { setData('card_color', a); setData('card_color_2', b); }}></button>
+                              <button key={a + b} type="button" className="wzgradient__preset" style={{ background: `linear-gradient(135deg, ${a}, ${b})` }} aria-label={t('Preset gradient')} onClick={() => { setData('card_color', a); setData('card_color_2', b); setData('card_preset', null); }}></button>
                             ))}
                           </div>
                         </>
@@ -808,8 +831,7 @@ export default function CreateCard() {
                   <p className="wzpanel__lede">{t('Confirm your selections before checkout.')}</p>
                 </div>
                 <div className="wzsplit wzsplit--review">
-                  <div className="wzpreview">
-                    <span className="pill pill--plain">{t('Preview')}</span>
+                  <div className="wzpreview wzpreview--hero">
                     <PhysicalCard
                       name={data.full_name}
                       title={data.job_title}
@@ -818,6 +840,7 @@ export default function CreateCard() {
                       textColor={data.text_color}
                       logoUrl={cardLogoUrl}
                       qrUrl={qrUrl}
+                      preset={data.card_preset}
                     />
                   </div>
                   <div className="wzsummary">

@@ -1534,3 +1534,331 @@
     width: 100%;
    }
 }
+
+/* ---- wizard brand overrides (appended) ----
+   Full OneLnk identity: bone ground, white cards with the --card-border hairline
+   and the --radius family, brand black (--dark) panels, ember (--cta) for every
+   selected / primary state. Compound `.onelnk-wizard.onelnk-landing` (3 classes)
+   out-specifies the generated rules above regardless of bundle order. */
+
+/* Shell — pulled up under the 82px sticky nav so the bone surface fills the
+   strip behind it (same treatment as every inner-page hero). */
+.onelnk-wizard.onelnk-landing .wz {
+  margin-top: -82px;
+  padding-top: 138px;
+  background: var(--surface);
+ }
+@media (max-width: 1024px) {
+.onelnk-wizard.onelnk-landing .wz { padding-top: 124px; }
+}
+@media (max-width: 700px) {
+.onelnk-wizard.onelnk-landing .wz { padding-top: 112px; }
+}
+
+/* Step rail — ember for the step in progress, black for the ones behind it. */
+.onelnk-wizard.onelnk-landing .wzsteps { background: transparent; }
+.onelnk-wizard.onelnk-landing .wzsteps__line { background: var(--card-border); }
+.onelnk-wizard.onelnk-landing .wzsteps__line[data-state="done"] { background: var(--cta); }
+.onelnk-wizard.onelnk-landing .wzstep__dot {
+  border: 1px solid var(--card-border);
+  background: var(--surface-card);
+  font-weight: 700;
+  color: var(--ink-faint);
+ }
+.onelnk-wizard.onelnk-landing .wzstep__label { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzstep[data-state="done"] .wzstep__dot {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wzstep[data-state="current"] .wzstep__dot {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wzstep[data-state="current"] .wzstep__label {
+  font-weight: 700;
+  color: var(--ink);
+ }
+
+/* Panel headings */
+.onelnk-wizard.onelnk-landing .wzpanel__title { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzpanel__lede {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+
+/* Preview stages — brand black, so the card / phone pops (like the homepage
+   builder). Replaces the old orange gradient. */
+.onelnk-wizard.onelnk-landing .wzpreview {
+  border-radius: var(--radius);
+  border: 1px solid var(--dark-border);
+  background: var(--dark);
+ }
+.onelnk-wizard.onelnk-landing .wzpreview .preview__tab[aria-selected="true"],
+.onelnk-wizard.onelnk-landing .pcard__tabs button.is-active {
+  background: var(--cta);
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .pcard__tabs { background: var(--dark-2); }
+.onelnk-wizard.onelnk-landing .pcard__tabs button { color: var(--on-dark-faint); }
+/* "Preview" pill sits on the dark stage. */
+.onelnk-wizard.onelnk-landing .wzpreview .pill--plain {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-border);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--on-dark-faint);
+ }
+.onelnk-wizard.onelnk-landing .pill {
+  background: var(--primary-50);
+  color: var(--pro-ink);
+ }
+
+/* Grouping panels sit on the tinted ground so the white cards and fields inside
+   them read as separate; the summary stays white (its dark head caps it). */
+.onelnk-wizard.onelnk-landing .wzoptions,
+.onelnk-wizard.onelnk-landing .wzcard {
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--card-border);
+ }
+.onelnk-wizard.onelnk-landing .wzsummary {
+  border-radius: var(--radius);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+ }
+.onelnk-wizard.onelnk-landing .wzopt,
+.onelnk-wizard.onelnk-landing .wztheme,
+.onelnk-wizard.onelnk-landing .wzpayopt {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+ }
+.onelnk-wizard.onelnk-landing .wzopt:hover:not(:has(input:checked)),
+.onelnk-wizard.onelnk-landing .wztheme:hover:not(:has(input:checked)),
+.onelnk-wizard.onelnk-landing .wzpayopt:hover:not(:has(input:checked)) {
+  border-color: var(--ink-faint);
+ }
+/* Chosen: 2px ember ring + warm tint. Padding compensates so nothing shifts. */
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked),
+.onelnk-wizard.onelnk-landing .wztheme:has(input:checked),
+.onelnk-wizard.onelnk-landing .wzpayopt:has(input:checked) {
+  padding: 14px;
+  border: 2px solid var(--cta);
+  background: var(--primary-50);
+ }
+.onelnk-wizard.onelnk-landing .wzopt:has(input:focus-visible),
+.onelnk-wizard.onelnk-landing .wztheme:has(input:focus-visible),
+.onelnk-wizard.onelnk-landing .wzpayopt:has(input:focus-visible),
+.onelnk-wizard.onelnk-landing .wzplan:has(input:focus-visible),
+.onelnk-wizard.onelnk-landing .wzswitch:has(input:focus-visible) {
+  outline: 2px solid var(--cta);
+  outline-offset: 3px;
+ }
+.onelnk-wizard.onelnk-landing .wzopt__name,
+.onelnk-wizard.onelnk-landing .wztheme__name,
+.onelnk-wizard.onelnk-landing .wzcard__title,
+.onelnk-wizard.onelnk-landing .wzpayopt__head span,
+.onelnk-wizard.onelnk-landing .wzfield__label,
+.onelnk-wizard.onelnk-landing .wztile__label,
+.onelnk-wizard.onelnk-landing .wztoggle > span { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzopt__desc,
+.onelnk-wizard.onelnk-landing .wztheme__desc,
+.onelnk-wizard.onelnk-landing .wztile__label span,
+.onelnk-wizard.onelnk-landing .wztheme__colors > span { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzopt__rule,
+.onelnk-wizard.onelnk-landing .wztheme__rule { background: var(--card-border); }
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked) .wzopt__rule,
+.onelnk-wizard.onelnk-landing .wztheme:has(input:checked) .wztheme__rule { background: var(--pro-tint); }
+.onelnk-wizard.onelnk-landing .wzopt__tags span {
+  background: var(--surface-2);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+ }
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked) .wzopt__tags span {
+  background: var(--pro-tint);
+  color: var(--pro-ink);
+ }
+
+/* Inputs, drop zones, swatches */
+.onelnk-wizard.onelnk-landing .wzfield__control,
+.onelnk-wizard.onelnk-landing .wzdrop,
+.onelnk-wizard.onelnk-landing .wzswatches,
+.onelnk-wizard.onelnk-landing .wzsocial,
+.onelnk-wizard.onelnk-landing .wzsocial__select,
+.onelnk-wizard.onelnk-landing .wzsocial__remove,
+.onelnk-wizard.onelnk-landing .wztoggle,
+.onelnk-wizard.onelnk-landing .wzqty {
+  border-color: var(--card-border);
+  border-radius: var(--radius-chip);
+  background: var(--surface-card);
+ }
+.onelnk-wizard.onelnk-landing .wzfield__control { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzfield__control::placeholder { color: var(--ink-faint); }
+.onelnk-wizard.onelnk-landing .wzfield__control:focus,
+.onelnk-wizard.onelnk-landing .wzsocial:focus-within,
+.onelnk-wizard.onelnk-landing .wzdrop:hover,
+.onelnk-wizard.onelnk-landing .wzdrop:focus-within {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 3px rgba(194, 90, 20, 0.15);
+  outline: none;
+ }
+.onelnk-wizard.onelnk-landing .wzdrop span { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzswatch[aria-selected="true"] { border-color: var(--cta); }
+.onelnk-wizard.onelnk-landing .wztile__drop {
+  border-radius: var(--radius-card);
+  background-color: var(--surface-2);
+ }
+.onelnk-wizard.onelnk-landing .wztile__drop--logo { background-color: var(--cta); }
+.onelnk-wizard.onelnk-landing .wztile__bar { background: rgba(17, 17, 17, 0.75); }
+/* Add-social button — dashed ember pill. */
+.onelnk-wizard.onelnk-landing .wzsocial__add {
+  border: 1px dashed var(--cta);
+  border-radius: var(--radius-pill);
+  background: var(--primary-50);
+  font-weight: 700;
+  color: var(--cta);
+ }
+.onelnk-wizard.onelnk-landing .wzsocial__add:hover {
+  background: var(--pro-tint);
+  border-color: var(--cta);
+ }
+.onelnk-wizard.onelnk-landing .wzswitch:has(input:checked) { background: var(--cta); }
+
+/* Template picker (step 3) */
+.onelnk-wizard.onelnk-landing .wztpl {
+  border-color: var(--card-border);
+  border-radius: var(--radius-chip);
+ }
+.onelnk-wizard.onelnk-landing .wztpl:hover { border-color: var(--ink-faint); }
+.onelnk-wizard.onelnk-landing .wztpl--active {
+  border-color: var(--cta);
+  background: var(--primary-50);
+  box-shadow: none;
+ }
+.onelnk-wizard.onelnk-landing .wztpl__name { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzpreset.is-active {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 2px rgba(194, 90, 20, 0.35);
+ }
+
+/* Plans (step 5) — black panel, white cards, ember on the featured one. */
+.onelnk-wizard.onelnk-landing .wzplans {
+  border-radius: var(--radius);
+  background: transparent;
+ }
+.onelnk-wizard.onelnk-landing .wzplan {
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+ }
+.onelnk-wizard.onelnk-landing .wzplan:has(input:checked) { box-shadow: 0 0 0 3px var(--cta); }
+.onelnk-wizard.onelnk-landing .wzplan__name,
+.onelnk-wizard.onelnk-landing .wzplan__price,
+.onelnk-wizard.onelnk-landing .wzplan__feature span { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzplan__desc { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzplan__features {
+  border-color: var(--card-border);
+  border-radius: var(--radius-card);
+ }
+.onelnk-wizard.onelnk-landing .wzplan__stat { color: var(--ink-faint); }
+.onelnk-wizard.onelnk-landing .wzplan__stat b,
+.onelnk-wizard.onelnk-landing .wzplan__more { color: var(--cta); }
+.onelnk-wizard.onelnk-landing .wzplan__badge {
+  background: var(--primary-50);
+  color: var(--pro-ink);
+ }
+.onelnk-wizard.onelnk-landing .wzplans__badge {
+  background: var(--cta);
+  color: #fff;
+ }
+/* Featured card stays dark on the black panel; an ember ring separates it. */
+.onelnk-wizard.onelnk-landing .wzplan--featured {
+  background: var(--dark-2);
+  border-color: var(--cta);
+  box-shadow: 0 0 0 1px var(--cta);
+ }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__name,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__price,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__price b,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__feature span { color: var(--on-dark); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__desc { color: var(--on-dark-faint); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__features { border-color: var(--dark-border); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__stat { color: var(--on-dark-faint); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__stat b,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__more { color: var(--accent-dark); }
+/* Plan CTAs — pills: dark on the white cards, ember on the featured one. */
+.onelnk-wizard.onelnk-landing .wzplan__cta {
+  min-height: 48px;
+  padding: 0 var(--sp-26);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--dark);
+  font-weight: 700;
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wzplan__cta:hover { background: var(--dark-2); color: #fff; }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__cta {
+  background: var(--cta);
+  border: none;
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__cta:hover { background: var(--cta-hover); color: #fff; }
+
+/* Order summary (steps 6 / 7) */
+.onelnk-wizard.onelnk-landing .wzsummary__head {
+  background: var(--dark);
+  color: var(--on-dark);
+ }
+.onelnk-wizard.onelnk-landing .wzsumrow > span:first-child { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzsumrow > span:last-child { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzsummary__rule { background: var(--card-border); }
+.onelnk-wizard.onelnk-landing .wzsummary__total > span:first-child { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzsummary__total > span:last-child { color: var(--cta); }
+.onelnk-wizard.onelnk-landing .wzqty output { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzsummary__cta {
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--cta);
+  font-weight: 700;
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wzsummary__cta:hover { background: var(--cta-hover); color: #fff; }
+
+/* Wizard nav — the site's orange + dark button pair, as pills. */
+.onelnk-wizard.onelnk-landing .wznav__btn {
+  min-height: 52px;
+  padding: 0 var(--sp-26);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+ }
+.onelnk-wizard.onelnk-landing .wznav__btn--back {
+  background: var(--dark);
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wznav__btn--back:hover { background: var(--dark-2); color: #fff; }
+.onelnk-wizard.onelnk-landing .wznav__btn--next {
+  background: var(--cta);
+  color: #fff;
+ }
+.onelnk-wizard.onelnk-landing .wznav__btn--next:hover { background: var(--cta-hover); color: #fff; }
+
+/* Confirmation page */
+.onelnk-wizard.onelnk-landing .wzconfirm__title { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzconfirm__sub { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzconfirm__order {
+  background: var(--primary-50);
+  font-weight: 700;
+  color: var(--pro-ink);
+ }
+.onelnk-wizard.onelnk-landing .wzconfirm__delivery {
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+ }
+.onelnk-wizard.onelnk-landing .wzconfirm__delivery b { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzconfirm__delivery span { color: var(--ink-muted); }

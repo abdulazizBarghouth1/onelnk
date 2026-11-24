@@ -1,5 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import CTASection from '../landing-page/components/CTASection';
@@ -68,7 +70,6 @@ const INCLUDES: Array<{ icon: string; title: string; text: string }> = [
   { icon: 'pk-inc-6.svg', title: 'Contact Saving', text: 'Anyone can save your full contact details to their phone in one tap.' },
   { icon: 'pk-inc-7.svg', title: 'Fast Loading', text: 'Profiles load in under a second globally. No waiting, no friction — the ideal first impression.' },
   { icon: 'pk-inc-8.svg', title: 'Cloud Hosting', text: 'Your profile is hosted on resilient cloud infrastructure with 99.9% uptime guaranteed.' },
-  { icon: 'pk-inc-9.svg', title: 'Secure Storage', text: 'All data is encrypted at rest and in transit. Your data and contacts stay protected.' },
 ];
 
 const Mark = ({ yes }: { yes: boolean }) => (
@@ -83,9 +84,11 @@ const Mark = ({ yes }: { yes: boolean }) => (
 );
 
 export default function Packages() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
   const { settings, auth, plans = [] } = usePage<any>().props as { settings: any; auth: any; plans: Plan[] };
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   const createCardUrl = route('create-card.create');
@@ -140,8 +143,8 @@ export default function Packages() {
       <Head title={`${t('Packages')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-packages">
-        <header className="pkhead">
+      <div className="onelnk-landing onelnk-packages" ref={revealRef}>
+        <header className="pkhead page-hero">
           <div className="pkhead__inner">
             <div className="phead-block">
               <h1 className="phead-block__title">{t('Packages')}</h1>
@@ -150,9 +153,9 @@ export default function Packages() {
                 {t('that fits your needs. Upgrade anytime as your business grows.')}
               </p>
             </div>
-            <div className="phead__actions pkhead__actions">
+            <div className="btn-row pkhead__actions">
               <Link href={createCardUrl} className="btn btn--primary">{t('Create My Card')}</Link>
-              <a href="#compare" className="btn btn--outline">{t('Compare Plan')}</a>
+              <a href="#compare" className="btn btn--navy">{t('Compare Plan')}</a>
             </div>
           </div>
         </header>

@@ -44,9 +44,13 @@ export default function PlansSection({ plans = [], sectionData = {} }: PlansSect
   // Card view-model: real plans first, else the OneLnk static set.
   type Card = { key: string; eyebrow: string; priceBig: string; priceSuffix: string; desc: string; tag?: string; features: string[]; cta: string; featured: boolean };
 
+  // Like the packages page: with exactly three plans, the middle card is the
+  // highlighted (navy) one; otherwise fall back to the admin's "popular" flag.
+  const featuredIdx = enabledPlans.length === 3 ? 1 : -1;
+
   const cards: Card[] =
     enabledPlans.length > 0
-      ? enabledPlans.map((p) => {
+      ? enabledPlans.map((p, idx) => {
           const free = Number(p.price) === 0;
           return {
             key: String(p.id),
@@ -56,7 +60,7 @@ export default function PlansSection({ plans = [], sectionData = {} }: PlansSect
             desc: p.description,
             features: p.features || [],
             cta: free ? t('Start Free') : t('Get Started'),
-            featured: !!p.is_popular,
+            featured: idx === featuredIdx || !!p.is_popular,
           };
         })
       : [
@@ -113,7 +117,7 @@ export default function PlansSection({ plans = [], sectionData = {} }: PlansSect
                 <ul className="plan__features">
                   {card.features.map((f, i) => (
                     <li className="plan__feature" key={i}>
-                      <img src={img(card.featured ? 's8-check-light.svg' : 's8-check-dark.svg')} alt="" />
+                      <img src={img(card.featured ? 's8-check-dark.svg' : 's5-check.svg')} alt="" />
                       <span>{f}</span>
                     </li>
                   ))}

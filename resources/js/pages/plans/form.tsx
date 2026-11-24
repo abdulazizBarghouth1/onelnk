@@ -24,6 +24,7 @@ interface Plan {
   business: number;
   bio_links: number;
   max_users: number;
+  max_circles: number;
   storage_limit: number;
   enable_custdomain: string;
   enable_custsubdomain: string;
@@ -169,6 +170,7 @@ export default function PlanForm({ plan, hasDefaultPlan = false, otherDefaultPla
     business: plan?.business || 0,
     bio_links: plan?.bio_links || 0,
     max_users: plan?.max_users || 0,
+    max_circles: plan?.max_circles ?? 3,
     storage_limit: plan?.storage_limit || 0,
     enable_custdomain: plan?.enable_custdomain || 'off',
     enable_custsubdomain: plan?.enable_custsubdomain || 'off',
@@ -384,6 +386,21 @@ export default function PlanForm({ plan, hasDefaultPlan = false, otherDefaultPla
                   required
                 />
                 {errors.max_users && <p className="text-sm text-red-600 mt-1">{errors.max_users}</p>}
+              </div>
+
+              <div>
+                <Label htmlFor="max_circles">{t("Maximum Circles")}</Label>
+                <Input
+                  id="max_circles"
+                  name="max_circles"
+                  type="number"
+                  min={-1}
+                  value={formData.max_circles}
+                  onChange={handleChange}
+                  required
+                />
+                <p className="text-xs text-muted-foreground mt-1">{t("Contact segments a tenant can create. Use -1 for unlimited.")}</p>
+                {errors.max_circles && <p className="text-sm text-red-600 mt-1">{errors.max_circles}</p>}
               </div>
 
               <div>

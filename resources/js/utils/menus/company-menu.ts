@@ -153,6 +153,26 @@ export const getCompanyMenuItems = (t: any, permissions: any[], auth: any, refer
         });
     }
 
+    // Circles (contact segments)
+    if (hasPermission(permissions, 'manage-circles')) {
+        items.push({
+            title: t('Circles'),
+            href: route('circles.index'),
+            icon: Tag,
+            order: 86,
+        });
+    }
+
+    // Companies (organizations a contact belongs to)
+    if (hasPermission(permissions, 'manage-organizations')) {
+        items.push({
+            title: t('Companies'),
+            href: route('organizations.index'),
+            icon: Building2,
+            order: 87,
+        });
+    }
+
     // Appointments
     if (hasPermission(permissions, 'manage-appointments')) {
         items.push({

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { gsap } from 'gsap';
@@ -23,14 +23,18 @@ interface HeroSectionProps {
 }
 
 /**
- * OneLnk hero — ported 1:1 from the static design (scoped under .onelnk-landing,
- * see resources/css/onelnk-landing.css). The dark canvas is pulled up under the
- * sticky Header pill so the pill floats over it, as in the static build. Copy
- * (title / subtitle / CTAs) stays admin-driven via sectionData.
+ * OneLnk hero — heading + CTAs on the brand bone surface, pulled up under the
+ * sticky Header pill so the surface fills the strip behind it. The hero sizes to
+ * its content; the scroll story (HeroScrollStory) continues the same bone ground
+ * directly below, so the two read as one block. Copy stays admin-driven via
+ * sectionData; the accent phrase scrambles in unless reduced motion is on.
  */
 export default function HeroSection({ sectionData = {} }: HeroSectionProps) {
   const { t } = useTranslation();
   const accentRef = useRef<HTMLSpanElement>(null);
+  const [reduceMotion] = useState(
+    () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+  );
 
   const titleParts = (sectionData.title || '').split('\n');
   const titleMain = titleParts[0] || t('Your Smart Business Card');
@@ -44,20 +48,12 @@ export default function HeroSection({ sectionData = {} }: HeroSectionProps) {
   const secondaryText = sectionData.secondary_button_text || t('Contact Us');
   const secondaryHref = sectionData.secondary_button_link || '#contact';
 
-  const features = [
-    { text: t('No App Required'), fixed: false },
-    { text: t('Premium PVC NFC Card'), fixed: true },
-    { text: t('Instant Sharing'), fixed: false },
-  ];
-
-  const img = (name: string) => `/images/onelnk/${name}`;
-
   // Scramble the accent phrase in on load (the effect the user liked). The final
   // text is the real accent string, so the heading stays readable/selectable.
   useGSAP(() => {
     const el = accentRef.current;
     if (!el) return;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    if (reduceMotion) return;
     gsap.to(el, {
       duration: 1.4,
       ease: 'none',
@@ -69,22 +65,6 @@ export default function HeroSection({ sectionData = {} }: HeroSectionProps) {
     // -82px pulls the dark canvas up under the sticky Header pill (82px tall).
     <div className="onelnk-landing" style={{ marginTop: '-82px' }}>
       <header className="hero">
-        {/* Decorative background layers */}
-        <div className="hero__grid" aria-hidden="true">
-          <img src={img('hero-grid.svg')} alt="" />
-        </div>
-        <div className="hero__stars" aria-hidden="true">
-          <img src={img('hero-stars.svg')} alt="" />
-        </div>
-        <div className="hero__lights" aria-hidden="true">
-          <div className="hero__lights-a">
-            <img src={img('hero-lights.svg')} alt="" />
-          </div>
-          <div className="hero__lights-b">
-            <img src={img('hero-lights-2.svg')} alt="" />
-          </div>
-        </div>
-
         {/* Centred 1440 stage */}
         <div className="hero__stage">
           <div className="hero__content">
@@ -99,36 +79,10 @@ export default function HeroSection({ sectionData = {} }: HeroSectionProps) {
               <Link href={primaryHref} className="btn btn--primary">
                 {primaryText}
               </Link>
-              <a href={secondaryHref} className="btn btn--light">
+              <a href={secondaryHref} className="btn btn--navy">
                 {secondaryText}
               </a>
             </div>
-          </div>
-
-          {/* NFC card render */}
-          <div className="hero__nfc" aria-hidden="true">
-            <div className="hero__nfc-inner">
-              <img src={img('hero-nfc-card.png')} alt="" />
-            </div>
-          </div>
-
-          {/* iPhone mockup */}
-          <div className="hero__phone" aria-hidden="true">
-            <img className="hero__phone-frame" src={img('hero-phone.png')} alt="" />
-            <div className="hero__phone-screen">
-              <img src={img('hero-phone-screen.png')} alt="" />
-            </div>
-            <div className="hero__phone-island"></div>
-          </div>
-
-          {/* Feature card */}
-          <div className="hero__features featurecard">
-            {features.map((f) => (
-              <div key={f.text} className={f.fixed ? 'feature feature--fixed' : 'feature'}>
-                <img src={img('icon-check.svg')} alt="" />
-                <span>{f.text}</span>
-              </div>
-            ))}
           </div>
         </div>
       </header>

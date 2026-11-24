@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import QRCode from 'qrcode';
+import BrandQR from '@/components/BrandQR';
 
 interface QRCodeModalProps {
   isOpen: boolean;
@@ -70,13 +71,7 @@ export function QRCodeModal({ isOpen, onClose, url, title }: QRCodeModalProps) {
           <DialogTitle>{t('QR Code for')} {title}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center p-4">
-          {qrUrl ? (
-            <img src={qrUrl} alt="QR Code" className="border rounded-md w-[300px] h-[300px]" />
-          ) : (
-            <div className="border rounded-md w-[300px] h-[300px] flex items-center justify-center bg-gray-100">
-              <p className="text-gray-500">Loading QR code...</p>
-            </div>
-          )}
+          <BrandQR value={url} size={300} />
           <p className="mt-4 text-sm text-center text-muted-foreground">
             {t('Scan this QR code to access the vCard')}
           </p>

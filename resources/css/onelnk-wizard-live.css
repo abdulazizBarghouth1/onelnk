@@ -19,18 +19,18 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   background: #fff;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .onelnk-wizard .wztpl:hover {
-  border-color: #27aae1;
+  border-color: var(--cta);
 }
 .onelnk-wizard .wztpl--active {
-  border-color: #27aae1;
-  box-shadow: 0 0 0 2px rgba(39, 170, 225, 0.25);
+  border-color: var(--cta);
+  box-shadow: 0 0 0 2px rgba(194, 90, 20, 0.25);
 }
 .onelnk-wizard .wztpl input {
   position: absolute;
@@ -45,24 +45,24 @@
 .onelnk-wizard .wztpl__name {
   font-size: 14px;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--ink);
   word-break: break-word;
 }
 .onelnk-wizard .wztpl__empty {
   grid-column: 1 / -1;
   padding: 24px;
   text-align: center;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 14px;
 }
 
 /* Live preview mounted inside the phone frame (replaces the static PNG). */
 .onelnk-wizard .wzphone--live {
   background: #fff;
-  border: 10px solid #0b1220;
+  border: 10px solid var(--dark);
   border-radius: 44px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(5, 14, 34, 0.25);
+  box-shadow: 0 30px 80px rgba(17, 17, 17, 0.25);
 }
 .onelnk-wizard .wzphone__scroll {
   width: 100%;
@@ -73,7 +73,7 @@
 .onelnk-wizard .wzphone__loading {
   padding: 48px 20px;
   text-align: center;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 14px;
 }
 
@@ -132,6 +132,36 @@
   justify-content: center;
   gap: 3cqw;
   text-align: center;
+}
+/* Predesigned preset overlays — decorative layer behind the live card content. */
+.onelnk-wizard .pcard__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.onelnk-wizard .pcard__face--front > .pcard__top,
+.onelnk-wizard .pcard__face--front > .pcard__id {
+  position: relative;
+  z-index: 1;
+}
+/* Coral — diagonal light streak. */
+.onelnk-wizard .pcard__overlay--coral {
+  background: linear-gradient(115deg, transparent 52%, rgba(255, 255, 255, 0.22) 55%, rgba(255, 255, 255, 0.22) 62%, transparent 65%);
+}
+/* Onyx — ember left edge + faint dot texture. */
+.onelnk-wizard .pcard__overlay--onyx {
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1.6px) 0 0 / 7cqw 7cqw,
+    linear-gradient(90deg, #F3801E 0 1.6cqw, transparent 1.6cqw);
+}
+/* Violet — soft radial highlight top-right. */
+.onelnk-wizard .pcard__overlay--violet {
+  background: radial-gradient(60% 60% at 82% 18%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 70%);
+}
+/* Cobalt — lighter blue circle top-right. */
+.onelnk-wizard .pcard__overlay--cobalt {
+  background: radial-gradient(38% 60% at 88% 16%, rgba(120, 150, 255, 0.55) 0%, rgba(36, 81, 245, 0) 72%);
 }
 /* front — info side */
 .onelnk-wizard .pcard__top {
@@ -208,10 +238,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border-radius: 3cqw;
-  padding: 2cqw;
-  box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, 0.22);
+  background: transparent;
 }
 .onelnk-wizard .pcard__qr img {
   width: 100%;
@@ -237,7 +264,7 @@
   display: inline-flex;
   gap: 6px;
   padding: 5px;
-  background: #f1f3f5;
+  background: var(--surface-2);
   border-radius: 12px;
 }
 .onelnk-wizard .pcard__tabs button {
@@ -247,12 +274,12 @@
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--ink-muted);
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 .onelnk-wizard .pcard__tabs button.is-active {
-  background: #23272e;
+  background: var(--dark);
   color: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
@@ -261,6 +288,54 @@
    so the card + Front/Back control aren't crowded against the bottom edge. */
 .onelnk-wizard .wzpreview:has(.pcard-wrap) {
   padding-bottom: 64px;
+}
+
+/* Card-type step (step 1) — minimal "hero" preview: no dark stage, no clipping,
+   a real drop shadow cast by the card that turns with the flip. */
+.onelnk-wizard.onelnk-landing .wzpreview--hero {
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
+  gap: var(--sp-20);
+  overflow: visible;            /* let the 3D flip + shadow extend, never trimmed */
+}
+/* Decreased from full width so the card isn't clipped as it rotates near the edges. */
+.onelnk-wizard .wzpreview--hero .pcard {
+  position: relative;
+  width: min(100%, 480px);
+  max-width: 480px;
+  margin-inline: auto;
+}
+/* Remove the navy glow; use a shadow that belongs to the card's 3D group. */
+.onelnk-wizard .wzpreview--hero .pcard__face {
+  box-shadow: none;
+}
+/* The card sits flat with no cast shadow (per the design ask). */
+
+/* Step-2 predesigned faces picker. */
+.onelnk-wizard .wzpresets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+.onelnk-wizard .wzpreset {
+  flex: 1 1 0;
+  min-width: 56px;
+  height: 44px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.onelnk-wizard .wzpreset:hover {
+  transform: translateY(-1px);
+}
+.onelnk-wizard .wzpreset.is-active {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 2px rgba(194, 90, 20, 0.35);
 }
 
 /* Step-2 colour controls — custom colour swatch + gradient builder. */
@@ -287,7 +362,7 @@
   display: inline-flex;
   gap: 4px;
   padding: 4px;
-  background: #f1f3f5;
+  background: var(--surface-2);
   border-radius: 12px;
   margin-bottom: 14px;
 }
@@ -298,12 +373,12 @@
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--ink-muted);
   cursor: pointer;
 }
 .onelnk-wizard .wzgradient__toggle button.is-active {
   background: #fff;
-  color: #0f172a;
+  color: var(--ink);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .onelnk-wizard .wzgradient__row {
@@ -317,12 +392,12 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #475569;
+  color: var(--ink-muted);
 }
 .onelnk-wizard .wzgradient__stop input[type="color"] {
   width: 32px;
   height: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 0;
   background: none;
@@ -335,17 +410,17 @@
 .onelnk-wizard .wzgradient__angle {
   width: 30px;
   height: 30px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   background: #fff;
-  color: #64748b;
+  color: var(--ink-muted);
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
 }
 .onelnk-wizard .wzgradient__angle.is-active {
-  border-color: #27aae1;
-  color: #0f172a;
+  border-color: var(--cta);
+  color: var(--ink);
   box-shadow: 0 0 0 2px rgba(39, 170, 225, 0.2);
 }
 .onelnk-wizard .wzgradient__presets {
@@ -367,7 +442,7 @@
   display: inline-flex;
   gap: 4px;
   padding: 4px;
-  background: #f1f3f5;
+  background: var(--surface-2);
   border-radius: 999px;
 }
 .onelnk-wizard .wzauth__toggle button {
@@ -377,13 +452,13 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--ink-muted);
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
 .onelnk-wizard .wzauth__toggle button.is-active {
   background: #fff;
-  color: #0f172a;
+  color: var(--ink);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 .onelnk-wizard .wzterms {
@@ -391,7 +466,7 @@
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #475569;
+  color: var(--ink-muted);
 }
 .onelnk-wizard .wzfield__error {
   display: block;
@@ -399,3 +474,237 @@
   font-size: 12px;
   color: #dc2626;
 }
+
+/* =====================================================================
+   Wizard refresh — brand surfaces, dark option panels, light inputs.
+   This sheet loads after onelnk-wizard.css, so equal-specificity rules
+   here win without needing !important.
+   ===================================================================== */
+
+/* --- Page: the bone surface fills the viewport (no white strip below). --- */
+.onelnk-wizard.onelnk-landing .wz {
+  min-height: 100dvh;
+  background: var(--surface);
+}
+
+/* --- Steps 1 & 2: centre the business card against the form column. --- */
+@media (min-width: 1025px) {
+  .onelnk-wizard.onelnk-landing .wzpreview--hero {
+    align-self: stretch;
+    justify-content: center;
+  }
+}
+
+/* --- Left preview column is never a dark stage (any step): the card / phone
+       sit on the bone page. Overrides the base .wzpreview dark-stage rule for
+       every variant (plain / --hero / --tall). --- */
+.onelnk-wizard.onelnk-landing .wzpreview {
+  background: transparent;
+  border: none;
+}
+
+/* The right-hand panels (.wzoptions / .wzcard) and their labels/inputs stay on
+   the LIGHT brand surfaces defined in onelnk-wizard.css — we no longer override
+   them to dark. Only the ember focus ring is kept. */
+.onelnk-wizard.onelnk-landing .wzfield__control::placeholder { color: var(--ink-faint); }
+.onelnk-wizard.onelnk-landing .wzfield__control:focus {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 3px rgba(194, 90, 20, 0.18);
+}
+
+/* --- Step 1 option cards: white on the dark panel, with a border that
+       fills inward from both edges on hover until it closes the card. --- */
+.onelnk-wizard.onelnk-landing .wzopt {
+  position: relative;
+  padding: 15px;
+  border: 2px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.onelnk-wizard.onelnk-landing .wzopt:hover:not(:has(input:checked)) {
+  border-color: var(--card-border);
+  box-shadow: 0 10px 26px rgba(10, 15, 22, 0.18);
+}
+.onelnk-wizard.onelnk-landing .wzopt::before,
+.onelnk-wizard.onelnk-landing .wzopt::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--cta);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: clip-path 0.45s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+/* Hidden at the outer edges... */
+.onelnk-wizard.onelnk-landing .wzopt::before { clip-path: inset(0 100% 0 0); }
+.onelnk-wizard.onelnk-landing .wzopt::after  { clip-path: inset(0 0 0 100%); }
+/* ...then each half sweeps inward and they meet in the middle. */
+.onelnk-wizard.onelnk-landing .wzopt:hover::before,
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked)::before { clip-path: inset(0 50% 0 0); }
+.onelnk-wizard.onelnk-landing .wzopt:hover::after,
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked)::after  { clip-path: inset(0 0 0 50%); }
+/* Selected keeps the closed ring — and the same padding, so nothing shifts. */
+.onelnk-wizard.onelnk-landing .wzopt:has(input:checked) {
+  padding: 15px;
+  border-color: transparent;
+  background: var(--surface-card);
+}
+
+/* --- Step 2: Solid/Gradient on the LIGHT panel — white buttons, orange when
+       selected. --- */
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__toggle {
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-pill);
+  padding: 5px;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__toggle button {
+  border-radius: var(--radius-pill);
+  padding: 7px 20px;
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  color: var(--ink-muted);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__toggle button.is-active {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: #fff;
+  box-shadow: none;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__stop { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__stop input[type="color"],
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__angle {
+  border-color: var(--card-border);
+  background: var(--surface-card);
+  color: var(--ink-muted);
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__angle:hover { transform: translateY(-1px); }
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__angle.is-active {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: #fff;
+  box-shadow: none;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__preset {
+  width: 46px;
+  height: 30px;
+  border-radius: var(--radius-chip);
+  border: 1px solid var(--card-border);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzgradient__preset:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(10, 15, 22, 0.18);
+}
+.onelnk-wizard.onelnk-landing .wzoptions .wzpreset { border-radius: var(--radius-chip); }
+.onelnk-wizard.onelnk-landing .wzoptions .wzpreset:hover { transform: translateY(-2px); }
+
+/* Front/Back tabs under the card: spaced further from the card, a white holder
+   and white inactive buttons, all with the identity (card-border) border; ember
+   only when active. */
+.onelnk-wizard.onelnk-landing .pcard__tabs {
+  margin-top: var(--sp-20);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+}
+.onelnk-wizard.onelnk-landing .pcard__tabs button {
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  color: var(--ink-muted);
+}
+.onelnk-wizard.onelnk-landing .pcard__tabs button.is-active {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: #fff;
+}
+
+/* --- Steps 3 & 4: the phone stands on the page, not on a dark stage. --- */
+.onelnk-wizard.onelnk-landing .wzpreview--tall {
+  background: transparent;
+  border: none;
+  padding-top: 0;
+}
+/* The Preview chip now reads against the bone page. */
+.onelnk-wizard.onelnk-landing .wzpreview--tall .pill--plain {
+  background: var(--surface-2);
+  border: 1px solid var(--card-border);
+  color: var(--ink-muted);
+}
+/* No scrollbar inside the phone: it still scrolls, it just shows no track. */
+.onelnk-wizard.onelnk-landing .wzphone__scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.onelnk-wizard.onelnk-landing .wzphone__scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+/* --- Steps 4 & 7: the stacked cards stay on the LIGHT brand surface
+       (var(--surface-2) + ink), defined in onelnk-wizard.css — no dark override. --- */
+
+/* --- Step 5: pricing styled like the homepage packages section.
+       Panel is transparent so the cards sit straight on the bone surface. --- */
+.onelnk-wizard.onelnk-landing .wzplans {
+  background: transparent;
+  border-radius: var(--radius);
+  padding: var(--sp-68) var(--sp-42);
+  gap: var(--sp-26);
+}
+.onelnk-wizard.onelnk-landing .wzplan {
+  padding: var(--sp-42);
+  gap: var(--sp-26);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: var(--surface-card);
+  transition: box-shadow 0.2s ease, outline-color 0.2s ease;
+}
+.onelnk-wizard.onelnk-landing .wzplan:hover { box-shadow: 0 14px 34px rgba(10, 15, 22, 0.22); }
+/* The chosen plan gets the ember ring. */
+.onelnk-wizard.onelnk-landing .wzplan:has(input:checked) {
+  outline: 2px solid var(--cta);
+  outline-offset: -2px;
+}
+/* Recommended card: white with an ember ring and a peach header band, exactly
+   like the homepage featured plan. */
+.onelnk-wizard.onelnk-landing .wzplan--featured {
+  gap: var(--sp-26);
+  background: var(--surface-card);
+  outline: 2px solid var(--cta);
+  outline-offset: -2px;
+  overflow: hidden;
+}
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__head {
+  width: auto;
+  align-self: stretch;
+  margin: calc(var(--sp-42) * -1) calc(var(--sp-42) * -1) 0;
+  padding: var(--sp-42) var(--sp-42) var(--sp-26);
+  background: var(--pro-tint);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+/* The featured card is light now, so its copy goes back to ink. */
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__price,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__price b,
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__feature span { color: var(--ink); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__desc { color: var(--ink-muted); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__name { color: var(--pro-ink); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__features { border-color: var(--card-border); }
+/* Plan CTAs: pill buttons, dark by default, ember on the recommended card. */
+.onelnk-wizard.onelnk-landing .wzplan__cta {
+  min-height: 48px;
+  padding: 0 var(--sp-26);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--dark);
+  font-weight: 700;
+  color: #fff;
+}
+.onelnk-wizard.onelnk-landing .wzplan__cta:hover { background: var(--dark-2); }
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__cta,
+.onelnk-wizard.onelnk-landing .wzplan:has(input:checked) .wzplan__cta {
+  border: none;
+  background: var(--cta);
+  color: #fff;
+}
+.onelnk-wizard.onelnk-landing .wzplan--featured .wzplan__cta:hover,
+.onelnk-wizard.onelnk-landing .wzplan:has(input:checked) .wzplan__cta:hover { background: var(--cta-hover); }

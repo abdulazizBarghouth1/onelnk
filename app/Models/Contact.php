@@ -11,11 +11,20 @@ class Contact extends Model
 
     protected $fillable = [
         'business_id',
+        'organization_id',
+        'created_by',
         'is_landing_page',
         'name',
         'email',
+        'emails',
         'subject',
         'phone',
+        'phones',
+        'job_title',
+        'website',
+        'address',
+        'avatar',
+        'source',
         'message',
         'status',
         'notes',
@@ -23,6 +32,8 @@ class Contact extends Model
 
     protected $casts = [
         'is_landing_page' => 'boolean',
+        'emails' => 'array',
+        'phones' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -49,5 +60,29 @@ class Contact extends Model
     public function business()
     {
         return $this->belongsTo(Business::class);
+    }
+
+    /**
+     * Circles (segments) this contact belongs to.
+     */
+    public function circles()
+    {
+        return $this->belongsToMany(Circle::class, 'circle_contact')->withTimestamps();
+    }
+
+    /**
+     * The organization (company) this contact belongs to.
+     */
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
+    /**
+     * The user (owner or staff) who added this contact.
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

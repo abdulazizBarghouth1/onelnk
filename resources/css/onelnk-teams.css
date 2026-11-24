@@ -85,7 +85,11 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  padding: 0 0 60px;
+  /* Pull the hero up under the sticky Header pill (82px) so its bone surface
+     (var(--white) = #F2F0EB) fills the strip behind the transparent nav instead
+     of the white page body showing through. Top padding keeps the title clear. */
+  margin-top: -82px;
+  padding: 110px 0 60px;
   background: var(--white);
  }
 .onelnk-teams .thead__inner {
@@ -123,7 +127,7 @@
   max-width: 100%;
   padding: 32px;
   border-radius: var(--radius-2xl);
-  background: #141414;
+  background: var(--neutral-950);
  }
 .onelnk-teams .stage .tdash {
   position: absolute;
@@ -154,7 +158,7 @@
   gap: 6px;
   padding: 8px 12px 8px 8px;
   border-radius: var(--radius-full);
-  background: #151a1c;
+  background: var(--neutral-900);
   font-size: var(--text-base);
   line-height: var(--leading-6);
   font-weight: var(--weight-semibold);
@@ -181,7 +185,7 @@
   gap: 12px;
   padding: 11px 12px;
   border-radius: var(--radius-xl);
-  background: #1d1d1d;
+  background: var(--neutral-900);
   font-size: var(--text-base);
   line-height: var(--leading-6);
   letter-spacing: var(--tracking-normal);
@@ -219,7 +223,7 @@
   min-width: 0;
   padding: 16px;
   border-radius: var(--radius-xl);
-  background: #1d1d1d;
+  background: var(--neutral-900);
   letter-spacing: var(--tracking-normal);
   color: var(--white);
  }
@@ -243,7 +247,7 @@
   width: 100%;
   padding: 16px;
   border-radius: var(--radius-xl);
-  background: #1d1d1d;
+  background: var(--neutral-900);
  }
 .onelnk-teams .tdash__panel > p {
   width: 100%;
@@ -466,15 +470,14 @@
   display: flex;
   flex: 0 0 610px;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
   gap: 24px;
-  aspect-ratio: 1;
   max-width: 100%;
-  padding: 40px;
+  padding: 32px;
   border-radius: var(--radius-3xl);
   overflow: hidden;
-  background: linear-gradient(180deg, var(--primary-100) 0%, var(--primary-300) 197.32%);
+  background: #FFFFFF;
+  border: 1px solid var(--neutral-200);
  }
 .onelnk-teams .brand__card {
   width: 519.177px;
@@ -797,7 +800,7 @@
   min-width: 0;
   padding: 32px;
   border-radius: var(--radius-2xl);
-  background: var(--white);
+  background: #FFFFFF;
  }
 .onelnk-teams .qform__head {
   display: flex;
@@ -961,4 +964,192 @@
     padding: 20px;
     gap: 16px;
    }
+}
+
+/* ---- teams-page brand overrides (appended) ---- */
+/* Compound `.onelnk-teams.onelnk-landing` selectors win over the scoped rules
+   above and the landing bundle regardless of CSS order. */
+
+/* "Built for Modern Businesses" — homepage card system, 50px brand-orange icons
+   with no chip behind them (same rules as the product/packages cards). */
+.onelnk-teams.onelnk-landing .share__card {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-teams.onelnk-landing .share__icon {
+  padding: 0;
+  background: transparent;
+ }
+.onelnk-teams.onelnk-landing .share__icon img {
+  width: 50px;
+  height: 50px;
+ }
+.onelnk-teams.onelnk-landing .share__title { color: var(--ink); }
+.onelnk-teams.onelnk-landing .share__text {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+.onelnk-teams.onelnk-landing .share__rule { background: var(--card-border); }
+.onelnk-teams.onelnk-landing .share__meta > span { color: var(--ink-faint); }
+.onelnk-teams.onelnk-landing .share__pill {
+  background: var(--surface);
+  border-color: var(--card-border);
+  color: var(--ink-muted);
+ }
+.onelnk-teams.onelnk-landing .share__pill::before { background: var(--cta); }
+
+/* Team dashboard — brand black surfaces, bone text, ember where it matters. */
+.onelnk-teams.onelnk-landing .tdash {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius);
+ }
+.onelnk-teams.onelnk-landing .tdash__head > p,
+.onelnk-teams.onelnk-landing .tdash__panel > p,
+.onelnk-teams.onelnk-landing .tdash__person b,
+.onelnk-teams.onelnk-landing .tdash__select { color: var(--on-dark); }
+.onelnk-teams.onelnk-landing .tdash__search,
+.onelnk-teams.onelnk-landing .tdash__person span,
+.onelnk-teams.onelnk-landing .tdash__stat span { color: var(--on-dark-faint); }
+.onelnk-teams.onelnk-landing .tdash__add {
+  background: var(--cta);
+  color: #fff;
+ }
+.onelnk-teams.onelnk-landing .tdash__search,
+.onelnk-teams.onelnk-landing .tdash__select,
+.onelnk-teams.onelnk-landing .tdash__stat,
+.onelnk-teams.onelnk-landing .tdash__panel {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-card);
+ }
+.onelnk-teams.onelnk-landing .tdash__search,
+.onelnk-teams.onelnk-landing .tdash__select { border-radius: var(--radius-chip); }
+.onelnk-teams.onelnk-landing .tdash__stat b { color: var(--on-dark); }
+.onelnk-teams.onelnk-landing .tdash__stat:first-child b { color: var(--accent-dark); }
+.onelnk-teams.onelnk-landing .tdash__person img { border: 2px solid var(--dark-border); }
+.onelnk-teams.onelnk-landing .tdash__status {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+ }
+.onelnk-teams.onelnk-landing .tdash__status--active {
+  background: rgba(240, 138, 60, 0.14);
+  color: var(--accent-dark);
+ }
+.onelnk-teams.onelnk-landing .tdash__status--pending {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+  color: var(--on-dark-faint);
+ }
+.onelnk-teams.onelnk-landing .tdash__row > img { opacity: 0.6; }
+
+/* Keep Every Card On Brand — copy stays on the left in brand colours; the right
+   side is the homepage's dark builder card (no extra panel around it). */
+.onelnk-teams.onelnk-landing .brand__title { color: var(--ink); }
+.onelnk-teams.onelnk-landing .brand__lede,
+.onelnk-teams.onelnk-landing .brand__item span { color: var(--ink-muted); }
+.onelnk-teams.onelnk-landing .brand__item b { color: var(--ink); }
+.onelnk-teams.onelnk-landing .brand__item { gap: var(--sp-16); }
+.onelnk-teams.onelnk-landing .brand__icon {
+  padding: 12px;
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-chip);
+ }
+.onelnk-teams.onelnk-landing .brand__panel {
+  flex: 0 1 520px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+ }
+.onelnk-teams.onelnk-landing .brand__panel .designer__card {
+  max-width: none;
+  margin: 0;
+ }
+
+/* Simple Bulk Ordering — dark step orbs with orange icons, ember timeline. */
+.onelnk-teams.onelnk-landing .bulk__title { color: var(--ink); }
+.onelnk-teams.onelnk-landing .bulk__lede,
+.onelnk-teams.onelnk-landing .bulk__text span { color: var(--ink-muted); }
+.onelnk-teams.onelnk-landing .bulk__text b {
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
+ }
+.onelnk-teams.onelnk-landing .bulk__timeline::before { background: var(--cta); }
+.onelnk-teams.onelnk-landing .bulk__orb {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 0 0 6px var(--white);
+ }
+.onelnk-teams.onelnk-landing .bulk__pill span {
+  background: var(--dark);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: var(--accent-dark);
+ }
+
+/* Request Your Team Quote — brand dark section, white form card, ember CTA. */
+.onelnk-teams.onelnk-landing .quote { background: var(--dark); }
+.onelnk-teams.onelnk-landing .quote__title { color: var(--on-dark); }
+.onelnk-teams.onelnk-landing .quote__lede { color: var(--on-dark-faint); }
+.onelnk-teams.onelnk-landing .quote__media {
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius);
+ }
+.onelnk-teams.onelnk-landing .quote__media img {
+  inset: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+ }
+.onelnk-teams.onelnk-landing .qform {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-teams.onelnk-landing .qform__head h3,
+.onelnk-teams.onelnk-landing .qform__field label { color: var(--ink); }
+.onelnk-teams.onelnk-landing .qform__head p { color: var(--ink-muted); }
+.onelnk-teams.onelnk-landing .qform__field input,
+.onelnk-teams.onelnk-landing .qform__field select,
+.onelnk-teams.onelnk-landing .qform__field textarea {
+  background-color: var(--surface);
+  border-color: var(--card-border);
+  border-radius: var(--radius-chip);
+  color: var(--ink);
+ }
+.onelnk-teams.onelnk-landing .qform__field input:focus,
+.onelnk-teams.onelnk-landing .qform__field select:focus,
+.onelnk-teams.onelnk-landing .qform__field textarea:focus {
+  outline-color: var(--cta);
+  border-color: var(--cta);
+ }
+.onelnk-teams.onelnk-landing .qform__submit {
+  min-height: 48px;
+  border-radius: var(--radius-pill);
+  background: var(--cta);
+  font-weight: 700;
+ }
+.onelnk-teams.onelnk-landing .qform__submit:hover { background: var(--cta-hover); }
+
+@media (max-width: 1200px) {
+.onelnk-teams.onelnk-landing .brand__panel {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 520px;
+   }
+}
+@media (max-width: 768px) {
+.onelnk-teams.onelnk-landing .share__card,
+.onelnk-teams.onelnk-landing .qform {
+    padding: 24px 20px;
+   }
+.onelnk-teams.onelnk-landing .brand__panel { padding: 0; }
 }

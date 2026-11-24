@@ -1,21 +1,69 @@
+import { useRef, type ReactNode } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import BenefitsSection from '../landing-page/components/BenefitsSection';
-import GallerySection from '../landing-page/components/GallerySection';
+import DesignerSection from '../landing-page/components/DesignerSection';
+import DigitalProfileSection from '../landing-page/components/DigitalProfileSection';
+import ProductGallery from '../landing-page/components/ProductGallery';
 import IndustriesSection from '../landing-page/components/IndustriesSection';
 import FaqSection from '../landing-page/components/FaqSection';
 import CTASection from '../landing-page/components/CTASection';
 import '../../../css/onelnk-landing.css';
 import '../../../css/onelnk-product.css';
+// Live builders reused from the homepage / wizard need the wizard preview styles.
+import '../../../css/onelnk-wizard.css';
+import '../../../css/onelnk-wizard-live.css';
 
 const img = (name: string) => `/images/onelnk/${name}`;
 
+/* Decorative inline icons for the steps section. Inline (not <img>) so their
+   parts are individually animatable and so they inherit currentColor. */
+
+// Landscape NFC card: frame + three signal arcs concentric on (9.6, 16) — which
+// is also their CSS transform-origin, so they scale radially.
+const IcoNfcCard = () => (
+  <svg className="pstep__nfc" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+       aria-hidden="true" focusable="false">
+    <rect x="2" y="7" width="28" height="18" rx="3.5" />
+    <path className="pstep__nfc-arc pstep__nfc-arc--1" d="M12.14 13.18a3.8 3.8 0 0 1 0 5.64" />
+    <path className="pstep__nfc-arc pstep__nfc-arc--2" d="M14.79 11.16a7.1 7.1 0 0 1 0 9.68" />
+    <path className="pstep__nfc-arc pstep__nfc-arc--3" d="M17.8 9.6a10.4 10.4 0 0 1 0 12.8" />
+  </svg>
+);
+
+// Tick drawn on hover via stroke-dashoffset. Path length ≈ 20.2 → dash 21.
+const IcoTick = () => (
+  <svg className="pstep__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"
+       aria-hidden="true" focusable="false">
+    <path d="M5 12.5 9.5 17 19 7" />
+  </svg>
+);
+
+// p3-sync.svg redrawn inline: the rails run full height and the handles are
+// filled with the tile colour so they occlude the rail they ride on — that is
+// what lets a handle travel (the shipped asset carves a gap in the rail instead).
+const IcoSliders = () => (
+  <svg className="pstep__sliders" viewBox="0 0 40 40" fill="none" stroke="currentColor"
+       strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+       aria-hidden="true" focusable="false">
+    <path d="M6.67 5V35" /><path d="M19.17 5V35" /><path d="M31.67 5V35" />
+    <rect className="pstep__sliders-handle pstep__sliders-handle--1" x="3.33" y="13.33" width="6.67" height="5" rx="2.5" />
+    <rect className="pstep__sliders-handle pstep__sliders-handle--2" x="15.83" y="21.67" width="6.67" height="5" rx="2.5" />
+    <rect className="pstep__sliders-handle pstep__sliders-handle--3" x="28.33" y="16.67" width="6.67" height="5" rx="2.5" />
+  </svg>
+);
+
 export default function Product() {
-  const { t } = useTranslation();
-  const { settings, auth } = usePage<any>().props;
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
+  const { settings, auth, galleryItems = [], plans = [] } = usePage<any>().props;
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   // Quick Benefit Bar
@@ -35,7 +83,7 @@ export default function Product() {
     },
     {
       featured: true, art: 'p4-custom.png', title: t('Custom Card'), desc: t('Greater control over card branding.'),
-      tag: 'p4-tag.svg', tags: [t('Personal Brands'), t('Creatives'), t('Premium Users')],
+      tag: 's8-check-light.svg', tags: [t('Personal Brands'), t('Creatives'), t('Premium Users')],
       cta: t('Choose Custom'),
     },
     {
@@ -43,19 +91,6 @@ export default function Product() {
       tag: 'p4-tag-b.svg', tags: [t('Sales Teams'), t('Corporate Dept.'), t('Business')],
       cta: t('Talk to Sales'),
     },
-  ];
-
-  // Configurator layout options + colours
-  const layouts = [t('Modern Accent'), t('Ultra Minimal'), t('Bold Typography'), t('Classic Corporate')];
-  const swatches = ['#050e22', '#96ddea', '#c396ea', '#ea9697', '#eac796', '#96caea'];
-
-  // Designer2 presets
-  const presets = [t('Professional'), t('Minimal'), t('Corporate'), t('Dark'), t('Creative'), t('Luxury')];
-  const phoneRows = [
-    { icon: 'p6-phone.svg', label: t('Phone'), value: '(704) 555-0127' },
-    { icon: 'p6-wa.svg', label: t('WhatsApp'), value: '(704) 555-0127' },
-    { icon: 'p6-mail.svg', label: t('Email'), value: 'alex.rahman@example.com' },
-    { icon: 'p6-pin.svg', label: t('Address'), value: '1901 Thornridge Cir. Shiloh, Hawaii 81063' },
   ];
 
   // Sharing methods
@@ -68,25 +103,56 @@ export default function Product() {
     { icon: 'p7-share-6.svg', soon: true, title: t('Email Signature'), text: t('Beautiful interactive email footer layouts linked directly to your digital profile.') },
   ];
 
-  // Static marketing plans (3-up). Real plan selection happens in the wizard.
-  const plans = [
-    {
-      eyebrow: t('Free'), price: <><b>$0</b> / {t('forever')}</>, desc: t('Get started with your digital profile and basic sharing tools.'),
-      check: 's8-check-dark.svg', features: [t('Digital profile'), t('Basic Link Sharing'), t('Limited Customization')],
-      cta: t('Start Free'),
-    },
-    {
-      featured: true, eyebrow: t('Premium NFC Card'), price: <><b>$49</b> {t('One-time')}</>, desc: t('The complete package — premium physical card with a powerful digital profile.'),
-      tag: t('4 months FREE included'), check: 's8-check-light.svg',
-      features: [t('Digital profile'), t('PVC NFC card'), t('Custom card design'), t('More profile sections'), t('Priority design options')],
-      cta: t('Create My Card'),
-    },
-    {
-      eyebrow: t('Teams'), price: <b>{t('Custom')}</b>, desc: t('Branded employee cards with centralized team management.'),
-      check: 's8-check-dark.svg', features: [t('Multiple employee cards'), t('Company branding'), t('Team management'), t('Bulk order'), t('Centralized control')],
-      cta: t('Request a Quote'),
-    },
-  ];
+  // Pricing cards bind to the real enabled Plans (same rules as the homepage
+  // PlansSection); the static OneLnk set is the fallback when none are configured.
+  const formatCurrency = (amount: number | string) => {
+    const n = typeof amount === 'number' ? amount : parseFloat(String(amount));
+    if (typeof window !== 'undefined' && (window as any).appSettings?.formatCurrency) {
+      return (window as any).appSettings.formatCurrency(n, { showSymbol: true });
+    }
+    return '$' + n;
+  };
+  const enabledPlans = (plans as any[]).filter(
+    (p) => p.is_plan_enable === 'on' && (p.duration === 'monthly' || p.duration === 'both'),
+  );
+  // With exactly three plans the middle card is highlighted; else the "popular" flag.
+  const featuredIdx = enabledPlans.length === 3 ? 1 : -1;
+  type PlanCard = { key: string; featured?: boolean; eyebrow: string; price: ReactNode; desc: string; tag?: string; check: string; features: string[]; cta: string; href: string };
+  const planCards: PlanCard[] =
+    enabledPlans.length > 0
+      ? enabledPlans.map((p, idx) => {
+          const free = Number(p.price) === 0;
+          const featured = idx === featuredIdx || !!p.is_popular;
+          return {
+            key: String(p.id),
+            featured,
+            eyebrow: p.name,
+            price: <><b>{free ? t('Free') : formatCurrency(p.price)}</b>{free ? '' : ` / ${t('month')}`}</>,
+            desc: p.description,
+            check: featured ? 's8-check-light.svg' : 's8-check-dark.svg',
+            features: p.features || [],
+            cta: free ? t('Start Free') : t('Get Started'),
+            href: free ? route('register') : route('create-card.create'),
+          };
+        })
+      : [
+          {
+            key: 'free', eyebrow: t('Free'), price: <><b>$0</b> / {t('forever')}</>, desc: t('Get started with your digital profile and basic sharing tools.'),
+            check: 's8-check-dark.svg', features: [t('Digital profile'), t('Basic Link Sharing'), t('Limited Customization')],
+            cta: t('Start Free'), href: route('register'),
+          },
+          {
+            key: 'premium', featured: true, eyebrow: t('Premium NFC Card'), price: <><b>$49</b> {t('One-time')}</>, desc: t('The complete package — premium physical card with a powerful digital profile.'),
+            tag: t('4 months FREE included'), check: 's8-check-light.svg',
+            features: [t('Digital profile'), t('PVC NFC card'), t('Custom card design'), t('More profile sections'), t('Priority design options')],
+            cta: t('Create My Card'), href: route('create-card.create'),
+          },
+          {
+            key: 'teams', eyebrow: t('Teams'), price: <b>{t('Custom')}</b>, desc: t('Branded employee cards with centralized team management.'),
+            check: 's8-check-dark.svg', features: [t('Multiple employee cards'), t('Company branding'), t('Team management'), t('Bulk order'), t('Centralized control')],
+            cta: t('Request a Quote'), href: route('marketing.teams'),
+          },
+        ];
 
   // Corporate portal
   const corpPoints = [
@@ -102,12 +168,12 @@ export default function Product() {
   ];
 
   return (
-    <>
+    <div ref={revealRef}>
       <Head title={`${t('Product')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
       <div className="onelnk-landing onelnk-product">
-        <header className="phead">
+        <header className="phead page-hero">
           <div className="phead__inner">
             <div className="phead__intro">
               <div className="phead__copy">
@@ -118,9 +184,9 @@ export default function Product() {
                   {t('Design your card, build your profile, and share your contact details, links, WhatsApp, and socials with one tap.')}
                 </p>
               </div>
-              <div className="phead__actions">
+              <div className="btn-row phead__actions">
                 <Link href={route('create-card.create')} className="btn btn--primary">{t('Create My Card')}</Link>
-                <a href="#steps" className="btn btn--outline">{t('See How It Works')}</a>
+                <a href="#steps" className="btn btn--navy benefits__cta">{t('See How It Works')}</a>
               </div>
             </div>
 
@@ -184,9 +250,9 @@ export default function Product() {
                 <div className="pstep__figure">
                   <div className="pstep__tile">
                     <div className="pstep__tile-inner">
-                      <span className="pstep__orb"><img src={img('p3-tap.svg')} alt="" /></span>
+                      <span className="pstep__orb pstep__orb--phone"><img src={img('p3-tap.svg')} alt="" /></span>
                       <img className="pstep__arrow" src={img('p3-arrow.svg')} alt="" />
-                      <span className="pstep__orb"><img src={img('p3-phone.svg')} alt="" /></span>
+                      <span className="pstep__orb pstep__orb--card"><IcoNfcCard /></span>
                     </div>
                   </div>
                   <div className="pstep__badge"><span>01</span></div>
@@ -201,7 +267,10 @@ export default function Product() {
                   <div className="pstep__tile">
                     <div className="pstep__tile-inner pstep__tile-inner--col">
                       <span className="pstep__chip pstep__chip--url">onelnk.co/profile</span>
-                      <p className="pstep__loading">{t('Browser Loading...')}</p>
+                      <p className="pstep__loading">
+                        {t('Browser Loading')}
+                        <span className="pstep__dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span>
+                      </p>
                     </div>
                   </div>
                   <div className="pstep__badge"><span>02</span></div>
@@ -215,8 +284,11 @@ export default function Product() {
                 <div className="pstep__figure">
                   <div className="pstep__tile">
                     <div className="pstep__tile-inner pstep__tile-inner--col">
-                      <span className="pstep__chip"><img src={img('p3-call.svg')} alt="" />{t('Call')}</span>
-                      <span className="pstep__chip"><img src={img('p3-whatsapp.svg')} alt="" />{t('WhatsApp')}</span>
+                      <span className="pstep__chip pstep__chip--save">
+                        <img src={img('p3-save.svg')} alt="" />{t('Save')}<IcoTick />
+                      </span>
+                      <span className="pstep__chip pstep__chip--call"><img src={img('p3-call.svg')} alt="" />{t('Call')}</span>
+                      <span className="pstep__chip pstep__chip--wa"><img src={img('p3-whatsapp.svg')} alt="" />{t('WhatsApp')}</span>
                     </div>
                   </div>
                   <div className="pstep__badge"><span>03</span></div>
@@ -230,7 +302,7 @@ export default function Product() {
                 <div className="pstep__figure">
                   <div className="pstep__tile">
                     <div className="pstep__tile-inner pstep__tile-inner--col" style={{ gap: 8 }}>
-                      <img className="pstep__sync-icon" src={img('p3-sync.svg')} alt="" />
+                      <IcoSliders />
                       <p className="pstep__sync-label">{t('Real-Time Sync')}</p>
                     </div>
                   </div>
@@ -274,137 +346,11 @@ export default function Product() {
             </div>
           </section>
 
-          {/* Configurator */}
-          <section className="configurator" aria-labelledby="cfg-title">
-            <div className="phead-block">
-              <h2 className="phead-block__title" id="cfg-title">{t('See Your Card Before You Buy')}</h2>
-              <p className="phead-block__text">
-                {t('Customize every physical and digital asset. Choose premium finishes, tweak details, and see an absolute real-time 3D style preview.')}
-              </p>
-            </div>
-            <div className="configurator__row">
-              <div className="cfg">
-                <div className="cfg__head">
-                  <h3 className="cfg__title">{t('Customize Configuration')}</h3>
-                  <div className="cfg__fields">
-                    <div className="cfg__group">
-                      <div className="cfg__pair">
-                        <div className="cfg__field"><label className="cfg__label">{t('Full Name')}</label><div className="cfg__input">{t('e.g. Alex Rahman')}</div></div>
-                        <div className="cfg__field"><label className="cfg__label">{t('Job Title')}</label><div className="cfg__input">{t('e.g. Senior Product Designer')}</div></div>
-                      </div>
-                      <div className="cfg__pair">
-                        <div className="cfg__field"><label className="cfg__label">{t('Phone')}</label><div className="cfg__input">{t('e.g. (704) 555-0127')}</div></div>
-                        <div className="cfg__field"><label className="cfg__label">{t('Email')}</label><div className="cfg__input">{t('e.g. alex.rahman@example.com')}</div></div>
-                      </div>
-                      <div className="cfg__field"><label className="cfg__label">{t('Website')}</label><div className="cfg__input">{t('e.g. www.novotechsolution.com')}</div></div>
-                      <div className="cfg__field">
-                        <p className="cfg__label" id="cfg-layout">{t('Layout')}</p>
-                        <div className="cfg__options" role="group" aria-labelledby="cfg-layout">
-                          {layouts.map((l, i) => (
-                            <button className="cfg__option" type="button" aria-selected={i === 0} key={l}>
-                              <span>{l}</span>
-                              <img src={img(i === 0 ? 'p5-radio-on.svg' : 'p5-radio-off.svg')} alt="" />
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="cfg__field">
-                      <p className="cfg__label">{t('Logo Upload')}</p>
-                      <button className="cfg__upload" type="button">
-                        <img src={img('p5-upload.svg')} alt="" />
-                        <p>{t('Upload your logo')} <b>{t('image')}</b></p>
-                      </button>
-                    </div>
-                    <div className="cfg__colors">
-                      <div className="cfg__field">
-                        <p className="cfg__label" id="cfg-card-colors">{t('Card Colors')}</p>
-                        <div className="cfg__swatches" role="group" aria-labelledby="cfg-card-colors">
-                          {swatches.map((c, i) => (
-                            <button className="cfg__swatch" type="button" aria-selected={i === 0} aria-label={`${t('Colour')} ${i + 1}`} style={{ background: c }} key={`c${i}`}></button>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="cfg__field">
-                        <p className="cfg__label" id="cfg-text-colors">{t('Text Colors')}</p>
-                        <div className="cfg__swatches" role="group" aria-labelledby="cfg-text-colors">
-                          {swatches.map((c, i) => (
-                            <button className="cfg__swatch" type="button" aria-selected={i === 0} aria-label={`${t('Colour')} ${i + 1}`} style={{ background: c }} key={`x${i}`}></button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <Link href={route('create-card.create')} className="cfg__cta">{t('Continue Designing')}</Link>
-              </div>
-              <div className="configurator__preview">
-                <img src={img('p5-preview.png')} alt={t('Live preview of the card front')} />
-              </div>
-            </div>
-          </section>
+          {/* Configurator — live card builder (reused from the homepage) */}
+          <DesignerSection variant="surface" stickyPreview />
 
-          {/* Designer2 — profile preview */}
-          <section className="designer2" aria-labelledby="designer2-title">
-            <div className="phead-block">
-              <h2 className="phead-block__title" id="designer2-title">{t('A Smart Digital Profile Behind Every Card')}</h2>
-              <p className="phead-block__text">
-                {t('Your physical card triggers a highly customized digital page. Update your socials, files,')}<br />
-                {t('background theme, or booking forms anytime without reprinting your card.')}
-              </p>
-            </div>
-            <div className="designer2__row">
-              <div className="preview2">
-                <span className="preview2__chip">{t('Preview')}</span>
-                <div className="phone">
-                  <img className="phone__cover" src={img('p6-cover.png')} alt="" />
-                  <div className="phone__body">
-                    <div className="phone__card">
-                      <div className="phone__avatar">
-                        <img src={img('p6-avatar.png')} alt="Alex Rahman" />
-                        <span className="phone__avatar-badge"><img src={img('p6-badge.svg')} alt="" /></span>
-                      </div>
-                      <div className="phone__identity">
-                        <h3 className="phone__name">Alex Rahman</h3>
-                        <div className="phone__meta">
-                          <p>{t('Product Designer')}</p>
-                          <img src={img('p6-dot.svg')} alt="" />
-                          <p>Novotech Solution</p>
-                        </div>
-                        <p className="phone__bio">{t('Creating intuitive and user-focused digital experiences.')}</p>
-                      </div>
-                      <a href="#" className="phone__save"><img src={img('p6-save.svg')} alt="" />{t('Save Contact to Phone')}</a>
-                    </div>
-                    <div className="phone__panel">
-                      <h4>{t('Basic Info')}</h4>
-                      <ul className="phone__rows">
-                        {phoneRows.map((r) => (
-                          <li className="phone__row" key={r.label}>
-                            <span className="phone__row-icon"><img src={img(r.icon)} alt="" /></span>
-                            <div><span>{r.label}</span><b>{r.value}</b></div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="presets">
-                <div className="presets__head">
-                  <h3 className="presets__title">{t('Choose a Preset Dynamic Style')}</h3>
-                  <div className="presets__grid" role="group" aria-label={t('Preset styles')}>
-                    {presets.map((p, i) => (
-                      <button className="preset" type="button" aria-selected={i === 0} key={p}>
-                        <span>{p}</span>
-                        <img src={img(i === 0 ? 'p6-radio-on.svg' : 'p6-radio-off.svg')} alt="" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <Link href={route('create-card.create')} className="presets__cta">{t('Continue Designing')}</Link>
-              </div>
-            </div>
-          </section>
+          {/* Digital profile — live preview + theme picker (like create-card step 3) */}
+          <DigitalProfileSection />
 
           {/* Sharing Methods */}
           <section className="share" aria-labelledby="share-title">
@@ -445,8 +391,8 @@ export default function Product() {
             </p>
           </div>
           <div className="packages__grid">
-            {plans.map((p) => (
-              <article className={p.featured ? 'plan plan--featured' : 'plan'} key={p.eyebrow as string}>
+            {planCards.map((p) => (
+              <article className={p.featured ? 'plan plan--featured' : 'plan'} key={p.key}>
                 {p.featured && <span className="ribbon">{t('Recommended')}</span>}
                 <div className="plan__top">
                   <div className="plan__intro">
@@ -456,12 +402,12 @@ export default function Product() {
                     {p.tag && <span className="plan__tag">{p.tag}</span>}
                   </div>
                   <ul className="plan__features">
-                    {p.features.map((f) => (
-                      <li className="plan__feature" key={f}><img src={img(p.check)} alt="" /><span>{f}</span></li>
+                    {p.features.map((f, i) => (
+                      <li className="plan__feature" key={i}><img src={img(p.check)} alt="" /><span>{f}</span></li>
                     ))}
                   </ul>
                 </div>
-                <Link href={p.cta === t('Request a Quote') ? route('marketing.teams') : p.cta === t('Start Free') ? route('register') : route('create-card.create')} className={p.featured ? 'plan__cta plan__cta--accent' : 'plan__cta'}>{p.cta}</Link>
+                <Link href={p.href} className={p.featured ? 'plan__cta plan__cta--accent' : 'plan__cta'}>{p.cta}</Link>
               </article>
             ))}
           </div>
@@ -526,12 +472,12 @@ export default function Product() {
         </section>
       </div>
 
-      {/* Shared: Gallery, Industries (rounded), FAQ, CTA, Footer */}
-      <GallerySection />
+      {/* Gallery (Swiper), Industries (rounded), FAQ, CTA, Footer */}
+      <ProductGallery galleryItems={galleryItems} />
       <IndustriesSection rounded />
       <FaqSection settings={settings} />
       <CTASection sectionData={{}} />
       <Footer settings={settings} sectionData={{}} brandColor={primaryColor} />
-    </>
+    </div>
   );
 }

@@ -16,9 +16,7 @@ export default function ShowcaseSection(_props: Props) {
         </div>
 
         <div className="player">
-          <img className="player__poster" src={img('s10-video-poster.png')} alt="" />
-          <div className="player__scrim" aria-hidden="true"></div>
-          <div className="player__glass" aria-hidden="true"></div>
+          <div className="player__poster media-ph">960 × 540</div>
 
           <button className="player__play" type="button" aria-label={t('Play video')}>
             <img src={img('s10-play.svg')} alt="" />

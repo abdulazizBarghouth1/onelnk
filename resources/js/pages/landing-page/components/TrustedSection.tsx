@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
 
 interface TrustedSectionProps {
   settings?: any;
@@ -14,6 +15,8 @@ interface TrustedSectionProps {
 export default function TrustedSection() {
   const { t } = useTranslation();
   const img = (name: string) => `/images/onelnk/${name}`;
+  // Fires once when the card scrolls into view; the CSS loop keeps playing.
+  const { ref, isVisible } = useScrollAnimation(0.25);
 
   const audiences = [
     { num: '01', title: t('Freelancers'), text: t('Hand off a portfolio link before the coffee gets cold.') },
@@ -49,8 +52,50 @@ export default function TrustedSection() {
             </div>
           </div>
 
-          <div className="trusted__photo">
-            <img src={img('s2-hand-card.png')} alt={t('A hand holding a black OneLnk NFC card')} />
+          <div className="trusted__photo" ref={ref as any}>
+            <div className={`profile-anim${isVisible ? ' is-live' : ''}`} aria-hidden="true">
+              <div className="bcard">
+                <div className="bcard__cover"></div>
+
+                <div className="bcard__avatar">
+                  <img src={img('hero-avatar.jpg')} alt="" />
+                </div>
+
+                <div className="bcard__id">
+                  <p className="bcard__name">Abdulrahman Al-Qahtani</p>
+                  <p className="bcard__title">Product Design Lead</p>
+                  <p className="bcard__org">Riyadh, Saudi Arabia</p>
+                </div>
+
+                <div className="bcard__list">
+                  <div className="bcard__row">
+                    <span className="bcard__ricon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M4 7l8 6 8-6" /></svg></span>
+                    <span className="bcard__rtext">abdulrahman@onelnk.sa</span>
+                  </div>
+                  <div className="bcard__row">
+                    <span className="bcard__ricon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3h3l1.5 5-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 5 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z" /></svg></span>
+                    <span className="bcard__rtext">+966 50 123 4567</span>
+                  </div>
+                  <div className="bcard__row bcard__row--li">
+                    <span className="bcard__ricon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 7.5a1.56 1.56 0 1 1 0-3.12 1.56 1.56 0 0 1 0 3.12zM5.6 9h2.7v9H5.6zm4.7 0h2.6v1.23c.36-.64 1.25-1.35 2.6-1.35 2.3 0 3 1.46 3 3.56V18h-2.7v-4.5c0-1.07-.4-1.8-1.36-1.8-.74 0-1.14.5-1.33 1-.07.17-.08.4-.08.64V18h-2.7z" /></svg></span>
+                    <span className="bcard__rtext">Connect on LinkedIn</span>
+                  </div>
+                  <div className="bcard__row">
+                    <span className="bcard__ricon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 14 0 17M12 3.5c-2.5 2.5-2.5 14 0 17" /></svg></span>
+                    <span className="bcard__rtext">onelnk.sa/abdulrahman</span>
+                  </div>
+                </div>
+
+                <span className="bcard__tip bcard__tip--social">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                  Add social media
+                </span>
+                <span className="bcard__tip bcard__tip--cover">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5" /><circle cx="8.5" cy="9.5" r="1.6" /><path d="M4 17l5-4 4 3 3-2 4 3" /></svg>
+                  Change cover
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="trusted__grid">

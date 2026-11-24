@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { X, Download, Share2, Copy, Check } from 'lucide-react';
 import SocialIcon from '@/pages/link-bio-builder/components/SocialIcon';
 import QRCode from 'qrcode';
+import BrandQR from '@/components/BrandQR';
 import { toast } from '@/components/custom-toast';
 import { useTranslation } from 'react-i18next';
 
@@ -228,31 +229,8 @@ export function QRShareModal({ isOpen, onClose, url, colors, font, socialLinks =
         </div>
         
         <div className="p-6 text-center">
-          <div className="mb-4">
-            {qrUrl ? (
-              <img 
-                src={qrUrl} 
-                alt="QR Code" 
-                className="mx-auto rounded-lg" 
-                style={{ 
-                  width: qrPixelSize,
-                  height: qrPixelSize,
-                  border: `2px solid ${modalPrimary}` 
-                }}
-              />
-            ) : (
-              <div 
-                className="mx-auto rounded-lg flex items-center justify-center" 
-                style={{ 
-                  width: qrPixelSize,
-                  height: qrPixelSize,
-                  border: `2px solid ${modalPrimary}`,
-                  backgroundColor: modalAccent
-                }}
-              >
-                <span style={{ color: modalText, opacity: 0.6, fontFamily: modalFont }}>Loading...</span>
-              </div>
-            )}
+          <div className="mb-4 flex justify-center">
+            <BrandQR value={shareUrl} size={qrPixelSize} accent={modalPrimary} />
           </div>
           
           <p 

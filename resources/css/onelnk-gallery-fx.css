@@ -1,0 +1,114 @@
+/* Gallery FX — floating holographic card tiles for the /gallery grid.
+   Kept OUT of the generated onelnk-gallery.css (which carries a "do not edit by
+   hand" header) so the scope_pages.py regenerator never clobbers these overrides.
+
+   The `.onelnk-landing.onelnk-gallery` prefix (both classes sit on the page root)
+   gives these rules one more class of specificity than the generated sheet, so
+   they win the white-frame override no matter which stylesheet loads last.
+
+   Layering per card (each element owns exactly ONE transform so nothing fights):
+     .glcard         — grid cell + entrance (GSAP: autoAlpha/y/scale/rotateZ)
+       .glcard__float  — perspective host + idle bob (CSS @keyframes)
+         .glcard__tilt — pointer tilt (JS inline rotateX/rotateY/translateZ)
+           .glcard__art   — the card render, with a floating drop-shadow
+           .glcard__holo  — iridescent foil (hover, shifts with pointer)
+           .glcard__sheen — specular highlight that follows the pointer */
+
+/* Strip the white picture-frame — the card floats directly on the bone surface. */
+.onelnk-landing.onelnk-gallery .glcards--2 .glcard {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  overflow: visible;            /* let the shadow + tilt spill past the cell */
+}
+
+/* Idle float + the 3D stage for the tilt child. */
+.onelnk-landing.onelnk-gallery .glcard__float {
+  perspective: 1100px;
+  animation: glfloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+/* Pause the bob while a card is under the pointer so the tilt stays rock-steady. */
+.onelnk-landing.onelnk-gallery .glcard.is-hovered .glcard__float {
+  animation-play-state: paused;
+}
+
+@keyframes glfloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(-0.4deg); }
+}
+
+/* Tilt layer — JS writes the transform; the transition smooths every move + the
+   spring back to rest. */
+.onelnk-landing.onelnk-gallery .glcard__tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  border-radius: var(--radius-lg);
+}
+
+/* The card render itself — transparent box, soft shadow so it reads as physical. */
+.onelnk-landing.onelnk-gallery .glcards--2 .glcard__art {
+  position: relative;
+  background: transparent;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  filter: drop-shadow(0 18px 34px rgba(17, 17, 26, 0.22));
+  transition: filter 0.4s ease;
+}
+.onelnk-landing.onelnk-gallery .glcard.is-hovered .glcard__art {
+  filter: drop-shadow(0 30px 52px rgba(17, 17, 26, 0.34));
+}
+.onelnk-landing.onelnk-gallery .glcards--2 .glcard__art img {
+  border-radius: var(--radius-lg);
+}
+
+/* Iridescent foil — only shows on hover; its angle rides the pointer (--hue). */
+.onelnk-landing.onelnk-gallery .glcard__holo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: linear-gradient(
+    calc(var(--hue, 120) * 1deg),
+    rgba(255, 0, 128, 0.20),
+    rgba(0, 200, 255, 0.20) 30%,
+    rgba(120, 255, 80, 0.20) 55%,
+    rgba(255, 200, 0, 0.20) 80%
+  );
+  mix-blend-mode: overlay;
+}
+.onelnk-landing.onelnk-gallery .glcard.is-hovered .glcard__holo {
+  opacity: 0.5;
+}
+
+/* Specular highlight — a soft spotlight that tracks the pointer (--mx/--my). */
+.onelnk-landing.onelnk-gallery .glcard__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0) 45%
+  );
+  mix-blend-mode: soft-light;
+}
+.onelnk-landing.onelnk-gallery .glcard.is-hovered .glcard__sheen {
+  opacity: 1;
+}
+
+/* Motion-sensitive visitors: no bob, no tilt spring — the JS entrance/tilt is
+   also skipped in the component, so cards just sit still and legible. */
+@media (prefers-reduced-motion: reduce) {
+  .onelnk-landing.onelnk-gallery .glcard__float { animation: none; }
+  .onelnk-landing.onelnk-gallery .glcard__tilt { transition: none; }
+}

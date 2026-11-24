@@ -54,9 +54,18 @@ export default function MediaGrid({
             <img
               src={item.thumb_url}
               alt={item.name}
+              loading="lazy"
               className="w-full h-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = item.url;
+                const el = e.currentTarget;
+                // Try the full-size URL once, then give up — never re-assign the
+                // same failing src (that caused an infinite reload / "blinking").
+                if (!el.dataset.triedFallback && item.url && item.url !== el.src) {
+                  el.dataset.triedFallback = '1';
+                  el.src = item.url;
+                } else {
+                  el.onerror = null;
+                }
               }}
             />
             

@@ -85,6 +85,22 @@ class Business extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
+    /**
+     * Get the circles (contact segments) for the business.
+     */
+    public function circles()
+    {
+        return $this->hasMany(Circle::class);
+    }
+
+    /**
+     * Get the organizations (companies) for the business.
+     */
+    public function organizations()
+    {
+        return $this->hasMany(Organization::class);
+    }
     
     /**
      * Get the appointments for the business.

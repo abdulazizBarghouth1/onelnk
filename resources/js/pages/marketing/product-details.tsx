@@ -1,6 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import BenefitsSection from '../landing-page/components/BenefitsSection';
@@ -49,9 +50,11 @@ const SPECS: Array<[string, string]> = [
 ];
 
 export default function ProductDetails() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
   const { settings, auth, card } = usePage<any>().props as { settings: any; auth: any; card: Card };
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   const [qty, setQty] = useState(1);
@@ -74,7 +77,7 @@ export default function ProductDetails() {
       <Head title={`${card.name} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-productdetails">
+      <div className="onelnk-landing onelnk-productdetails" ref={revealRef}>
         <main>
           {/* Product detail — bound to the real NfcCard */}
           <section className="pd" aria-labelledby="pd-title">

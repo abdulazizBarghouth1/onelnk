@@ -31,20 +31,50 @@ class MarketingController extends Controller
         return NfcCard::where('is_enabled', true)->orderBy('price')->value('id');
     }
 
+    /** The enabled admin gallery images, shared by the gallery page and the product-page strip. */
+    private function galleryItems()
+    {
+        return \App\Models\GalleryItem::where('is_enabled', true)
+            ->orderBy('sort_order')->orderBy('id')
+            ->get()
+            ->map(fn ($item) => ['id' => $item->id, 'image' => getAssetUrl($item->image)])
+            ->values();
+    }
+
+    /** The enabled Plan records, shared by the packages page and the product-page pricing cards. */
+    private function plans()
+    {
+        // Capability flags → display labels via the shared Plan::featureLabelList()
+        // (single source of truth across the app).
+        return Plan::where('is_plan_enable', 'on')
+            ->orderBy('price')
+            ->get()
+            ->map(fn ($plan) => [
+                'id' => $plan->id,
+                'name' => $plan->name,
+                'price' => (float) $plan->price,
+                'yearly_price' => (float) $plan->yearly_price,
+                'duration' => $plan->duration,
+                'description' => is_array($plan->description) ? '' : ($plan->description ?? ''),
+                'features' => $plan->featureLabelList(),
+                'is_plan_enable' => $plan->is_plan_enable,
+            ])
+            ->values();
+    }
+
     public function product()
     {
-        return Inertia::render('marketing/product', $this->props());
+        return Inertia::render('marketing/product', array_merge($this->props(), [
+            'galleryItems' => $this->galleryItems(),
+            'plans' => $this->plans(),
+        ]));
     }
 
     public function gallery()
     {
         return Inertia::render('marketing/gallery', array_merge($this->props(), [
             'productCardId' => $this->defaultCardId(),
-            'galleryItems' => \App\Models\GalleryItem::where('is_enabled', true)
-                ->orderBy('sort_order')->orderBy('id')
-                ->get()
-                ->map(fn ($item) => ['id' => $item->id, 'image' => getAssetUrl($item->image)])
-                ->values(),
+            'galleryItems' => $this->galleryItems(),
         ]));
     }
 
@@ -71,24 +101,8 @@ class MarketingController extends Controller
     /** Packages / pricing page — the tier cards bind to the real enabled Plan records. */
     public function packages()
     {
-        // Cards bind to the real Plans; capability flags → display labels via the
-        // shared Plan::featureLabelList() (single source of truth across the app).
-        $plans = Plan::where('is_plan_enable', 'on')
-            ->orderBy('price')
-            ->get()
-            ->map(fn ($plan) => [
-                'id' => $plan->id,
-                'name' => $plan->name,
-                'price' => (float) $plan->price,
-                'yearly_price' => (float) $plan->yearly_price,
-                'duration' => $plan->duration,
-                'description' => $plan->description,
-                'features' => $plan->featureLabelList(),
-                'is_plan_enable' => $plan->is_plan_enable,
-            ]);
-
         return Inertia::render('marketing/packages', array_merge($this->props(), [
-            'plans' => $plans,
+            'plans' => $this->plans(),
         ]));
     }
 

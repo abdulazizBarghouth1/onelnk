@@ -1,10 +1,16 @@
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import CTASection from '../landing-page/components/CTASection';
+import DesignerSection from '../landing-page/components/DesignerSection';
 import '../../../css/onelnk-landing.css';
 import '../../../css/onelnk-teams.css';
+// The live card builder reuses the wizard PhysicalCard preview styles.
+import '../../../css/onelnk-wizard.css';
+import '../../../css/onelnk-wizard-live.css';
 
 const img = (name: string) => `/images/onelnk/${name}`;
 
@@ -55,9 +61,11 @@ function TeamDashboard({ t }: { t: (s: string) => string }) {
 }
 
 export default function Teams() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
   const { settings, auth } = usePage<any>().props;
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   const inc = [
@@ -73,10 +81,6 @@ export default function Teams() {
     { icon: 'tm-bp-3.svg', b: t('Easy Company-Wide Updates'), s: t('Update every employee card from one dashboard.') },
     { icon: 'tm-bp-4.svg', b: t('Consistent Customer Experience'), s: t('Give every customer the same professional experience.') },
   ];
-  const brandSwatches = [
-    { c: '#96ddea' }, { c: '#0b1729' }, { c: '#e2c2ff', on: true }, { c: '#ea9697' }, { c: '#eac796' }, { c: '#96caea' },
-  ];
-
   const steps = [
     { side: 'l', b: t('Tell Us About Your Business'), s: t('Tell us about your team, industry, and business requirements.'), icon: 'tm-step-1.svg', n: '01' },
     { side: 'r', b: t('Select Branding'), s: t('Choose your branding, colours, logo, and preferred card design.'), icon: 'tm-step-2.svg', n: '02' },
@@ -98,8 +102,8 @@ export default function Teams() {
       <Head title={`${t('Teams')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-teams">
-        <header className="thead">
+      <div className="onelnk-landing onelnk-teams" ref={revealRef}>
+        <header className="thead page-hero">
           <div className="thead__inner">
             <div className="thead__intro">
               <div className="phead-block">
@@ -109,9 +113,9 @@ export default function Teams() {
                   {t('and simplify networking from one central dashboard.')}
                 </p>
               </div>
-              <div className="phead__actions">
+              <div className="btn-row">
                 <a href="#quote" className="btn btn--primary">{t('Request a Quote')}</a>
-                <a href="#" className="btn btn--outline">{t('Book a Demo')}</a>
+                <a href="#" className="btn btn--navy">{t('Book a Demo')}</a>
               </div>
             </div>
 
@@ -195,18 +199,7 @@ export default function Teams() {
             </div>
 
             <div className="brand__panel">
-              <div className="preview__tabs" role="tablist" aria-label={t('Card side')}>
-                <button className="preview__tab" type="button" role="tab" aria-selected="true">{t('Front')}</button>
-                <button className="preview__tab" type="button" role="tab" aria-selected="false">{t('Back')}</button>
-              </div>
-              <div className="brand__card">
-                <img src={img('tm-card-back.png')} alt={t('A branded OneLnk team card')} />
-              </div>
-              <div className="brand__swatches" role="group" aria-label={t('Card colour')}>
-                {brandSwatches.map((s, i) => (
-                  <button className="brand__swatch" type="button" aria-selected={!!s.on} aria-label={`${t('Colour')} ${i + 1}`} style={{ background: s.c }} key={i}></button>
-                ))}
-              </div>
+              <DesignerSection variant="surface" bare />
             </div>
           </section>
 
@@ -241,7 +234,7 @@ export default function Teams() {
             </div>
             <div className="quote__body">
               <div className="quote__media">
-                <img src={img('s5-classic.png')} alt={t('A OneLnk team card')} />
+                <img src={img('placeholder.svg')} alt="" />
               </div>
               <form className="qform" onSubmit={(e) => e.preventDefault()} noValidate>
                 <div className="qform__head">

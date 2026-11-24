@@ -1,17 +1,24 @@
+import { useRef } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import CTASection from '../landing-page/components/CTASection';
+import { useMagneticFill } from '@/hooks/useMagneticFill';
 import '../../../css/onelnk-landing.css';
 import '../../../css/onelnk-about.css';
 
 const img = (name: string) => `/images/onelnk/${name}`;
 
 export default function About() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
+  const teamRef = useRef<HTMLElement>(null);
+  useMagneticFill(teamRef);
   const { settings, auth } = usePage<any>().props;
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   const badges = [t('Moorgate, London HQ'), t('Carbon Neutral Shipping'), t('Zero App Setup Needed'), t('GDPR & ISO/IEC Certified')];
@@ -41,8 +48,8 @@ export default function About() {
       <Head title={`${t('About Us')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-about">
-        <header className="abhead">
+      <div className="onelnk-landing onelnk-about" ref={revealRef}>
+        <header className="abhead page-hero">
           <div className="abhead__inner">
             <div className="phead-block">
               <h1 className="phead-block__title">{t('About Us')}</h1>
@@ -50,9 +57,9 @@ export default function About() {
                 {t("We're redefining how professionals and businesses share their information with digital business cards and NFC technology, making every connection faster, smarter, and more sustainable.")}
               </p>
             </div>
-            <div className="phead__actions">
+            <div className="btn-row phead__actions">
               <Link href={route('register')} className="btn btn--primary">{t('Create My Card')}</Link>
-              <Link href={route('marketing.contact')} className="btn btn--outline">{t('Contact Us')}</Link>
+              <Link href={route('marketing.contact')} className="btn btn--navy">{t('Contact Us')}</Link>
             </div>
           </div>
         </header>
@@ -75,7 +82,7 @@ export default function About() {
                 <ul className="split__badges">
                   {badges.map((b) => (
                     <li className="split__badge" key={b}>
-                      <img src={img('ab-check.svg')} alt="" />
+                      <span className="split__dot" aria-hidden="true"></span>
                       <span>{b}</span>
                     </li>
                   ))}
@@ -84,7 +91,7 @@ export default function About() {
               <Link href={route('register')} className="btn btn--primary benefits__cta">{t('Request a Quote')}</Link>
             </div>
             <div className="split__media">
-              <img src={img('ab-photo-1.png')} alt={t('The OneLnk team at work')} />
+              <img src={img('placeholder.svg')} alt="" />
             </div>
           </section>
 
@@ -110,7 +117,7 @@ export default function About() {
               <Link href={route('register')} className="btn btn--primary benefits__cta">{t('Request a Quote')}</Link>
             </div>
             <div className="split__media">
-              <img src={img('ab-photo-2.png')} alt={t('A OneLnk card being tapped on a phone')} />
+              <img src={img('placeholder.svg')} alt="" />
             </div>
           </section>
 
@@ -136,7 +143,7 @@ export default function About() {
               <Link href={route('register')} className="btn btn--primary benefits__cta">{t('Request a Quote')}</Link>
             </div>
             <div className="split__media">
-              <img src={img('ab-photo-3.png')} alt={t('OneLnk cards and packaging')} />
+              <img src={img('placeholder.svg')} alt="" />
             </div>
           </section>
 
@@ -150,7 +157,7 @@ export default function About() {
             </div>
             <div className="share__grid">
               {why.map((w) => (
-                <article className="share__card share__card--dark" key={w.title}>
+                <article className="share__card" key={w.title}>
                   <div className="share__head">
                     <span className="share__icon"><img src={img(w.icon)} alt="" /></span>
                   </div>
@@ -196,7 +203,7 @@ export default function About() {
           </section>
 
           {/* Team */}
-          <section className="team">
+          <section className="team" ref={teamRef}>
             <div className="phead-block">
               <h2 className="phead-block__title">{t('The People Behind OneLnk')}</h2>
               <p className="phead-block__text">
@@ -210,9 +217,9 @@ export default function About() {
                   <div className="person__body">
                     <div className="person__id"><b>{p.name}</b><span>{p.role}</span></div>
                     <div className="person__socials">
-                      <a href="#" aria-label={t('Profile')}><img src={img('ab-soc-1.svg')} alt="" /></a>
-                      <a href="#" aria-label={t('Profile')}><img src={img('ab-soc-2.svg')} alt="" /></a>
-                      <a href="#" aria-label={t('Profile')}><img src={img('ab-soc-3.svg')} alt="" /></a>
+                      <a className="mfx mfx--invert" href="#" aria-label={t('Profile')}><span className="mfx__fill" aria-hidden="true" /><img className="mfx__icon" src={img('ab-soc-1.svg')} alt="" /></a>
+                      <a className="mfx mfx--invert" href="#" aria-label={t('Profile')}><span className="mfx__fill" aria-hidden="true" /><img className="mfx__icon" src={img('ab-soc-2.svg')} alt="" /></a>
+                      <a className="mfx mfx--invert" href="#" aria-label={t('Profile')}><span className="mfx__fill" aria-hidden="true" /><img className="mfx__icon" src={img('ab-soc-3.svg')} alt="" /></a>
                     </div>
                   </div>
                 </article>

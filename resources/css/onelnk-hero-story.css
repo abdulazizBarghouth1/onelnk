@@ -1,0 +1,512 @@
+/* OneLnk homepage scroll story — the card → tap → profile sequence under the
+   hero. Hand-written; paired with HeroScrollStory.tsx.
+
+   Two states, set by the component:
+     .hstory--scrub  tall runway + sticky panel, beats follow the scrollbar (all widths)
+     (absent)        no JS or reduced motion — static finished frame
+
+   Nothing here animates on its own: GSAP owns every transform. Everything inside
+   the phone is sized from `--ph-h`, so the whole mockup scales as one piece. */
+
+/* Continues the hero's bone ground, so hero + story read as one block. */
+.onelnk-landing .hstory {
+  position: relative;
+  width: 100%;
+  background: var(--surface);
+ }
+.onelnk-landing .hstory__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px var(--pad-x) 48px;
+  /* Also keeps the card from widening the page while it is off to the side. */
+  overflow: hidden;
+ }
+.onelnk-landing .hstory__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: var(--container);
+ }
+
+/* ---- Captions: one per beat, stacked so nothing reflows mid-sequence ---- */
+.onelnk-landing .hstory__copy {
+  position: relative;
+  width: 100%;
+  height: 92px;
+  flex: none;
+ }
+.onelnk-landing .hstory__cap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  will-change: transform, opacity;
+ }
+.onelnk-landing .hstory__cap-k {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cta);
+ }
+.onelnk-landing .hstory__cap-v {
+  max-width: 34ch;
+  font-size: var(--fluid-h3);
+  line-height: var(--leading-8);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
+ }
+
+/* ---- Scene: card and phone share one grid cell, both centred ---- */
+.onelnk-landing .hstory__scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  /* Phone height drives every other size in the mockup. Sized so the scene plus
+     its caption nearly fills the pinned panel — which also keeps the phone close
+     under the hero CTAs before the pin starts. */
+  --ph-h: clamp(500px, 68vh, 640px);
+  --ph-w: calc(var(--ph-h) / 2.03);
+  min-height: var(--ph-h);
+ }
+.onelnk-landing .hstory__card,
+.onelnk-landing .hstory__phone {
+  grid-area: 1 / 1;
+ }
+
+/* The real PhysicalCard, scaled to the scene and stripped of its Front/Back UI. */
+.onelnk-landing .hstory__card {
+  z-index: 1;
+  width: clamp(330px, 29vw, 430px);
+  will-change: transform, opacity;
+ }
+.onelnk-wizard .hstory__card .pcard {
+  width: 100%;
+  max-width: none;
+  box-shadow: 0 24px 48px rgba(17, 17, 17, 0.28);
+ }
+.onelnk-wizard .hstory__card .pcard-wrap { gap: 0; }
+.onelnk-wizard .hstory__card .pcard__tabs { display: none; }
+
+/* ---- Phone ---- */
+.onelnk-landing .hstory__phone {
+  position: relative;
+  z-index: 2;
+  width: var(--ph-w);
+  height: var(--ph-h);
+  padding: calc(var(--ph-h) * 0.016);
+  border-radius: calc(var(--ph-h) / 14);
+  background: #0B0B0C;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 32px 64px rgba(17, 17, 17, 0.3);
+  will-change: transform, opacity;
+ }
+.onelnk-landing .hstory__notch {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--ph-h) * 0.035);
+  transform: translateX(-50%);
+  width: calc(var(--ph-h) * 0.139);
+  height: calc(var(--ph-h) * 0.035);
+  border-radius: var(--radius-pill);
+  background: #000;
+  z-index: 4;
+ }
+.onelnk-landing .hstory__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--ph-h) / 17);
+  overflow: hidden;
+  background: linear-gradient(170deg, #15171C 0%, #0B0D11 55%, #121418 100%);
+ }
+
+/* NFC contact glow + rings, centred where the card meets the phone. */
+.onelnk-landing .hstory__glow {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  /* Centred with margins, not transform: GSAP owns `transform` on this element. */
+  width: 120%;
+  aspect-ratio: 1;
+  margin: -60% 0 0 -60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 138, 60, 0.55) 0%, rgba(240, 138, 60, 0) 62%);
+  pointer-events: none;
+  z-index: 1;
+ }
+.onelnk-landing .hstory__ripple {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 150%;
+  aspect-ratio: 1;
+  margin: -75% 0 0 -75%;
+  border: 2px solid var(--accent-dark);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+ }
+
+/* Idle lock screen */
+.onelnk-landing .hstory__home {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding-top: 24%;
+  color: #fff;
+  z-index: 2;
+ }
+.onelnk-landing .hstory__clock {
+  font-size: calc(var(--ph-h) * 0.103);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -1px;
+ }
+.onelnk-landing .hstory__date {
+  font-size: calc(var(--ph-h) * 0.026);
+  color: rgba(255, 255, 255, 0.65);
+ }
+
+/* Incoming notification */
+.onelnk-landing .hstory__notif {
+  position: absolute;
+  left: calc(var(--ph-h) * 0.019);
+  right: calc(var(--ph-h) * 0.019);
+  top: calc(var(--ph-h) * 0.103);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ph-h) * 0.016);
+  padding: calc(var(--ph-h) * 0.019);
+  border-radius: calc(var(--ph-h) * 0.029);
+  background: rgba(244, 243, 240, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  will-change: transform, opacity;
+ }
+.onelnk-landing .hstory__notif-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: calc(var(--ph-h) * 0.055);
+  height: calc(var(--ph-h) * 0.055);
+  border-radius: calc(var(--ph-h) * 0.015);
+  background: var(--cta);
+ }
+.onelnk-landing .hstory__notif-icon img {
+  width: 55%;
+  height: 55%;
+ }
+.onelnk-landing .hstory__notif-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.35;
+ }
+.onelnk-landing .hstory__notif-body b {
+  font-size: calc(var(--ph-h) * 0.021);
+  font-weight: 700;
+  color: var(--ink);
+ }
+.onelnk-landing .hstory__notif-body span {
+  font-size: calc(var(--ph-h) * 0.021);
+  color: var(--ink-muted);
+ }
+/* The "finger" that taps it — centred on the notification. */
+.onelnk-landing .hstory__tap {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--ph-h) * 0.148);
+  z-index: 6;
+  width: calc(var(--ph-h) * 0.087);
+  height: calc(var(--ph-h) * 0.087);
+  /* Margin-centred for the same reason as the glow. */
+  margin: calc(var(--ph-h) * -0.0435) 0 0 calc(var(--ph-h) * -0.0435);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  pointer-events: none;
+ }
+
+/* ---- The profile that opens ---- */
+.onelnk-landing .hstory__profile {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface);
+  overflow: hidden;
+  will-change: transform, opacity;
+ }
+.onelnk-landing .hstory__pcover {
+  width: 100%;
+  height: 27%;
+  flex: none;
+  background: linear-gradient(135deg, #1E1E22 0%, #26262B 60%, var(--cta) 190%);
+ }
+.onelnk-landing .hstory__pavatar {
+  width: calc(var(--ph-h) * 0.132);
+  height: calc(var(--ph-h) * 0.132);
+  margin-top: calc(var(--ph-h) * -0.066);
+  flex: none;
+  border: 4px solid var(--surface);
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #C9C3B8, #9E978B);
+ }
+.onelnk-landing .hstory__pavatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+ }
+.onelnk-landing .hstory__pname {
+  margin-top: calc(var(--ph-h) * 0.014);
+  font-size: calc(var(--ph-h) * 0.03);
+  font-weight: 700;
+  color: var(--ink);
+ }
+.onelnk-landing .hstory__prole {
+  margin-top: 2px;
+  font-size: calc(var(--ph-h) * 0.02);
+  color: var(--ink-muted);
+ }
+.onelnk-landing .hstory__psave {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 44px);
+  margin-top: calc(var(--ph-h) * 0.022);
+  padding: calc(var(--ph-h) * 0.016) 0;
+  border-radius: var(--radius-pill);
+  background: var(--cta);
+  font-size: calc(var(--ph-h) * 0.022);
+  font-weight: 700;
+  color: #fff;
+  will-change: transform;
+ }
+/* The finger that presses Save Contact. */
+.onelnk-landing .hstory__ptap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--ph-h) * 0.078);
+  height: calc(var(--ph-h) * 0.078);
+  margin: calc(var(--ph-h) * -0.039) 0 0 calc(var(--ph-h) * -0.039);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+ }
+.onelnk-landing .hstory__prows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--ph-h) * 0.011);
+  width: calc(100% - 44px);
+  margin-top: calc(var(--ph-h) * 0.02);
+ }
+.onelnk-landing .hstory__prow {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ph-h) * 0.016);
+  height: calc(var(--ph-h) * 0.058);
+  padding: 0 calc(var(--ph-h) * 0.02);
+  border-radius: var(--radius-chip);
+  background: var(--surface-card);
+  box-shadow: inset 0 0 0 1px var(--card-border);
+  font-size: calc(var(--ph-h) * 0.019);
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+ }
+.onelnk-landing .hstory__prow i {
+  display: flex;
+  flex: none;
+  font-size: calc(var(--ph-h) * 0.026);
+  color: var(--cta);
+ }
+/* Social row under the details */
+.onelnk-landing .hstory__psocials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--ph-h) * 0.016);
+  margin-top: calc(var(--ph-h) * 0.02);
+ }
+.onelnk-landing .hstory__psoc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--ph-h) * 0.05);
+  height: calc(var(--ph-h) * 0.05);
+  border-radius: 50%;
+  background: var(--surface-card);
+  box-shadow: inset 0 0 0 1px var(--card-border);
+  font-size: calc(var(--ph-h) * 0.025);
+  color: var(--ink);
+ }
+
+/* ---- Their contact list, after Save Contact ---- */
+.onelnk-landing .hstory__contacts {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--ph-h) * 0.1) calc(var(--ph-h) * 0.035) 0;
+  background: var(--surface);
+  overflow: hidden;
+  /* Hidden in the static (no-JS / reduced-motion) fallback; the timeline
+     reveals it by sliding it in from the right. */
+  opacity: 0;
+  will-change: transform;
+ }
+.onelnk-landing .hstory__ctitle {
+  margin-bottom: calc(var(--ph-h) * 0.022);
+  font-size: calc(var(--ph-h) * 0.034);
+  font-weight: 700;
+  color: var(--ink);
+ }
+.onelnk-landing .hstory__clist {
+  display: flex;
+  flex-direction: column;
+ }
+/* Anonymous rows — deliberately blank so the saved contact is the only thing
+   that reads. */
+.onelnk-landing .hstory__crow {
+  height: calc(var(--ph-h) * 0.058);
+  margin-bottom: calc(var(--ph-h) * 0.013);
+  border-radius: var(--radius-chip);
+  background: var(--surface-card);
+  box-shadow: inset 0 0 0 1px var(--card-border);
+  opacity: 0.55;
+ }
+/* The saved contact. GSAP collapses it to height:0, then opens the slot to the
+   measured placeholder-row height so it lands on the same rhythm. */
+.onelnk-landing .hstory__cnew {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  gap: calc(var(--ph-h) * 0.016);
+  /* Same height as a placeholder row, and no vertical padding, so collapsing it
+     to height:0 leaves no residual gap in the list. */
+  height: calc(var(--ph-h) * 0.058);
+  padding: 0 calc(var(--ph-h) * 0.016);
+  border-radius: var(--radius-chip);
+  background: var(--surface-card);
+  box-shadow: 0 6px 18px rgba(10, 15, 22, 0.14), inset 0 0 0 1px var(--cta);
+  overflow: hidden;
+  will-change: transform, height;
+ }
+.onelnk-landing .hstory__cavatar {
+  flex: none;
+  width: calc(var(--ph-h) * 0.04);
+  height: calc(var(--ph-h) * 0.04);
+  border-radius: 50%;
+  overflow: hidden;
+ }
+.onelnk-landing .hstory__cavatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+ }
+.onelnk-landing .hstory__cname {
+  font-size: calc(var(--ph-h) * 0.021);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+ }
+
+/* Short desktop viewports: tighten rather than crop. */
+@media (max-height: 860px) {
+.onelnk-landing .hstory__stage { gap: 28px; }
+}
+@media (max-height: 740px) {
+.onelnk-landing .hstory__copy { height: 76px; }
+}
+
+/* ---- Anything that isn't the pinned desktop mode is one screen tall ---- */
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__sticky {
+  position: static;
+  min-height: 0;
+  padding: 72px var(--pad-x);
+ }
+
+/* ---- Narrow screens: same pinned scene, smaller ---- */
+@media (max-width: 1024px) {
+/* Phones: size the pinned panel to the *small* viewport, so it still fits once
+   the address bar is showing. */
+@supports (height: 100svh) {
+.onelnk-landing .hstory--scrub .hstory__sticky { min-height: 100svh; }
+}
+.onelnk-landing .hstory__scene {
+    --ph-h: clamp(430px, 56vh, 520px);
+   }
+.onelnk-landing .hstory__card { width: min(300px, 74vw); }
+.onelnk-landing .hstory__copy { height: 108px; }
+.onelnk-landing .hstory__cap-v {
+    font-size: var(--fluid-lg);
+    line-height: var(--leading-7);
+   }
+.onelnk-landing .hstory__stage { gap: 32px; }
+}
+@media (max-width: 560px) {
+.onelnk-landing .hstory__scene {
+    --ph-h: clamp(390px, 52vh, 460px);
+   }
+.onelnk-landing .hstory__card { width: min(265px, 72vw); }
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__sticky {
+    padding: 56px 20px;
+   }
+}
+
+/* ---- Static fallback: no JS or reduced motion (neither class present) ----
+   The sequence never runs, so show the finished frame as a plain composition. */
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+ }
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__copy {
+  height: auto;
+ }
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__cap {
+  position: static;
+ }
+/* Only the closing caption makes sense without the build-up. */
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__cap:not(:last-child) {
+  display: none;
+ }
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__home,
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__notif,
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__tap,
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__glow,
+.onelnk-landing .hstory:not(.hstory--scrub) .hstory__ripple {
+  display: none;
+ }

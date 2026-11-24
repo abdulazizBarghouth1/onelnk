@@ -67,9 +67,14 @@ export default function FaqSection({ faqs = [], settings, sectionData = {} }: Fa
               </>
             )}
           </h2>
-          <Link href={sectionData.button_link || '#contact'} className="btn btn--primary benefits__cta">
-            {sectionData.button_text || t('Contact Us')}
-          </Link>
+          <div className="faq__actions">
+            <Link href={sectionData.button_link || '#contact'} className="btn btn--primary benefits__cta">
+              {sectionData.button_text || t('Contact Us')}
+            </Link>
+            <Link href={route('create-card.create')} className="btn btn--navy benefits__cta">
+              {t('Design your card')}
+            </Link>
+          </div>
         </div>
 
         <div className="faq__list">

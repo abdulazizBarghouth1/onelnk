@@ -4,6 +4,10 @@ import { Link, router } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { getImageDisplayUrl } from '@/utils/imageUrlHelper';
 
+// Menu buttons use the site's brand pair (same as `.btn--primary` / `.btn--navy`
+// in onelnk-landing.css): ember CTA + dark.
+const CTA_COLOR = '#C25A14';
+
 interface HeaderProps {
   brandColor?: string;
   textColor?: string;
@@ -53,9 +57,16 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
     settings?.registrationEnabled === true;
   const showDirectory = sectionData?.show_business_directory !== false;
 
-  // Per the user's asset setup: the white (non-glass) navbar uses the
-  // "Logo (Dark Theme)" field, and the dark glass navbar uses "Logo (Light Theme)".
-  const logoUrl = glass ? colors.logo_light || colors.logo_dark : colors.logo_dark || colors.logo_light;
+  // The dark glass navbar (homepage) shows the admin dark-theme logo (white glyph).
+  // The white navbar (every other page) needs a dark glyph — but the admin's
+  // light-theme logo is currently the same white file, so fall back to the dark
+  // OneLnk wordmark asset. A distinct admin light-theme logo still wins if set.
+  const DARK_WORDMARK = '/images/onelnk/p1-logo-dark.svg';
+  const adminLightDistinct =
+    colors.logo_light && colors.logo_light !== colors.logo_dark ? colors.logo_light : null;
+  const logoUrl = glass ? colors.logo_dark || colors.logo_light : adminLightDistinct || DARK_WORDMARK;
+  // Static public assets (leading slash) are used as-is; stored media goes through the helper.
+  const logoSrc = logoUrl?.startsWith('/') ? logoUrl : logoUrl ? getImageDisplayUrl(logoUrl) : '';
 
   const navigationItems: Array<{ text: string; href: string; target: string }> = (
     sectionData?.navigation_items || []
@@ -68,8 +79,11 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
   const resolveHref = (href: string) =>
     href?.startsWith('/page/') ? route('custom-page.show', href.replace('/page/', '')) : href;
 
+  // `onelnk-menulink` carries the ember hover color via a plain CSS rule
+  // (onelnk-landing.css); a Tailwind hover utility can't win here because the
+  // global `a:hover { color: var(--theme-color) }` in app.css is unlayered.
   const menuLinkClass =
-    'rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50';
+    'onelnk-menulink rounded-lg px-4 py-2.5 text-sm font-medium text-[#0A0F16] transition-colors hover:bg-[#0A0F16]/5';
 
   return (
     <nav className="sticky top-0 z-50 w-full px-4 pt-4">
@@ -83,9 +97,9 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
           }
         >
         <Link href={route('home')} className="flex items-center" aria-label={companyName}>
-          {logoUrl && !logoFailed ? (
+          {logoSrc && !logoFailed ? (
             <img
-              src={getImageDisplayUrl(logoUrl)}
+              src={logoSrc}
               alt={companyName}
               className="h-8 w-auto max-w-[150px] object-contain"
               onError={() => setLogoFailed(true)}
@@ -142,7 +156,7 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
               <button
                 onClick={() => router.visit(route('dashboard'))}
                 className="rounded-full px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ backgroundColor: primaryColor }}
+                style={{ backgroundColor: CTA_COLOR }}
               >
                 {t('Dashboard')}
               </button>
@@ -150,8 +164,8 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
               <>
                 <button
                   onClick={() => router.visit(route('login'))}
-                  className="rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors"
-                  style={{ borderColor: primaryColor, color: primaryColor }}
+                  className="rounded-full px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: '#111111' }}
                 >
                   {t('Login')}
                 </button>
@@ -159,7 +173,7 @@ export default function Header({ settings, sectionData, brandColor = '#F3801E', 
                   <button
                     onClick={() => router.visit(route('register'))}
                     className="rounded-full px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: primaryColor }}
+                    style={{ backgroundColor: CTA_COLOR }}
                   >
                     {t('Get Started')}
                   </button>

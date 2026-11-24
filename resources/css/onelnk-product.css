@@ -75,15 +75,15 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
+  gap: var(--sp-20);
   padding: 24px;
-  background: var(--gray-6);
+  background: #FFFFFF;
   border-radius: var(--radius-xl);
   overflow: hidden;
  }
 .onelnk-product .qbb__card img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
  }
 .onelnk-product .qbb__body {
@@ -116,9 +116,9 @@
   gap: 60px;
   padding: 120px var(--pad-x);
   border-radius: var(--radius-xl);
-  
+
   margin-inline: 10px;
-  background: var(--neutral-950);
+  background: var(--dark);
  }
 .onelnk-product .steps .phead-block__title {
   color: var(--white);
@@ -176,9 +176,9 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  border: 6px solid var(--neutral-950);
+  border: 6px solid var(--dark);
   border-radius: var(--radius-full);
-  background: #14191c;
+  background: var(--dark);
  }
 .onelnk-product .pstep__badge span {
   display: flex;
@@ -198,7 +198,7 @@
   align-items: center;
   padding: 24px;
   border-radius: var(--radius-full);
-  background: rgba(39, 170, 225, 0.04);
+  background: rgba(255, 255, 255, 0.04);
   flex-shrink: 0;
  }
 .onelnk-product .pstep__orb img {
@@ -217,7 +217,7 @@
   gap: 8px;
   padding: 12px 20px;
   border-radius: var(--radius-sm);
-  background: rgba(39, 170, 225, 0.04);
+  background: rgba(255, 255, 255, 0.04);
   font-size: var(--text-base);
   line-height: var(--leading-6);
   text-align: center;
@@ -240,7 +240,7 @@
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-normal);
   text-align: center;
-  color: var(--primary-500);
+  color: var(--cta);
  }
 .onelnk-product .pstep__sync-icon {
   width: 40px;
@@ -292,6 +292,8 @@
   gap: 24px;
   width: 100%;
  }
+/* Match the homepage .plan cards: white, borderless, rounded. A soft shadow keeps
+   the white card separated on the bone .styles section (plan cards sit on navy). */
 .onelnk-product .scard {
   position: relative;
   display: flex;
@@ -299,15 +301,19 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
+  gap: 32px;
   min-width: 0;
   padding: 40px 24px 24px;
-  border: 2px solid var(--neutral-200);
+  background: #fff;
+  border: 0;
   border-radius: var(--radius-3xl);
+  box-shadow: 0 10px 30px rgba(10, 15, 22, 0.06);
  }
+/* The middle card keeps its unique highlight — dark card (new palette). */
 .onelnk-product .scard--featured {
-  background: var(--secondary-950);
-  border: 4px solid var(--primary-500);
+  background: var(--dark);
+  border: 0;
+  box-shadow: 0 18px 44px rgba(10, 15, 22, 0.20);
  }
 .onelnk-product .scard__top {
   display: flex;
@@ -338,7 +344,7 @@
 .onelnk-product .scard__title {
   margin: 0;
   width: 100%;
-  font-size: var(--text-4xl);
+  font-size: var(--fluid-section);
   line-height: var(--leading-10);
   font-weight: var(--weight-semibold);
   color: var(--neutral-800);
@@ -364,7 +370,7 @@
   border-radius: var(--radius-xl);
  }
 .onelnk-product .scard--featured .scard__tags {
-  border-color: var(--primary-800);
+  border-color: rgba(242, 240, 235, 0.20);
  }
 .onelnk-product .scard__tag {
   display: flex;
@@ -395,25 +401,27 @@
   justify-content: center;
   width: 100%;
   padding: 16px 24px;
-  border: 1px solid var(--neutral-300);
+  background: transparent;
+  border: 1.5px solid #0A0F16;
   border-radius: var(--radius-lg);
   font-size: var(--text-base);
   line-height: var(--leading-6);
   font-weight: var(--weight-semibold);
   text-align: center;
-  color: var(--neutral-800);
+  color: #0A0F16;
   transition: background-color 0.18s ease;
  }
 .onelnk-product .scard__cta:hover {
-  background: var(--neutral-100);
+  background: rgba(10, 15, 22, 0.08);
  }
+/* Featured (middle) card CTA → white outline on the navy card. */
 .onelnk-product .scard__cta--accent {
-  background: var(--primary-500);
-  border-color: var(--primary-500);
-  color: var(--white);
+  background: transparent;
+  border-color: #F2F0EB;
+  color: #F2F0EB;
  }
 .onelnk-product .scard__cta--accent:hover {
-  background: var(--primary-400);
+  background: rgba(242, 240, 235, 0.12);
  }
 .onelnk-product .corp {
   display: flex;
@@ -663,7 +671,7 @@
 .onelnk-product .portal__chart i {
   flex: 1 0 0;
   min-width: 0;
-  background: #d9d9d9;
+  background: var(--neutral-300);
  }
 .onelnk-product .portal__chart i:nth-child(1) { height: 10px;  }
 .onelnk-product .portal__chart i:nth-child(2) { height: 16px;  }
@@ -773,7 +781,7 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  background: #f87000;
+  background: var(--primary-500);
  }
 .onelnk-product .phone__avatar-badge img {
   width: 46%;
@@ -912,7 +920,7 @@
   min-width: 0;
   padding: 32px;
   border-radius: var(--radius-2xl);
-  background: var(--neutral-100);
+  background: var(--dark);
  }
 .onelnk-product .presets__head {
   display: flex;
@@ -928,7 +936,7 @@
   line-height: var(--leading-9);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-normal);
-  color: var(--neutral-800);
+  color: var(--on-dark);
   word-break: break-word;
  }
 .onelnk-product .presets__grid {
@@ -942,14 +950,14 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  border: 1px solid var(--neutral-200);
+  border: 1px solid var(--dark-border);
   border-radius: var(--radius-md);
-  background: var(--white);
+  background: var(--dark-2);
   transition: border-color 0.18s ease, background-color 0.18s ease;
  }
 .onelnk-product .preset[aria-selected="true"] {
-  background: var(--primary-50);
-  border-color: var(--primary-200);
+  background: rgba(194, 90, 20, 0.14);
+  border-color: var(--cta);
  }
 .onelnk-product .preset span {
   flex: 1 0 0;
@@ -958,7 +966,7 @@
   line-height: var(--leading-6);
   letter-spacing: var(--tracking-normal);
   text-align: left;
-  color: var(--neutral-800);
+  color: var(--on-dark);
  }
 .onelnk-product .preset img {
   width: 24px;
@@ -970,15 +978,19 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 44px;
-  padding: 10px 24px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(180deg, var(--primary-500) 0%, var(--secondary-400) 100%);
+  min-height: 48px;
+  padding: 0 var(--sp-26);
+  border-radius: var(--radius-pill);
+  background: var(--cta);
   font-size: var(--text-base);
   line-height: var(--leading-6);
+  font-weight: 700;
   letter-spacing: var(--tracking-normal);
-  color: var(--white);
+  color: #fff;
   white-space: nowrap;
+ }
+.onelnk-product .presets__cta:hover {
+  background: var(--cta-hover);
  }
 .onelnk-product .configurator {
   display: flex;
@@ -1377,5 +1389,539 @@
     align-items: stretch;
     width: 100%;
     max-width: 280px;
+   }
+}
+
+/* ---- product-page brand overrides (appended) ---- */
+/* Featured plan check (s8-check-light) is already a white disc + ember check, so
+   drop the homepage's white-invert filter and let the ember check show on navy.
+   Compound `.onelnk-product.onelnk-landing` out-specifies the landing rule
+   regardless of CSS bundle order. */
+.onelnk-product.onelnk-landing .plan--featured .plan__feature img {
+  filter: none;
+ }
+/* Sharing-method cards sit on white on the product page. Compound selector wins
+   over `.onelnk-landing .share__card` regardless of CSS bundle order. */
+.onelnk-product.onelnk-landing .share__card {
+  background: #FFFFFF;
+ }
+/* Live digital-profile preview panel sits on white (per the design ask). */
+.onelnk-product .preview2--white {
+  background: #fff;
+  border-color: var(--neutral-200);
+ }
+/* Hide the scrollbar inside the live phone mockup (still scrollable). */
+.onelnk-product .preview2--white .wzphone__scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+ }
+.onelnk-product .preview2--white .wzphone__scroll::-webkit-scrollbar {
+  display: none;
+ }
+/* Swiper card gallery (product page). slidesPerView:auto needs an explicit slide
+   width; cards keep the gallery look and the free-mode drag shows a grab cursor. */
+.onelnk-product .pgallery__swiper {
+  width: 100%;
+  overflow: hidden;
+ }
+/* Linear timing so the marquee auto-scroll glides evenly (Swiper applies `speed`
+   as the wrapper's transition duration). */
+.onelnk-product .pgallery__swiper .swiper-wrapper {
+  transition-timing-function: linear;
+ }
+.onelnk-product .pgallery__slide {
+  width: 360px;
+  height: auto;
+ }
+.onelnk-product .pgallery__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-2xl);
+  pointer-events: none;
+ }
+@media (max-width: 768px) {
+.onelnk-product .pgallery__slide {
+    width: 280px;
+   }
+}
+
+/* ---- Homepage card system on the product page ----
+   Mirrors the homepage: light cards = white + 1px --card-border + --radius (26px);
+   dark cards = --dark/--dark-2 + 1px --dark-border + --radius; inner panels use
+   --radius-card; CTAs are pills (dark fill, ember accent). Compound
+   `.onelnk-product.onelnk-landing` wins over the scoped rules above and the
+   landing bundle regardless of CSS order. */
+
+/* Quick benefit bar cards (light). */
+.onelnk-product.onelnk-landing .qbb__card {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-product.onelnk-landing .qbb__title,
+.onelnk-product.onelnk-landing .share__title { color: var(--ink); }
+.onelnk-product.onelnk-landing .qbb__text,
+.onelnk-product.onelnk-landing .share__text {
+  line-height: 1.618;
+  color: var(--ink-muted);
+ }
+
+/* Steps tiles (dark section → dark cards with the dark hairline). */
+.onelnk-product.onelnk-landing .pstep__tile {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius);
+ }
+.onelnk-product.onelnk-landing .pstep__orb,
+.onelnk-product.onelnk-landing .pstep__chip {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+ }
+.onelnk-product.onelnk-landing .pstep__chip { border-radius: var(--radius-chip); }
+.onelnk-product.onelnk-landing .pstep__badge span { color: var(--accent-dark); }
+.onelnk-product.onelnk-landing .pstep__loading { color: var(--accent-dark); }
+.onelnk-product.onelnk-landing .pstep__text { color: var(--on-dark-faint); }
+
+/* Card-style cards: white + hairline like the homepage plans; featured stays dark. */
+.onelnk-product.onelnk-landing .scard {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: none;
+ }
+.onelnk-product.onelnk-landing .scard--featured {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+ }
+.onelnk-product.onelnk-landing .scard__art { border-radius: var(--radius-card); }
+.onelnk-product.onelnk-landing .scard__title { color: var(--ink); }
+.onelnk-product.onelnk-landing .scard__desc { color: var(--ink-muted); }
+.onelnk-product.onelnk-landing .scard--featured .scard__title { color: var(--on-dark); }
+.onelnk-product.onelnk-landing .scard--featured .scard__desc { color: var(--on-dark-faint); }
+.onelnk-product.onelnk-landing .scard__tags {
+  gap: var(--sp-16);
+  padding: var(--sp-16);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+ }
+.onelnk-product.onelnk-landing .scard--featured .scard__tags { border-color: var(--dark-border); }
+.onelnk-product.onelnk-landing .scard__tag { gap: 8px; }
+.onelnk-product.onelnk-landing .scard__tag span { color: var(--ink); }
+.onelnk-product.onelnk-landing .scard--featured .scard__tag span { color: var(--on-dark); }
+/* CTAs → homepage plan pills: dark fill on light cards, ember on the featured. */
+.onelnk-product.onelnk-landing .scard__cta {
+  min-height: 48px;
+  padding: 0 var(--sp-26);
+  background: var(--dark);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  color: #fff;
+ }
+.onelnk-product.onelnk-landing .scard__cta:hover { background: var(--dark-2); color: #fff; }
+.onelnk-product.onelnk-landing .scard__cta--accent { background: var(--cta); }
+.onelnk-product.onelnk-landing .scard__cta--accent:hover { background: var(--cta-hover); }
+
+/* Sharing cards: white + hairline; icons at 50×50 (like the homepage industry icons). */
+.onelnk-product.onelnk-landing .share__card {
+  padding: var(--sp-42);
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-product.onelnk-landing .share__icon { padding: 0; }
+.onelnk-product.onelnk-landing .share__icon img {
+  width: 50px;
+  height: 50px;
+ }
+.onelnk-product.onelnk-landing .share__chip {
+  background: var(--surface-2);
+  font-size: var(--text-sm);
+  color: var(--ink);
+ }
+.onelnk-product.onelnk-landing .share__chip--soon {
+  background: var(--pro-tint);
+  color: var(--pro-ink);
+ }
+
+/* Digital profile: the preview sits straight on the section (no panel background
+   or border) beside the dark preset card. No top padding, so the "Preview" chip
+   and the preset card start on the same line. */
+.onelnk-product.onelnk-landing .preview2--white {
+  padding-top: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+ }
+.onelnk-product.onelnk-landing .preview2__chip {
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+ }
+/* Theme picker — same build as the wizard's step-3 template picker
+   (.wzoptions holding .wztpl cards): a tinted panel with white option cards
+   that take an ember ring and a warm tint when chosen. */
+.onelnk-product.onelnk-landing .presets {
+  padding: 24px;
+  gap: 24px;
+  background: var(--surface-2);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+ }
+.onelnk-product.onelnk-landing .presets__head { gap: 16px; }
+.onelnk-product.onelnk-landing .presets__title {
+  font-size: var(--fluid-h3);
+  line-height: var(--leading-8);
+  color: var(--ink);
+ }
+.onelnk-product.onelnk-landing .presets__grid { gap: 10px; }
+.onelnk-product.onelnk-landing .preset {
+  width: 100%;
+  min-height: 0;
+  padding: 12px 14px;
+  background: var(--surface-card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-chip);
+  font-family: inherit;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+ }
+.onelnk-product.onelnk-landing .preset:hover { border-color: var(--ink-faint); }
+.onelnk-product.onelnk-landing .preset:focus-visible {
+  outline: 2px solid var(--cta);
+  outline-offset: 2px;
+ }
+.onelnk-product.onelnk-landing .preset[aria-selected="true"] {
+  background: var(--primary-50);
+  border-color: var(--cta);
+ }
+.onelnk-product.onelnk-landing .preset > span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--ink);
+ }
+
+/* Pricing (light): wider cards on phones — the base `.packages--light` padding
+   (--pad-x = 80px) is declared after the landing mobile rules and squeezed them. */
+@media (max-width: 1024px) {
+.onelnk-product.onelnk-landing .packages--light {
+    padding: 80px 40px;
+   }
+}
+@media (max-width: 768px) {
+.onelnk-product.onelnk-landing .packages--light {
+    padding: 64px 12px;
+   }
+.onelnk-product.onelnk-landing .packages--light .plan {
+    padding: 32px 20px 24px;
+   }
+/* Keep the featured header band flush with the narrower mobile padding. */
+.onelnk-product.onelnk-landing .packages--light .plan--featured .plan__intro {
+    margin: -32px -20px 0;
+    padding: 32px 20px 24px;
+   }
+}
+
+/* Corporate portal — brand palette: black surfaces, ember accents, bone text. */
+.onelnk-product.onelnk-landing .corp { background: var(--dark); }
+.onelnk-product.onelnk-landing .corp__title { color: var(--on-dark); }
+.onelnk-product.onelnk-landing .corp__lede,
+.onelnk-product.onelnk-landing .corp__point span { color: var(--on-dark-faint); }
+.onelnk-product.onelnk-landing .corp__point b { color: var(--on-dark); }
+.onelnk-product.onelnk-landing .corp .btn--primary { background: var(--cta); color: #fff; }
+.onelnk-product.onelnk-landing .corp .btn--primary:hover { background: var(--cta-hover); color: #fff; }
+.onelnk-product.onelnk-landing .portal {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius);
+ }
+.onelnk-product.onelnk-landing .portal__brand p { color: var(--on-dark); }
+.onelnk-product.onelnk-landing .portal__tag {
+  background: rgba(240, 138, 60, 0.14);
+  font-size: var(--text-sm);
+  color: var(--accent-dark);
+ }
+.onelnk-product.onelnk-landing .portal__stat,
+.onelnk-product.onelnk-landing .portal__panel {
+  background: var(--dark);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-card);
+ }
+.onelnk-product.onelnk-landing .portal__stat span,
+.onelnk-product.onelnk-landing .portal__panel-label,
+.onelnk-product.onelnk-landing .portal__person span { color: var(--on-dark-faint); }
+.onelnk-product.onelnk-landing .portal__stat b,
+.onelnk-product.onelnk-landing .portal__person b { color: var(--on-dark); }
+.onelnk-product.onelnk-landing .portal__stat:first-child b { color: var(--accent-dark); }
+.onelnk-product.onelnk-landing .portal__person img { border: 2px solid var(--dark-border); }
+.onelnk-product.onelnk-landing .portal__taps {
+  font-weight: var(--weight-semibold);
+  color: var(--accent-dark);
+ }
+.onelnk-product.onelnk-landing .portal__chart i {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--dark-border);
+ }
+.onelnk-product.onelnk-landing .portal__chart i:nth-child(4) { background: var(--on-dark-faint); }
+.onelnk-product.onelnk-landing .portal__chart i:nth-child(5) { background: var(--accent-dark); }
+.onelnk-product.onelnk-landing .portal__chart i:nth-child(6) { background: var(--cta); }
+
+/* Mobile paddings for the bordered cards (homepage uses 32/20 on phones). */
+@media (max-width: 768px) {
+.onelnk-product.onelnk-landing .qbb__card,
+.onelnk-product.onelnk-landing .share__card,
+.onelnk-product.onelnk-landing .presets {
+    padding: 24px 20px;
+   }
+.onelnk-product.onelnk-landing .scard {
+    padding: 32px 20px 20px;
+   }
+}
+
+/* ── Steps section — hover choreography ─────────────────────────────
+   CSS-only, gated on the parent .pstep, one-shot, resting state at both
+   ends, so leaving a step returns the tile to exactly its untouched look.
+   The loader dots in step 2 are the one deliberate loop. */
+
+.onelnk-product.onelnk-landing .steps__row {
+  --pstep-ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --pstep-ease-io: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Card travel: 302px (narrowest tile) − 212px (orb+gap+arrow+gap+orb) =
+     45px slack each side. At −88px the card overlaps the phone orb by 40px,
+     covers the arrow, and still stops 42px clear of the clipped tile edge. */
+  --pstep-tuck: -88px;
+ }
+
+/* Motion-free affordance, kept alive under reduced motion (hue, not movement). */
+.onelnk-product.onelnk-landing .pstep__tile { transition: border-color 180ms var(--pstep-ease-io); }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__tile,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__tile { border-color: #3A3A3A; }
+
+/* Inline SVGs inherit the sizing the <img> rules used to give. */
+.onelnk-product.onelnk-landing .pstep__orb svg { display: block; width: 32px; height: 32px; }
+/* Pure #fff, not var(--white) (#F3F1ED), to match the baked white of p3-tap.svg. */
+.onelnk-product.onelnk-landing .pstep__nfc { color: #fff; }
+.onelnk-product.onelnk-landing .pstep__nfc-arc {
+  transform-box: view-box;
+  transform-origin: 9.6px 16px;
+ }
+
+/* Paint order inside the tile: phone over card over arrow, so the card passes
+   BEHIND the phone. .pstep__tile-inner is already a stacking context (it carries
+   translate(-50%,-50%)), so these indices cannot reach .pstep__badge. */
+.onelnk-product.onelnk-landing .pstep__orb { position: relative; }
+.onelnk-product.onelnk-landing .pstep__orb--phone { z-index: 3; }
+.onelnk-product.onelnk-landing .pstep__orb--card { z-index: 2; }
+.onelnk-product.onelnk-landing .pstep__arrow { position: relative; z-index: 1; }
+
+/* Contact ring on the phone orb; -1px sits it on the orb's own border. */
+.onelnk-product.onelnk-landing .pstep__orb--phone::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--accent-dark);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  pointer-events: none;
+ }
+
+/* The tick overlays the Save chip's existing 24px icon box, so the chip's
+   resting width is unchanged. Centred with margin, leaving transform free
+   for the press. */
+.onelnk-product.onelnk-landing .pstep__chip--save { position: relative; }
+.onelnk-product.onelnk-landing .pstep__chip--save img { transition: opacity 200ms var(--pstep-ease-io); }
+.onelnk-product.onelnk-landing .pstep__tick {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  margin-top: -12px;
+  width: 24px;
+  height: 24px;
+  color: var(--accent-dark);
+  pointer-events: none;
+ }
+.onelnk-product.onelnk-landing .pstep__tick path { stroke-dasharray: 21; stroke-dashoffset: 21; }
+
+/* Dots carry their own text, so the static render is unchanged. */
+.onelnk-product.onelnk-landing .pstep__dots { display: inline-block; }
+.onelnk-product.onelnk-landing .pstep__dots i { display: inline-block; font-style: normal; }
+
+/* Handles are filled with the tile colour so they occlude the rail. */
+.onelnk-product.onelnk-landing .pstep__sliders {
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: var(--accent-dark);
+ }
+.onelnk-product.onelnk-landing .pstep__sliders-handle { fill: var(--dark-2); }
+
+/* Hover-only, fine-pointer: nothing is even declared on touch, which also stops
+   iOS latching a sticky :hover mid-animation. */
+@media (hover: hover) and (pointer: fine) {
+/* Step 1 — one 1500ms clock; contact lands at 34% = 510ms. */
+.onelnk-product.onelnk-landing .pstep:hover .pstep__orb--card,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__orb--card { animation: pstep-card-tuck 1500ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__arrow,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__arrow { animation: pstep-bolt 1500ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__orb--phone,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__orb--phone { animation: pstep-phone-nudge 1500ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__orb--phone::after,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__orb--phone::after { animation: pstep-phone-ring 900ms 510ms var(--pstep-ease) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__nfc-arc--1,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__nfc-arc--1 { animation: pstep-nfc-ping 620ms 510ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__nfc-arc--2,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__nfc-arc--2 { animation: pstep-nfc-ping 620ms 600ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__nfc-arc--3,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__nfc-arc--3 { animation: pstep-nfc-ping 620ms 690ms var(--pstep-ease-io) both; }
+
+/* Step 2 — ". .. ..." on a 1200ms loop, 140ms apart. */
+.onelnk-product.onelnk-landing .pstep:hover .pstep__dots i,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__dots i { animation: pstep-dot 1200ms var(--pstep-ease-io) infinite; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__dots i:nth-child(2),
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__dots i:nth-child(2) { animation-delay: 140ms; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__dots i:nth-child(3),
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__dots i:nth-child(3) { animation-delay: 280ms; }
+
+/* Step 3 — the press is `forwards`, NOT `both`, so its backwards fill cannot
+   clobber the rise during its own delay. */
+.onelnk-product.onelnk-landing .pstep:hover .pstep__chip--save,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__chip--save {
+  animation:
+    pstep-chip-rise 560ms var(--pstep-ease) both,
+    pstep-chip-press 520ms 760ms cubic-bezier(0.34, 1.4, 0.5, 1) forwards;
+ }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__chip--call,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__chip--call { animation: pstep-chip-rise 560ms 90ms var(--pstep-ease) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__chip--wa,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__chip--wa { animation: pstep-chip-rise 560ms 180ms var(--pstep-ease) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__tick path,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__tick path { animation: pstep-tick-draw 420ms 880ms var(--pstep-ease) forwards; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__chip--save img,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__chip--save img { opacity: 0.18; transition-delay: 880ms; }
+
+/* Step 4 — the three handles ride their rails and settle back. */
+.onelnk-product.onelnk-landing .pstep:hover .pstep__sliders-handle--1,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__sliders-handle--1 { animation: pstep-slide-1 900ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__sliders-handle--2,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__sliders-handle--2 { animation: pstep-slide-2 900ms 90ms var(--pstep-ease-io) both; }
+.onelnk-product.onelnk-landing .pstep:hover .pstep__sliders-handle--3,
+.onelnk-product.onelnk-landing .pstep:focus-within .pstep__sliders-handle--3 { animation: pstep-slide-3 900ms 180ms var(--pstep-ease-io) both; }
+}
+
+@keyframes pstep-card-tuck {
+  0%       { transform: translateX(0) scale(1); }
+  34%, 58% { transform: translateX(var(--pstep-tuck)) scale(0.97); }
+  100%     { transform: translateX(0) scale(1); }
+ }
+@keyframes pstep-bolt {
+  0%       { opacity: 1; transform: scale(1); }
+  18%      { opacity: 1; transform: scale(1.28); }
+  30%, 60% { opacity: 0; transform: scale(0.8); }
+  82%      { opacity: 1; transform: scale(1.1); }
+  100%     { opacity: 1; transform: scale(1); }
+ }
+@keyframes pstep-phone-nudge {
+  0%, 30%   { transform: translateX(0) scale(1); }
+  38%       { transform: translateX(-3px) scale(1.05); }
+  50%, 100% { transform: translateX(0) scale(1); }
+ }
+@keyframes pstep-phone-ring {
+  0%   { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+ }
+@keyframes pstep-nfc-ping {
+  0%   { opacity: 1; transform: scale(1); stroke: currentColor; }
+  30%  { opacity: 0.25; transform: scale(0.86); }
+  65%  { opacity: 1; transform: scale(1.08); stroke: var(--accent-dark); }
+  100% { opacity: 1; transform: scale(1); stroke: currentColor; }
+ }
+@keyframes pstep-dot {
+  0%, 18%   { opacity: 0; transform: translateY(1px); }
+  34%, 100% { opacity: 1; transform: none; }
+ }
+@keyframes pstep-chip-rise {
+  0%   { opacity: 0.35; transform: translateY(10px) scale(0.96); }
+  100% { opacity: 1; transform: none; }
+ }
+@keyframes pstep-chip-press {
+  0%   { transform: none; }
+  30%  { transform: translateY(3px) scale(0.965); }
+  100% { transform: none; }
+ }
+@keyframes pstep-tick-draw { to { stroke-dashoffset: 0; } }
+@keyframes pstep-slide-1 { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(9px); } }
+@keyframes pstep-slide-2 { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-10px); } }
+@keyframes pstep-slide-3 { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(7px); } }
+
+/* ── prefers-reduced-motion — everything pinned to its resting frame.
+   .pstep__tile-inner and .pstep__badge are deliberately absent: their
+   transforms are layout, not motion. */
+@media (prefers-reduced-motion: reduce) {
+.onelnk-product.onelnk-landing .pstep__orb--card,
+.onelnk-product.onelnk-landing .pstep__orb--phone,
+.onelnk-product.onelnk-landing .pstep__arrow,
+.onelnk-product.onelnk-landing .pstep__nfc-arc,
+.onelnk-product.onelnk-landing .pstep__dots i,
+.onelnk-product.onelnk-landing .pstep__chip,
+.onelnk-product.onelnk-landing .pstep__sliders-handle {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+   }
+.onelnk-product.onelnk-landing .pstep__nfc-arc { stroke: currentColor !important; }
+.onelnk-product.onelnk-landing .pstep__orb--phone::after { animation: none !important; opacity: 0 !important; }
+.onelnk-product.onelnk-landing .pstep__tick path { animation: none !important; stroke-dashoffset: 21 !important; }
+.onelnk-product.onelnk-landing .pstep__chip--save img { transition: none !important; opacity: 1 !important; }
+}
+
+/* -- Digital profile: the picker column runs level with the phone ---------
+   The picker now carries the wizard's own step-3 markup (.wztplsearch +
+   .wztemplates + .wztpl), so its look comes wholesale from onelnk-wizard.css
+   and onelnk-wizard-live.css, both already imported by this page. All that is
+   left here is height: the template list is the panel's one flexible child, so
+   the column ends level with the preview beside it instead of running short.
+   Above 1024px the panel's own height is the list's cap; below that the row
+   stacks and the list needs a cap of its own. */
+.onelnk-product.onelnk-landing .designer2__row { align-items: stretch; }
+/* Stretched, the preview must stay TOP-aligned - its `justify-content: center`
+   would otherwise float the chip and phone down and break the shared top line. */
+.onelnk-product.onelnk-landing .preview2--white { justify-content: flex-start; }
+.onelnk-product.onelnk-landing .presets { align-items: stretch; }
+.onelnk-product.onelnk-landing .presets__title,
+.onelnk-product.onelnk-landing .wztplsearch,
+.onelnk-product.onelnk-landing .presets__cta { flex: none; }
+.onelnk-product.onelnk-landing .wztemplates {
+  flex: 1 1 auto;
+  min-height: 360px;
+  max-height: none; /* the panel's own cap below is what bounds the list */
+ }
+/* Above 1024px the phone frame is a hard 402x874 (onelnk-wizard.css:758), so
+   the preview column is a KNOWN height and the picker can be capped to match it
+   exactly. Without this the 41-row list wins the row and drags the preview to
+   1608px, leaving the phone floating in half an empty column. Capped, the list
+   is the part that gives - it shrinks to 750px and scrolls, which is the same
+   bargain the wizard strikes with its own `max-height` on .wztemplates. */
+.onelnk-product.onelnk-landing .presets {
+  max-height: calc(38px /* chip */ + 40px /* gap */ + 874px /* phone */ + 60px /* foot pad */);
+ }
+@media (max-width: 1024px) {
+/* Stacked: the phone goes fluid, so there is no sibling to match. The list
+   takes a viewport-relative cap instead - long, but never the whole page. */
+.onelnk-product.onelnk-landing .presets { max-height: none; }
+.onelnk-product.onelnk-landing .wztemplates {
+    min-height: 0;
+    max-height: 60vh;
    }
 }

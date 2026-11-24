@@ -46,21 +46,18 @@ export default function BenefitsSection({ sectionData = {} }: BenefitsSectionPro
           </h2>
 
           <div className="benefits__body">
-            <div className="benefits__glow" aria-hidden="true">
-              <img src={img('s3-glow.svg')} alt="" />
-            </div>
-
-            {/* Traditional cards */}
-            <article className="compare compare--con">
+            {/* OneLnk (first) */}
+            <article className="compare compare--pro">
               <div className="compare__head">
-                <h3>{t('Traditional Cards')}</h3>
+                <img src={img('s3-logo-icon.svg')} alt="" />
+                <h3>OneLnk</h3>
               </div>
               <div className="compare__body">
                 <ul className="compare__list">
-                  {cons.map((text, i) => (
+                  {pros.map((text) => (
                     <li className="compare__row" key={text}>
                       <span className="compare__icon">
-                        <img src={img(`s3-con-${i + 1}.svg`)} alt="" />
+                        <img src={img('s3-check.svg')} alt="" />
                       </span>
                       <p>{text}</p>
                     </li>
@@ -69,23 +66,17 @@ export default function BenefitsSection({ sectionData = {} }: BenefitsSectionPro
               </div>
             </article>
 
-            {/* Centre badge */}
-            <div className="benefits__badge" aria-hidden="true">
-              <img src={img('s3-badge-icon.svg')} alt="" />
-            </div>
-
-            {/* OneLnk */}
-            <article className="compare compare--pro">
+            {/* Traditional cards (second) */}
+            <article className="compare compare--con">
               <div className="compare__head">
-                <img src={img('s3-logo-icon.svg')} alt="" />
-                <h3>OneLnk</h3>
+                <h3>{t('Traditional Cards')}</h3>
               </div>
               <div className="compare__body">
                 <ul className="compare__list">
-                  {pros.map((text, i) => (
+                  {cons.map((text) => (
                     <li className="compare__row" key={text}>
                       <span className="compare__icon">
-                        <img src={img(`s3-pro-${i + 1}.svg`)} alt="" />
+                        <img src={img('s3-x.svg')} alt="" />
                       </span>
                       <p>{text}</p>
                     </li>

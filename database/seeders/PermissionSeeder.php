@@ -175,6 +175,20 @@ class PermissionSeeder extends Seeder
             ['name' => 'edit-contacts', 'module' => 'contacts', 'label' => 'Edit Contacts', 'description' => 'Can edit contacts'],
             ['name' => 'reply-contacts', 'module' => 'contacts', 'label' => 'Reply Contacts', 'description' => 'Can reply to contacts'],
             ['name' => 'delete-contacts', 'module' => 'contacts', 'label' => 'Delete Contacts', 'description' => 'Can delete contacts'],
+
+            // Circle management (contact segments)
+            ['name' => 'manage-circles', 'module' => 'circles', 'label' => 'Manage Circles', 'description' => 'Can manage circles'],
+            ['name' => 'view-circles', 'module' => 'circles', 'label' => 'View Circles', 'description' => 'View Circles'],
+            ['name' => 'create-circles', 'module' => 'circles', 'label' => 'Create Circles', 'description' => 'Can create circles'],
+            ['name' => 'edit-circles', 'module' => 'circles', 'label' => 'Edit Circles', 'description' => 'Can edit circles'],
+            ['name' => 'delete-circles', 'module' => 'circles', 'label' => 'Delete Circles', 'description' => 'Can delete circles'],
+
+            // Organization management (companies a contact belongs to)
+            ['name' => 'manage-organizations', 'module' => 'organizations', 'label' => 'Manage Organizations', 'description' => 'Can manage organizations'],
+            ['name' => 'view-organizations', 'module' => 'organizations', 'label' => 'View Organizations', 'description' => 'View Organizations'],
+            ['name' => 'create-organizations', 'module' => 'organizations', 'label' => 'Create Organizations', 'description' => 'Can create organizations'],
+            ['name' => 'edit-organizations', 'module' => 'organizations', 'label' => 'Edit Organizations', 'description' => 'Can edit organizations'],
+            ['name' => 'delete-organizations', 'module' => 'organizations', 'label' => 'Delete Organizations', 'description' => 'Can delete organizations'],
             
             // Appointment management
             ['name' => 'manage-appointments', 'module' => 'appointments', 'label' => 'Manage Appointments', 'description' => 'Can manage appointments'],

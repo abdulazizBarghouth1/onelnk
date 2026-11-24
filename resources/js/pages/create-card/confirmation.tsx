@@ -45,7 +45,7 @@ export default function Confirmation() {
 
                 <div className="wzconfirm__actions">
                   <a className="btn btn--primary" href={order?.profile_url || '#'}>{t('View your digital profile')}</a>
-                  <Link className="btn btn--outline" href={route('marketing.contact')}>{t('Chat with support')}</Link>
+                  <Link className="btn btn--navy" href={route('marketing.contact')}>{t('Chat with support')}</Link>
                 </div>
               </div>
             </section>

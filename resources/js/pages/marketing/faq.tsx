@@ -1,5 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePageReveal } from '@/hooks/usePageReveal';
 import Header from '../landing-page/components/Header';
 import Footer from '../landing-page/components/Footer';
 import '../../../css/onelnk-landing.css';
@@ -80,9 +82,11 @@ const CATEGORIES: Cat[] = [
 ];
 
 export default function Faq() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const revealRef = useRef<HTMLDivElement>(null);
+  usePageReveal(revealRef, i18n.language);
   const { settings, auth } = usePage<any>().props;
-  const primaryColor = settings?.config_sections?.theme?.primary_color || '#27aae1';
+  const primaryColor = '#F3801E';
   const headerData = settings?.config_sections?.sections?.find((s: any) => s.key === 'header') || {};
 
   return (
@@ -90,15 +94,15 @@ export default function Faq() {
       <Head title={`${t('Frequently Asked Questions')} — OneLnk`} />
       <Header settings={settings} sectionData={headerData} brandColor={primaryColor} user={auth?.user} />
 
-      <div className="onelnk-landing onelnk-faq">
-        <header className="fhead">
+      <div className="onelnk-landing onelnk-faq" ref={revealRef}>
+        <header className="fhead page-hero">
           <div className="fhead__inner">
             <div className="phead-block">
               <h1 className="phead-block__title">{t('Frequently Asked Questions')}</h1>
             </div>
-            <div className="phead__actions fhead__actions">
+            <div className="btn-row phead__actions fhead__actions">
               <Link href={route('marketing.teams')} className="btn btn--primary">{t('Request a Quote')}</Link>
-              <a href="#" className="btn btn--outline">{t('Book a Demo')}</a>
+              <a href="#" className="btn btn--navy">{t('Book a Demo')}</a>
             </div>
           </div>
         </header>

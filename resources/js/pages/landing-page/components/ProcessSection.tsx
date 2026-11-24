@@ -9,7 +9,6 @@ interface Props {
 /** OneLnk "The Process" tiers — ported 1:1 from the static design (scoped). */
 export default function ProcessSection(_props: Props) {
   const { t } = useTranslation();
-  const img = (name: string) => `/images/onelnk/${name}`;
 
   const tiers = [
     {
@@ -69,7 +68,7 @@ export default function ProcessSection(_props: Props) {
                 <ul className="tier__points">
                   {tier.points.map(([label, text]) => (
                     <li className="tier__point" key={label}>
-                      <img src={img('s5-check.svg')} alt="" />
+                      <span className="tier__dot" aria-hidden="true"></span>
                       <p>
                         <b>{label}</b> {text}
                       </p>
@@ -78,7 +77,7 @@ export default function ProcessSection(_props: Props) {
                 </ul>
               </div>
               <div className="tier__media">
-                <img src={img(tier.image)} alt={tier.alt} />
+                <div className="media-ph">560 × 420</div>
               </div>
             </article>
           ))}

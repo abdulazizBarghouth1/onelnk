@@ -42,7 +42,7 @@ export default function IdentitySection(_props: Props) {
               {points.map(([label, text]) => (
                 <li className="identity__point" key={label}>
                   <span className="identity__point-icon">
-                    <img src={img('s7-check.svg')} alt="" />
+                    <img src={img('s5-check.svg')} alt="" />
                   </span>
                   <p>
                     <b>{label}</b> {text}
@@ -53,7 +53,7 @@ export default function IdentitySection(_props: Props) {
           </div>
 
           <div className="identity__media">
-            <img src={img('s7-profile.png')} alt={t('A OneLnk digital profile shown on a phone')} />
+            <div className="media-ph">480 × 480</div>
           </div>
         </div>
       </section>

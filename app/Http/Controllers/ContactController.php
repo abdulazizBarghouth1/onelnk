@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\Business;
+use App\Models\Circle;
+use App\Models\Organization;
+use App\Traits\ResolvesTenantBusinesses;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 class ContactController extends Controller
 {
+    use ResolvesTenantBusinesses;
+
     /**
      * Display a listing of the resource.
      */
@@ -36,8 +43,10 @@ class ContactController extends Controller
         if ($accessibleBusinesses->isEmpty()) {
             $contacts = Contact::whereRaw('1 = 0')->paginate($request->get('per_page', 10));
             $businesses = collect([]);
+            $circles = collect([]);
+            $organizations = collect([]);
         } else {
-            $query = Contact::with('business')
+            $query = Contact::with(['business', 'organization:id,name', 'circles:id,name,color'])
                 ->whereIn('business_id', $accessibleBusinesses)
                 ->orderBy($request->get('sort_field', 'created_at'), $request->get('sort_direction', 'desc'));
 
@@ -71,14 +80,26 @@ class ContactController extends Controller
                 $query->where('status', $request->get('status'));
             }
 
+            // Circle filter
+            if ($request->filled('circle')) {
+                $circleId = $request->get('circle');
+                $query->whereHas('circles', function ($q) use ($circleId) {
+                    $q->where('circles.id', $circleId);
+                });
+            }
+
             $contacts = $query->paginate($request->get('per_page', 10));
             $businesses = Business::whereIn('id', $accessibleBusinesses)->orderBy('name')->get(['id', 'name']);
+            $circles = Circle::whereIn('business_id', $accessibleBusinesses)->orderBy('name')->get(['id', 'name', 'color', 'business_id']);
+            $organizations = Organization::whereIn('business_id', $accessibleBusinesses)->orderBy('name')->get(['id', 'name', 'business_id']);
         }
 
         return Inertia::render('contacts/index', [
             'contacts' => $contacts,
             'businesses' => $businesses,
-            'filters' => $request->only(['search', 'business', 'status', 'sort_field', 'sort_direction', 'per_page'])
+            'circles' => $circles,
+            'organizations' => $organizations,
+            'filters' => $request->only(['search', 'business', 'status', 'circle', 'sort_field', 'sort_direction', 'per_page'])
         ]);
     }
 
@@ -91,25 +112,41 @@ class ContactController extends Controller
             'business_id' => 'required|exists:businesses,id',
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|phone:AUTO|regex:/^\+\d{4,20}$/',
+            'phone' => 'nullable|regex:/^\+\d{6,20}$/',
             'message' => 'nullable|string',
             'status' => 'required|in:new,contacted,qualified,converted,closed',
             'notes' => 'nullable|string',
+            'emails' => 'nullable|array',
+            'emails.*' => 'nullable|email|max:255',
+            'phones' => 'nullable|array',
+            'phones.*' => 'nullable|string|max:40',
+            'job_title' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|string|max:2048',
+            'organization' => 'nullable|string|max:255',
+            'circles' => 'nullable|array',
+            'circles.*' => 'nullable|string|max:255',
         ],
 [
-            'phone.phone' => __('Please enter a valid phone number with country code  (e.g. +1 5551234567).'),
-            'phone.regex' => __('Phone number must start with "+" followed by country code (e.g. +1 5551234567).'),
+            'phone.regex' => __('Please enter a valid phone number (select the country code, then enter the number).'),
         ]);
-        
+
         // Verify user has access to the business
         $authUser = auth()->user();
         $business = Business::find($validated['business_id']);
-        
+
         if (!$business) {
             return redirect()->back()->with('error', __('Business not found.'));
         }
 
-        Contact::create($validated);
+        $contact = Contact::create($this->contactColumns($validated) + [
+            'organization_id' => $this->resolveOrganizationId($request->input('organization'), $business->id, $authUser),
+            'created_by' => $authUser->id,
+            'source' => 'manual',
+        ]);
+
+        $this->syncCircles($contact, (array) $request->input('circles', []), $authUser);
 
         return redirect()->back()->with('success', __('Contact created successfully.'));
     }
@@ -145,16 +182,26 @@ class ContactController extends Controller
             'business_id' => 'required|exists:businesses,id',
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|phone:AUTO|regex:/^\+\d{4,20}$/',
+            'phone' => 'nullable|regex:/^\+\d{6,20}$/',
             'message' => 'nullable|string',
             'status' => 'required|in:new,contacted,qualified,converted,closed',
             'notes' => 'nullable|string',
+            'emails' => 'nullable|array',
+            'emails.*' => 'nullable|email|max:255',
+            'phones' => 'nullable|array',
+            'phones.*' => 'nullable|string|max:40',
+            'job_title' => 'nullable|string|max:255',
+            'website' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|string|max:2048',
+            'organization' => 'nullable|string|max:255',
+            'circles' => 'nullable|array',
+            'circles.*' => 'nullable|string|max:255',
         ],
 [
-            'phone.phone' => __('Please enter a valid phone number with country code  (e.g. +1 5551234567).'),
-            'phone.regex' => __('Phone number must start with "+" followed by country code (e.g. +1 5551234567).'),
+            'phone.regex' => __('Please enter a valid phone number (select the country code, then enter the number).'),
         ]);
-        
+
         // Also verify the new business_id if it's being changed
         if ($validated['business_id'] != $contact->business_id) {
             $newBusiness = Business::find($validated['business_id']);
@@ -176,7 +223,11 @@ class ContactController extends Controller
             }
         }
 
-        $contact->update($validated);
+        $contact->update($this->contactColumns($validated) + [
+            'organization_id' => $this->resolveOrganizationId($request->input('organization'), $validated['business_id'], $authUser),
+        ]);
+
+        $this->syncCircles($contact, (array) $request->input('circles', []), $authUser);
 
         return redirect()->back()->with('success', __('Contact updated successfully.'));
     }
@@ -237,5 +288,115 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->back()->with('success', __('Contact deleted successfully.'));
+    }
+
+    /**
+     * Only the real contact columns (drops organization/circles helper inputs).
+     */
+    protected function contactColumns(array $validated): array
+    {
+        $columns = collect($validated)
+            ->only([
+                'business_id', 'name', 'email', 'phone', 'message', 'status', 'notes',
+                'job_title', 'website', 'address', 'avatar',
+            ])
+            ->toArray();
+
+        // Drop blank entries from the additional email/phone lists so we never
+        // store [""] — leave the column null when nothing usable remains.
+        $columns['emails'] = $this->cleanList($validated['emails'] ?? null);
+        $columns['phones'] = $this->cleanList($validated['phones'] ?? null);
+
+        return $columns;
+    }
+
+    /**
+     * Trim a list input down to its non-empty values, or null if none remain.
+     */
+    protected function cleanList($values): ?array
+    {
+        $clean = collect(is_array($values) ? $values : [])
+            ->map(fn ($v) => is_string($v) ? trim($v) : $v)
+            ->filter(fn ($v) => $v !== null && $v !== '')
+            ->values()
+            ->all();
+
+        return empty($clean) ? null : $clean;
+    }
+
+    /**
+     * Resolve a company name to an organization id (creating it if new),
+     * scoped to the contact's business. Accepts an id, a name, or empty.
+     */
+    protected function resolveOrganizationId($value, int $businessId, User $user): ?int
+    {
+        $value = is_string($value) ? trim($value) : $value;
+
+        if (empty($value)) {
+            return null;
+        }
+
+        if (is_numeric($value)) {
+            return Organization::where('id', $value)->where('business_id', $businessId)->value('id');
+        }
+
+        $organization = Organization::firstOrCreate(
+            ['business_id' => $businessId, 'name' => $value],
+            ['created_by' => $user->id]
+        );
+
+        return $organization->id;
+    }
+
+    /**
+     * Sync a contact's circles from a list of names, creating new ones
+     * (within the plan's circle limit) and attaching existing ones.
+     */
+    protected function syncCircles(Contact $contact, array $names, User $user): void
+    {
+        $names = collect($names)
+            ->filter(fn ($n) => is_string($n))
+            ->map(fn ($n) => trim($n))
+            ->filter()
+            ->unique(fn ($n) => mb_strtolower($n));
+
+        $ids = [];
+        $businessId = $contact->business_id;
+
+        foreach ($names as $name) {
+            $circle = Circle::where('business_id', $businessId)
+                ->whereRaw('LOWER(name) = ?', [mb_strtolower($name)])
+                ->first();
+
+            if (! $circle) {
+                if ($this->circleLimitReached($user)) {
+                    continue; // silently skip new circles once the plan cap is hit
+                }
+                $circle = Circle::create([
+                    'business_id' => $businessId,
+                    'created_by' => $user->id,
+                    'name' => $name,
+                    'color' => Circle::colorForName($name),
+                ]);
+            }
+
+            $ids[] = $circle->id;
+        }
+
+        $contact->circles()->sync($ids);
+    }
+
+    /**
+     * Whether the tenant has hit its plan's circle allowance.
+     */
+    protected function circleLimitReached(User $user): bool
+    {
+        $max = (int) ($this->tenantOwner($user)->getCurrentPlan()->max_circles ?? -1);
+
+        if ($max === -1) {
+            return false;
+        }
+
+        return Circle::whereIn('business_id', $this->accessibleBusinessIds($user))->count() >= $max;
     }
 }
